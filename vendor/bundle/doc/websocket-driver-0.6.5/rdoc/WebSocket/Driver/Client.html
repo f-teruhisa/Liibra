@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class WebSocket::Driver::Client - websocket-driver-0.6.5 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Hybi
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-generate_key">::generate_key</a>
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-fail_handshake">#fail_handshake</a>
+    
+    <li ><a href="#method-i-handshake_request">#handshake_request</a>
+    
+    <li class="calls-super" ><a href="#method-i-parse">#parse</a>
+    
+    <li ><a href="#method-i-proxy">#proxy</a>
+    
+    <li ><a href="#method-i-start">#start</a>
+    
+    <li ><a href="#method-i-validate_handshake">#validate_handshake</a>
+    
+    <li ><a href="#method-i-version">#version</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-WebSocket::Driver::Client">
+  <h1 id="class-WebSocket::Driver::Client" class="class">
+    class WebSocket::Driver::Client
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="VALID_SCHEMES">VALID_SCHEMES
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-headers" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">headers</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-status" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">status</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-generate_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_key</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generate_key-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">generate_key</span>
+  <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">strict_encode64</span>(<span class="ruby-constant">SecureRandom</span>.<span class="ruby-identifier">random_bytes</span>(<span class="ruby-value">16</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(socket, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">socket</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">super</span>
+
+  <span class="ruby-ivar">@ready_state</span> = <span class="ruby-value">-1</span>
+  <span class="ruby-ivar">@key</span>         = <span class="ruby-constant">Client</span>.<span class="ruby-identifier">generate_key</span>
+  <span class="ruby-ivar">@accept</span>      = <span class="ruby-constant">Hybi</span>.<span class="ruby-identifier">generate_accept</span>(<span class="ruby-ivar">@key</span>)
+  <span class="ruby-ivar">@http</span>        = <span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Response</span>.<span class="ruby-identifier">new</span>
+
+  <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">url</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">VALID_SCHEMES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">scheme</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">URIError</span>, <span class="ruby-node">&quot;#{socket.url} is not a valid WebSocket URL&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">host</span>      = <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;:#{uri.port}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-identifier">path</span>      = (<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-string">&#39;/&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span>
+  <span class="ruby-ivar">@pathname</span> = <span class="ruby-identifier">path</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">query</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39;?&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">query</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>)
+
+  <span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Host&#39;</span>]                  = <span class="ruby-identifier">host</span>
+  <span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Upgrade&#39;</span>]               = <span class="ruby-string">&#39;websocket&#39;</span>
+  <span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Connection&#39;</span>]            = <span class="ruby-string">&#39;Upgrade&#39;</span>
+  <span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Sec-WebSocket-Key&#39;</span>]     = <span class="ruby-ivar">@key</span>
+  <span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Sec-WebSocket-Version&#39;</span>] = <span class="ruby-string">&#39;13&#39;</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@protocols</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Sec-WebSocket-Protocol&#39;</span>] = <span class="ruby-ivar">@protocols</span> <span class="ruby-operator">*</span> <span class="ruby-string">&#39;, &#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">user</span>
+    <span class="ruby-identifier">auth</span> = <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">strict_encode64</span>([<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">user</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">password</span>] <span class="ruby-operator">*</span> <span class="ruby-string">&#39;:&#39;</span>)
+    <span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Authorization&#39;</span>] = <span class="ruby-string">&#39;Basic &#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">auth</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-parse" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse</span><span
+            class="method-args">(chunk)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="parse-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">chunk</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ready_state</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">super</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ready_state</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+
+  <span class="ruby-ivar">@http</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">chunk</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-string">&#39;Invalid HTTP response&#39;</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@http</span>.<span class="ruby-identifier">error?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@http</span>.<span class="ruby-identifier">complete?</span>
+
+  <span class="ruby-identifier">validate_handshake</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ready_state</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>
+
+  <span class="ruby-identifier">open</span>
+  <span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@http</span>.<span class="ruby-identifier">body</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-proxy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">proxy</span><span
+            class="method-args">(origin, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="proxy-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">proxy</span>(<span class="ruby-identifier">origin</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-constant">Proxy</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">origin</span>, <span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-start" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="start-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@ready_state</span> <span class="ruby-operator">==</span> <span class="ruby-value">-1</span>
+  <span class="ruby-ivar">@socket</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">handshake_request</span>)
+  <span class="ruby-ivar">@ready_state</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-version" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">version</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="version-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">version</span>
+  <span class="ruby-string">&#39;hybi-13&#39;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-fail_handshake" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fail_handshake</span><span
+            class="method-args">(message)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="fail_handshake-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-identifier">message</span>)
+  <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;Error during WebSocket handshake: #{message}&quot;</span>
+  <span class="ruby-ivar">@ready_state</span> = <span class="ruby-value">3</span>
+  <span class="ruby-identifier">emit</span>(<span class="ruby-value">:error</span>, <span class="ruby-constant">ProtocolError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>))
+  <span class="ruby-identifier">emit</span>(<span class="ruby-value">:close</span>, <span class="ruby-constant">CloseEvent</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ERRORS</span>[<span class="ruby-value">:protocol_error</span>], <span class="ruby-identifier">message</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-handshake_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">handshake_request</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="handshake_request-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">handshake_request</span>
+  <span class="ruby-identifier">extensions</span> = <span class="ruby-ivar">@extensions</span>.<span class="ruby-identifier">generate_offer</span>
+  <span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Sec-WebSocket-Extensions&#39;</span>] = <span class="ruby-identifier">extensions</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">extensions</span>
+
+  <span class="ruby-identifier">start</span>   = <span class="ruby-node">&quot;GET #{@pathname} HTTP/1.1&quot;</span>
+  <span class="ruby-identifier">headers</span> = [<span class="ruby-identifier">start</span>, <span class="ruby-ivar">@headers</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-string">&#39;&#39;</span>]
+  <span class="ruby-identifier">headers</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\r\n&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-validate_handshake" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate_handshake</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="validate_handshake-source">
+            <pre><span class="ruby-comment"># File lib/websocket/driver/client.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_handshake</span>
+  <span class="ruby-ivar">@status</span>  = <span class="ruby-ivar">@http</span>.<span class="ruby-identifier">code</span>
+  <span class="ruby-ivar">@headers</span> = <span class="ruby-constant">Headers</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@http</span>.<span class="ruby-identifier">headers</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@http</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">==</span> <span class="ruby-value">101</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-node">&quot;Unexpected response code: #{@http.code}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">upgrade</span>    = <span class="ruby-ivar">@http</span>[<span class="ruby-string">&#39;Upgrade&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">connection</span> = <span class="ruby-ivar">@http</span>[<span class="ruby-string">&#39;Connection&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">accept</span>     = <span class="ruby-ivar">@http</span>[<span class="ruby-string">&#39;Sec-WebSocket-Accept&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">protocol</span>   = <span class="ruby-ivar">@http</span>[<span class="ruby-string">&#39;Sec-WebSocket-Protocol&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;&#39;</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">upgrade</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-string">&quot;&#39;Upgrade&#39; header is missing&quot;</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">upgrade</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;websocket&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-string">&quot;&#39;Upgrade&#39; header value is not &#39;WebSocket&#39;&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">connection</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-string">&quot;&#39;Connection&#39; header is missing&quot;</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;upgrade&#39;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-string">&quot;&#39;Connection&#39; header value is not &#39;Upgrade&#39;&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">accept</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@accept</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-string">&#39;Sec-WebSocket-Accept mismatch&#39;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">protocol</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@protocols</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">protocol</span>)
+      <span class="ruby-ivar">@protocol</span> = <span class="ruby-identifier">protocol</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-string">&#39;Sec-WebSocket-Protocol mismatch&#39;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-ivar">@extensions</span>.<span class="ruby-identifier">activate</span>(<span class="ruby-ivar">@headers</span>[<span class="ruby-string">&#39;Sec-WebSocket-Extensions&#39;</span>])
+  <span class="ruby-keyword">rescue</span> <span class="ruby-operator">::</span><span class="ruby-constant">WebSocket</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensions</span><span class="ruby-operator">::</span><span class="ruby-constant">ExtensionError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">fail_handshake</span>(<span class="ruby-identifier">error</span>.<span class="ruby-identifier">message</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

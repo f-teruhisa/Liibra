@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module ActiveRecord::TouchLater - activerecord-5.0.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    <div id="extends-section" class="nav-section">
+  <h3>Extended With Modules</h3>
+
+  <ul class="link-list">
+    
+  
+    <li><span class="extend">ActiveSupport::Concern</span>
+  
+  
+  </ul>
+</div>
+
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-belongs_to_touch_method">#belongs_to_touch_method</a>
+    
+    <li ><a href="#method-i-has_defer_touch_attrs-3F">#has_defer_touch_attrs?</a>
+    
+    <li ><a href="#method-i-surreptitiously_touch">#surreptitiously_touch</a>
+    
+    <li ><a href="#method-i-touch_deferred_attributes">#touch_deferred_attributes</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-ActiveRecord::TouchLater">
+  <h1 id="module-ActiveRecord::TouchLater" class="module">
+    module ActiveRecord::TouchLater
+  </h1>
+
+  <section class="description">
+    
+<h1 id="module-ActiveRecord::TouchLater-label-Active+Record+Touch+Later">Active Record Touch Later<span><a href="#module-ActiveRecord::TouchLater-label-Active+Record+Touch+Later">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-belongs_to_touch_method" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">belongs_to_touch_method</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="belongs_to_touch_method-source">
+            <pre><span class="ruby-comment"># File lib/active_record/touch_later.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">belongs_to_touch_method</span>
+  <span class="ruby-value">:touch_later</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-has_defer_touch_attrs-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_defer_touch_attrs?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="has_defer_touch_attrs-3F-source">
+            <pre><span class="ruby-comment"># File lib/active_record/touch_later.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_defer_touch_attrs?</span>
+  <span class="ruby-keyword">defined?</span>(<span class="ruby-ivar">@_defer_touch_attrs</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@_defer_touch_attrs</span>.<span class="ruby-identifier">present?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-surreptitiously_touch" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">surreptitiously_touch</span><span
+            class="method-args">(attrs)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="surreptitiously_touch-source">
+            <pre><span class="ruby-comment"># File lib/active_record/touch_later.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">surreptitiously_touch</span>(<span class="ruby-identifier">attrs</span>)
+  <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">attr</span><span class="ruby-operator">|</span> <span class="ruby-identifier">write_attribute</span> <span class="ruby-identifier">attr</span>, <span class="ruby-ivar">@_touch_time</span> }
+  <span class="ruby-identifier">clear_attribute_changes</span> <span class="ruby-identifier">attrs</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-touch_deferred_attributes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">touch_deferred_attributes</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="touch_deferred_attributes-source">
+            <pre><span class="ruby-comment"># File lib/active_record/touch_later.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">touch_deferred_attributes</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">has_defer_touch_attrs?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">persisted?</span>
+    <span class="ruby-identifier">touch</span>(<span class="ruby-operator">*</span><span class="ruby-ivar">@_defer_touch_attrs</span>, <span class="ruby-identifier">time</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@_touch_time</span>)
+    <span class="ruby-ivar">@_defer_touch_attrs</span>, <span class="ruby-ivar">@_touch_time</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>extensions.rake - web-console-3.4.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../lib/web_console/tasks/extensions_rake.html">extensions.rake</a>
+  
+    <li><a href="../../../lib/web_console/tasks/templates_rake.html">templates.rake</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page lib/web_console/tasks/extensions.rake">
+
+<p>namespace :ext do</p>
+
+<pre class="ruby"><span class="ruby-identifier">rootdir</span> = <span class="ruby-constant">Pathname</span>(<span class="ruby-string">&#39;extensions&#39;</span>)
+
+<span class="ruby-identifier">desc</span> <span class="ruby-string">&#39;Build Chrome Extension&#39;</span>
+<span class="ruby-identifier">task</span> <span class="ruby-identifier">chrome</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;chrome:build&#39;</span>
+
+<span class="ruby-identifier">namespace</span> :<span class="ruby-identifier">chrome</span> <span class="ruby-keyword">do</span>
+  <span class="ruby-identifier">dist</span>   = <span class="ruby-constant">Pathname</span>(<span class="ruby-string">&#39;dist/crx&#39;</span>)
+  <span class="ruby-identifier">extdir</span> = <span class="ruby-identifier">rootdir</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dist</span>)
+  <span class="ruby-identifier">manifest_json</span> = <span class="ruby-identifier">rootdir</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;chrome/manifest.json&#39;</span>)
+
+  <span class="ruby-identifier">directory</span> <span class="ruby-identifier">extdir</span>
+
+  <span class="ruby-identifier">task</span> <span class="ruby-identifier">build</span><span class="ruby-operator">:</span> [ <span class="ruby-identifier">extdir</span>, <span class="ruby-string">&#39;lib:templates&#39;</span> ] <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">cd</span> <span class="ruby-identifier">rootdir</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">cp_r</span> [ <span class="ruby-string">&#39;img/&#39;</span>, <span class="ruby-string">&#39;tmp/lib/&#39;</span> ], <span class="ruby-identifier">dist</span>
+      <span class="ruby-value">%x`cd chrome &amp;&amp; git ls-files`</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">src</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">dest</span> = <span class="ruby-identifier">dist</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">src</span>)
+        <span class="ruby-identifier">mkdir_p</span> <span class="ruby-identifier">dest</span>.<span class="ruby-identifier">dirname</span>
+        <span class="ruby-identifier">cp</span> <span class="ruby-constant">Pathname</span>(<span class="ruby-string">&#39;chrome&#39;</span>).<span class="ruby-identifier">join</span>(<span class="ruby-identifier">src</span>), <span class="ruby-identifier">dest</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Generate a .crx file.</span>
+  <span class="ruby-identifier">task</span> <span class="ruby-identifier">crx</span><span class="ruby-operator">:</span> [ :<span class="ruby-identifier">build</span>, :<span class="ruby-identifier">npm</span> ] <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">out</span> = <span class="ruby-node">&quot;crx-web-console-#{JSON.parse(File.read(manifest_json))[&quot;version&quot;]}.crx&quot;</span>
+    <span class="ruby-identifier">cd</span>(<span class="ruby-identifier">extdir</span>) { <span class="ruby-identifier">sh</span> <span class="ruby-node">&quot;node \&quot;$(npm bin)/crx\&quot; pack ./ -p ../crx-web-console.pem -o ../#{out}&quot;</span> }
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Generate a .zip file for Chrome Web Store.</span>
+  <span class="ruby-identifier">task</span> <span class="ruby-identifier">zip</span><span class="ruby-operator">:</span> [ :<span class="ruby-identifier">build</span> ] <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">version</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">manifest_json</span>))[<span class="ruby-string">&quot;version&quot;</span>]
+    <span class="ruby-identifier">cd</span>(<span class="ruby-identifier">extdir</span>) { <span class="ruby-identifier">sh</span> <span class="ruby-node">&quot;zip -r ../crx-web-console-#{version}.zip ./&quot;</span> }
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">desc</span> <span class="ruby-string">&#39;Launch a browser with the chrome extension.&#39;</span>
+  <span class="ruby-identifier">task</span> <span class="ruby-identifier">run</span><span class="ruby-operator">:</span> [ :<span class="ruby-identifier">build</span> ] <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">cd</span>(<span class="ruby-identifier">rootdir</span>) { <span class="ruby-identifier">sh</span> <span class="ruby-node">&quot;sh ./script/run_chrome.sh --load-extension=#{dist}&quot;</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">task</span> :<span class="ruby-identifier">npm</span> <span class="ruby-keyword">do</span>
+  <span class="ruby-identifier">cd</span>(<span class="ruby-identifier">rootdir</span>) { <span class="ruby-identifier">sh</span> <span class="ruby-string">&quot;npm install --silent&quot;</span> }
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">namespace</span> :<span class="ruby-identifier">lib</span> <span class="ruby-keyword">do</span>
+  <span class="ruby-identifier">templates</span> = <span class="ruby-constant">Pathname</span>(<span class="ruby-string">&#39;lib/web_console/templates&#39;</span>)
+  <span class="ruby-identifier">tmplib</span>    = <span class="ruby-identifier">rootdir</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;tmp/lib/&#39;</span>)
+  <span class="ruby-identifier">js_erb</span>    = <span class="ruby-constant">FileList</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">templates</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;**/*.js.erb&#39;</span>))
+  <span class="ruby-identifier">dirs</span>      = <span class="ruby-identifier">js_erb</span>.<span class="ruby-identifier">pathmap</span>(<span class="ruby-node">&quot;%{^#{templates},#{tmplib}}d&quot;</span>)
+
+  <span class="ruby-identifier">task</span> <span class="ruby-identifier">templates</span><span class="ruby-operator">:</span> <span class="ruby-identifier">dirs</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">js_erb</span>.<span class="ruby-identifier">pathmap</span>(<span class="ruby-node">&quot;%{^#{templates},#{tmplib}}X&quot;</span>)
+
+  <span class="ruby-identifier">dirs</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> <span class="ruby-identifier">directory</span> <span class="ruby-identifier">d</span> }
+  <span class="ruby-identifier">rule</span> <span class="ruby-string">&#39;.js&#39;</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-node">&quot;%{^#{tmplib},#{templates}}X.js.erb&quot;</span> ] <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">t</span>.<span class="ruby-identifier">name</span>, <span class="ruby-constant">WebConsole</span><span class="ruby-operator">::</span><span class="ruby-constant">Testing</span><span class="ruby-operator">::</span><span class="ruby-constant">ERBPrecompiler</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">t</span>.<span class="ruby-identifier">source</span>).<span class="ruby-identifier">build</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

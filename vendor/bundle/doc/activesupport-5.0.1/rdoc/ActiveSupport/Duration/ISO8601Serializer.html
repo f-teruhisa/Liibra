@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class ActiveSupport::Duration::ISO8601Serializer - activesupport-5.0.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-normalize">#normalize</a>
+    
+    <li ><a href="#method-i-serialize">#serialize</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-ActiveSupport::Duration::ISO8601Serializer">
+  <h1 id="class-ActiveSupport::Duration::ISO8601Serializer" class="class">
+    class ActiveSupport::Duration::ISO8601Serializer
+  </h1>
+
+  <section class="description">
+    
+<p>Serializes duration to string according to ISO 8601 <a
+href="../Duration.html">Duration</a> format.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(duration, precision: nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/active_support/duration/iso8601_serializer.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">duration</span>, <span class="ruby-identifier">precision</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
+  <span class="ruby-ivar">@duration</span> = <span class="ruby-identifier">duration</span>
+  <span class="ruby-ivar">@precision</span> = <span class="ruby-identifier">precision</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-serialize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">serialize</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Builds and returns output string.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="serialize-source">
+            <pre><span class="ruby-comment"># File lib/active_support/duration/iso8601_serializer.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">serialize</span>
+  <span class="ruby-identifier">output</span> = <span class="ruby-string">&#39;P&#39;</span>
+  <span class="ruby-identifier">parts</span>, <span class="ruby-identifier">sign</span> = <span class="ruby-identifier">normalize</span>
+  <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{parts[:years]}Y&quot;</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:years</span>)
+  <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{parts[:months]}M&quot;</span>  <span class="ruby-keyword">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:months</span>)
+  <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{parts[:weeks]}W&quot;</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:weeks</span>)
+  <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{parts[:days]}D&quot;</span>    <span class="ruby-keyword">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:days</span>)
+  <span class="ruby-identifier">time</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">time</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{parts[:hours]}H&quot;</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:hours</span>)
+  <span class="ruby-identifier">time</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{parts[:minutes]}M&quot;</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:minutes</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:seconds</span>)
+    <span class="ruby-identifier">time</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{sprintf(@precision ? &quot;%0.0#{@precision}f&quot; : &#39;%g&#39;, parts[:seconds])}S&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;T#{time}&quot;</span>  <span class="ruby-keyword">if</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">present?</span>
+  <span class="ruby-node">&quot;#{sign}#{output}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-normalize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">normalize</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return pair of duration&#39;s parts and whole duration sign. Parts are
+summarized (as they can become repetitive due to addition, etc). Zero parts
+are removed as not significant. If all parts are negative it will negate
+all of them and return minus as a sign.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="normalize-source">
+            <pre><span class="ruby-comment"># File lib/active_support/duration/iso8601_serializer.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">normalize</span>
+  <span class="ruby-identifier">parts</span> = <span class="ruby-ivar">@duration</span>.<span class="ruby-identifier">parts</span>.<span class="ruby-identifier">each_with_object</span>(<span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span>),<span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">p</span>[<span class="ruby-identifier">k</span>] <span class="ruby-operator">+=</span> <span class="ruby-identifier">v</span>  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">zero?</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># If all parts are negative - let&#39;s make a negative duration</span>
+  <span class="ruby-identifier">sign</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> }
+    <span class="ruby-identifier">sign</span> = <span class="ruby-string">&#39;-&#39;</span>
+    <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">transform_values!</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:-@</span>)
+  <span class="ruby-keyword">end</span>
+  [<span class="ruby-identifier">parts</span>, <span class="ruby-identifier">sign</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

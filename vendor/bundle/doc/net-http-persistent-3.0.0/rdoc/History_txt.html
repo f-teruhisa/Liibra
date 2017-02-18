@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>History - net-http-persistent-3.0.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#label-3.0">3.0</a>
+    <li><a href="#label-2.9.4+-2F+2014-02-10">2.9.4 / 2014-02-10</a>
+    <li><a href="#label-2.9.3+-2F+2014-02-06">2.9.3 / 2014-02-06</a>
+    <li><a href="#label-2.9.2+-2F+2014-02-05">2.9.2 / 2014-02-05</a>
+    <li><a href="#label-2.9.1+-2F+2014-01-22">2.9.1 / 2014-01-22</a>
+    <li><a href="#label-2.9+-2F+2013-07-24">2.9 / 2013-07-24</a>
+    <li><a href="#label-2.8+-2F+2012-10-17">2.8 / 2012-10-17</a>
+    <li><a href="#label-2.7+-2F+2012-06-06">2.7 / 2012-06-06</a>
+    <li><a href="#label-2.6+-2F+2012-03-26">2.6 / 2012-03-26</a>
+    <li><a href="#label-2.5.2+-2F+2012-02-13">2.5.2 / 2012-02-13</a>
+    <li><a href="#label-2.5.1+-2F+2012-02-10">2.5.1 / 2012-02-10</a>
+    <li><a href="#label-2.5+-2F+2012-02-07">2.5 / 2012-02-07</a>
+    <li><a href="#label-2.4.1+-2F+2012-02-03">2.4.1 / 2012-02-03</a>
+    <li><a href="#label-2.4+-2F+2012-01-31">2.4 / 2012-01-31</a>
+    <li><a href="#label-2.3.2+-2F+2011-12-21">2.3.2 / 2011-12-21</a>
+    <li><a href="#label-2.3.1+-2F+2011-10-26">2.3.1 / 2011-10-26</a>
+    <li><a href="#label-2.3+-2F+2011-10-25">2.3 / 2011-10-25</a>
+    <li><a href="#label-2.2+-2F+2011-10-24">2.2 / 2011-10-24</a>
+    <li><a href="#label-2.1+-2F+2011-09-19">2.1 / 2011-09-19</a>
+    <li><a href="#label-2.0+-2F+2011-08-26">2.0 / 2011-08-26</a>
+    <li><a href="#label-1.9+-2F+2011-08-26">1.9 / 2011-08-26</a>
+    <li><a href="#label-1.8.1+-2F+2011-08-08">1.8.1 / 2011-08-08</a>
+    <li><a href="#label-1.8+-2F+2011-06-27">1.8 / 2011-06-27</a>
+    <li><a href="#label-1.7+-2F+2011-04-17">1.7 / 2011-04-17</a>
+    <li><a href="#label-1.6.1+-2F+2011-03-08">1.6.1 / 2011-03-08</a>
+    <li><a href="#label-1.6+-2F+2011-03-01">1.6 / 2011-03-01</a>
+    <li><a href="#label-1.5.2+-2F+2011-02-24">1.5.2 / 2011-02-24</a>
+    <li><a href="#label-1.5.1+-2F+2011-02-10">1.5.1 / 2011-02-10</a>
+    <li><a href="#label-1.5+-2F+2011-01-25">1.5 / 2011-01-25</a>
+    <li><a href="#label-1.4.1+-2F+2010-10-13">1.4.1 / 2010-10-13</a>
+    <li><a href="#label-1.4+-2F+2010-09-29">1.4 / 2010-09-29</a>
+    <li><a href="#label-1.3.1+-2F+2010-09-13">1.3.1 / 2010-09-13</a>
+    <li><a href="#label-1.3+-2F+2010-09-08">1.3 / 2010-09-08</a>
+    <li><a href="#label-1.2.5+-2F+2010-07-27">1.2.5 / 2010-07-27</a>
+    <li><a href="#label-1.2.4+-2F+2010-07-26">1.2.4 / 2010-07-26</a>
+    <li><a href="#label-1.2.3+-2F+2010-06-29">1.2.3 / 2010-06-29</a>
+    <li><a href="#label-1.2.2+-2F+2010-06-22">1.2.2 / 2010-06-22</a>
+    <li><a href="#label-1.2.1+-2F+2010-05-25">1.2.1 / 2010-05-25</a>
+    <li><a href="#label-1.2+-2F+2010-05-20">1.2 / 2010-05-20</a>
+    <li><a href="#label-1.1+-2F+2010-05-18">1.1 / 2010-05-18</a>
+    <li><a href="#label-1.0.1+-2F+2010-05-05">1.0.1 / 2010-05-05</a>
+    <li><a href="#label-1.0.0+-2F+2010-05-04">1.0.0 / 2010-05-04</a>
+  </ul>
+</div>
+
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./History_txt.html">History</a>
+  
+    <li><a href="./Manifest_txt.html">Manifest</a>
+  
+    <li><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page History.txt">
+
+<h3 id="label-3.0">3.0<span><a href="#label-3.0">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Breaking changes:</p>
+<ul><li>
+<p>No longer supports ruby 2.0 and earlier</p>
+</li><li>
+<p><a
+href="Net/HTTP/Persistent.html#method-c-new">Net::HTTP::Persistent.new</a>
+now uses keyword arguments for <code>name</code> and <code>proxy</code>.</p>
+</li><li>
+<p>Removed max_age, use expired?</p>
+</li></ul>
+
+<p>New features:</p>
+<ul><li>
+<p>Uses connection_pool to manage all connections for a <a
+href="Net/HTTP/Persistent.html">Net::HTTP::Persistent</a> instance.</p>
+</li></ul>
+
+<p>Bug fixes:</p>
+<ul><li>
+<p>Add missing SSL options ca_path, ciphers, ssl_timeout, verify_depth. Issue
+#63 by Johnneylee Jack Rollins.</p>
+</li></ul>
+
+<h3 id="label-2.9.4+-2F+2014-02-10">2.9.4 / 2014-02-10<span><a href="#label-2.9.4+-2F+2014-02-10">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fixes</p>
+<ul><li>
+<p>Improve proxy escaping from 2.9.2.  Pull request #59 by Mislav Marohnić.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.9.3+-2F+2014-02-06">2.9.3 / 2014-02-06<span><a href="#label-2.9.3+-2F+2014-02-06">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fixes</p>
+<ul><li>
+<p>Fix breakage in 2.9.2 for users without proxies.  Pull request #56 by
+Yoshihiro TAKAHARA (merged), #57 by ChuckLin, #58 by Kenny Meyer.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.9.2+-2F+2014-02-05">2.9.2 / 2014-02-05<span><a href="#label-2.9.2+-2F+2014-02-05">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fixes</p>
+<ul><li>
+<p>Special characters in proxy passwords are now handled correctly.  Issue #48
+by Mislav Marohnić.  Pull request #54 by Juha Kajava</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.9.1+-2F+2014-01-22">2.9.1 / 2014-01-22<span><a href="#label-2.9.1+-2F+2014-01-22">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fixes</p>
+<ul><li>
+<p>Added license to gemspec.  Issue #47 by Benjamin Fleischer</p>
+</li><li>
+<p>Set Net::HTTP#keep_alive_timeout when supported by ruby.  Pull request #53
+by Dylan Thacker-Smith.</p>
+</li><li>
+<p>The backtrace is preserved for errors in reset to help with debugging.
+Issue #41 by Andrew Cholakian.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.9+-2F+2013-07-24">2.9 / 2013-07-24<span><a href="#label-2.9+-2F+2013-07-24">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor enhancement</p>
+<ul><li>
+<p>Added <a
+href="Net/HTTP/Persistent.html#attribute-i-max_requests">Net::HTTP::Persistent#max_requests</a>
+to avoid ECONNRESET for a server that allows a limited number of requests
+on a connection.  Pull request #42 by James Tucker.</p>
+</li><li>
+<p>Request failures are now raised with the backtrace of the original
+exception.  This gives better insight into the reason for the failure. See
+#41 by Andrew Cholakian.</p>
+</li><li>
+<p>OpenSSL is no longer required.  If OpenSSL is not available an exception
+will be raised when attempting to access HTTPS resources.  Feature request
+by André Arko</p>
+</li></ul>
+</li><li>
+<p>Bug fixes</p>
+<ul><li>
+<p>Explain the proper way of sending parameters depending upon the request
+method.  Issue #35 by André Arko.</p>
+</li><li>
+<p>Handle Errno::ETIMEDOUT by retrying the request.  Issue #36 by André Arko.</p>
+</li><li>
+<p>Requests retried by ruby 2.x are no longer retried by net-http-persistent.</p>
+</li><li>
+<p>Finish the connection if an otherwise unhandled exception happens during a
+request.  Bug #46 by Mark Oude Veldhuis.</p>
+</li><li>
+<p><a
+href="Net/HTTP/Persistent.html#method-c-detect_idle_timeout">Net::HTTP::Persistent.detect_idle_timeout</a>
+now assumes a StandardError indicates the idle timeout has been found.  Bug
+#43 by James Tucker.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.8+-2F+2012-10-17">2.8 / 2012-10-17<span><a href="#label-2.8+-2F+2012-10-17">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor enhancements</p>
+<ul><li>
+<p>Added <a
+href="Net/HTTP/Persistent.html#method-c-detect_idle_timeout">Net::HTTP::Persistent.detect_idle_timeout</a>
+which can be used to determine the idle timeout for a host.</p>
+</li><li>
+<p>The read timeout may now be updated for every request.  Issue #33 by Mislav
+Marohnić</p>
+</li><li>
+<p>Added NO_PROXY support.  Pull Request #31 by Laurence Rowe.</p>
+</li><li>
+<p>Added cert and key aliases for <a href="Net/HTTP.html">Net::HTTP</a>
+compatibility.  Pull request #26 by dlee.</p>
+</li><li>
+<p>The artifice gem now disables SSL session reuse to prevent breakage of
+testing frameworks.  Pull Request #29 by Christopher Cooke.</p>
+</li><li>
+<p>Disabled Net::HTTP::Persistent::SSLReuse on Ruby 2+.  This feature is now
+built-in to <a href="Net/HTTP.html">Net::HTTP</a>.</p>
+</li></ul>
+</li><li>
+<p>Bug fixes</p>
+<ul><li>
+<p>Socket options are set again following connection reset.  Pull request #28
+by cmaion.</p>
+</li><li>
+<p>shutdown now works even if no connections were made.  Pull Request #24 by
+James Tucker.</p>
+</li><li>
+<p>Updated test RSA key size to 1024 bits.  Bug #25 by Gunnar Wolf.</p>
+</li><li>
+<p>The correct host:port are shown in the exception when a proxy connection
+fails.  Bug #30 by glebtv.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.7+-2F+2012-06-06">2.7 / 2012-06-06<span><a href="#label-2.7+-2F+2012-06-06">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor enhancement</p>
+<ul><li>
+<p>Added JRuby compatibility by default for HTTPS connections.  (JRuby lacks
+OpenSSL::SSL::Session.)</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.6+-2F+2012-03-26">2.6 / 2012-03-26<span><a href="#label-2.6+-2F+2012-03-26">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor enhancement</p>
+<ul><li>
+<p><a
+href="Net/HTTP/Persistent.html#attribute-i-idle_timeout">Net::HTTP::Persistent#idle_timeout</a>
+may be set to nil to disable expiration of connections.  Pull Request #21
+by Aaron Stone</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.5.2+-2F+2012-02-13">2.5.2 / 2012-02-13<span><a href="#label-2.5.2+-2F+2012-02-13">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fix</p>
+<ul><li>
+<p>Fix variable shadowing warning.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.5.1+-2F+2012-02-10">2.5.1 / 2012-02-10<span><a href="#label-2.5.1+-2F+2012-02-10">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fix</p>
+<ul><li>
+<p>Reusing SSL connections with HTTP proxies now works.  Issue #15 by Paul
+Ingham and mcrmfc</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.5+-2F+2012-02-07">2.5 / 2012-02-07<span><a href="#label-2.5+-2F+2012-02-07">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor enhancements</p>
+<ul><li>
+<p>The proxy may be changed at any time.</p>
+</li><li>
+<p>The allowed SSL version may now be set via ssl_version. Issue #16 by astera</p>
+</li><li>
+<p>Added <a
+href="Net/HTTP/Persistent.html#attribute-i-override_headers">Net::HTTP::Persistent#override_headers</a>
+which allows overriding</p>
+</li><li>
+<p><a href="Net/HTTP.html">Net::HTTP</a> default headers like User-Agent.  See
+<a href="Net/HTTP/Persistent.html#label-Headers">Headers at
+Net::HTTP::Persistent</a> for details.  Issue #17 by andkerosine</p>
+</li></ul>
+</li><li>
+<p>Bug fixes</p>
+<ul><li>
+<p>The ruby 1.8 speed monkeypatch now handles EAGAIN for windows users. Issue
+#12 by Alwyn Schoeman</p>
+</li><li>
+<p>Fixed POST example in <a href="README_rdoc.html">README</a>.  Submitted by
+injekt.</p>
+</li><li>
+<p>Fixed various bugs in the shutdown of connections especially cross-thread
+(which you shouldn&#39;t be doing anyways).</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.4.1+-2F+2012-02-03">2.4.1 / 2012-02-03<span><a href="#label-2.4.1+-2F+2012-02-03">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fixes</p>
+<ul><li>
+<p>When FakeWeb or WebMock are loaded SSL sessions will not be reused to
+prevent breakage of testing frameworks.  Issue #13 by Matt Brictson, pull
+request #14 by Zachary Scott</p>
+</li><li>
+<p>SSL connections are reset when the SSL parameters change. Mechanize issue
+#194 by dsisnero</p>
+</li><li>
+<p>Last-use times are now cleaned up in shutdown.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.4+-2F+2012-01-31">2.4 / 2012-01-31<span><a href="#label-2.4+-2F+2012-01-31">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor enhancement</p>
+<ul><li>
+<p>net-http-persistent now complains if OpenSSL::SSL::VERIFY_PEER is equal to
+OpenSSL::SSL::VERIFY_NONE.  If you have a platform that is broken this way
+you must define the constant:</p>
+
+<pre class="ruby"><span class="ruby-constant">I_KNOW_THAT_OPENSSL_VERIFY_PEER_EQUALS_VERIFY_NONE_IS_WRONG</span> = <span class="ruby-keyword">nil</span>
+</pre>
+
+<p>at the top level of your application to disable the warning.</p>
+</li></ul>
+</li><li>
+<p>Bug fix</p>
+<ul><li>
+<p>Fix persisting SSL sessions through HTTP proxies.  Mechanize issue #178 by
+Robert Poor, net-http-persistent issues #10, #11.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.3.2+-2F+2011-12-21">2.3.2 / 2011-12-21<span><a href="#label-2.3.2+-2F+2011-12-21">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fix</p>
+<ul><li>
+<p>Finish connections that were closed by <a
+href="Net/HTTP.html">Net::HTTP</a> so they can be restarted.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.3.1+-2F+2011-10-26">2.3.1 / 2011-10-26<span><a href="#label-2.3.1+-2F+2011-10-26">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fix</p>
+<ul><li>
+<p>If a request object already contains a Connection header it will no longer
+be overridden.  This allows keep-alive connections to be disabled on a
+per-request basis.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.3+-2F+2011-10-25">2.3 / 2011-10-25<span><a href="#label-2.3+-2F+2011-10-25">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancement</p>
+<ul><li>
+<p>The time since last use for a connection is now recorded in error messages
+for the connection.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.2+-2F+2011-10-24">2.2 / 2011-10-24<span><a href="#label-2.2+-2F+2011-10-24">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancements</p>
+<ul><li>
+<p>Added timeouts for idle connections which are set through idle_timeout. The
+default timeout is 5 seconds.  Reducing the idle timeout is preferred over
+setting retry_change_requests to true if you wish to avoid the “too many
+connection resets” error when POSTing data.</p>
+</li><li>
+<p>Documented tunables and settings in one place in <a
+href="Net/HTTP/Persistent.html">Net::HTTP::Persistent</a></p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.1+-2F+2011-09-19">2.1 / 2011-09-19<span><a href="#label-2.1+-2F+2011-09-19">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancement</p>
+<ul><li>
+<p>For HTTPS connections, SSL sessions are now reused avoiding the extra round
+trips and computations of extra SSL handshakes.  If you have problems with
+SSL session reuse it can be disabled by <a
+href="Net/HTTP/Persistent.html#attribute-i-reuse_ssl_sessions">Net::HTTP::Persistent#reuse_ssl_sessions</a></p>
+</li></ul>
+</li><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>The default certificate store is now used even if verify_mode was not set. 
+Issue #7, Pull Request #8 by Matthew M. Boedicker</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-2.0+-2F+2011-08-26">2.0 / 2011-08-26<span><a href="#label-2.0+-2F+2011-08-26">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Incompatibility</p>
+<ul><li>
+<p><a
+href="Net/HTTP/Persistent.html#attribute-i-verify_mode">Net::HTTP::Persistent#verify_mode</a>
+now defaults to OpenSSL::SSL::VERIFY_PEER.  This may cause HTTPS request
+failures if your default certificate store lacks the correct certificates.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.9+-2F+2011-08-26">1.9 / 2011-08-26<span><a href="#label-1.9+-2F+2011-08-26">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancement</p>
+<ul><li>
+<p>Added <a
+href="Net/HTTP/Persistent.html#attribute-i-cert_store">Net::HTTP::Persistent#cert_store</a>
+to set an SSL certificate store which defaults to the OpenSSL default
+certificate store.</p>
+
+<p>HTTPS server certificates will be validated when this option is combined
+with setting <a
+href="Net/HTTP/Persistent.html#attribute-i-verify_mode">Net::HTTP::Persistent#verify_mode</a>
+to OpenSSL::SSL::VERIFY_PEER.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.8.1+-2F+2011-08-08">1.8.1 / 2011-08-08<span><a href="#label-1.8.1+-2F+2011-08-08">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fix</p>
+<ul><li>
+<p>Requests with OpenSSL errors are retried now.  Pull Request #5 by James
+Tucker.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.8+-2F+2011-06-27">1.8 / 2011-06-27<span><a href="#label-1.8+-2F+2011-06-27">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancement</p>
+<ul><li>
+<p>Added <a
+href="Net/HTTP/Persistent.html#attribute-i-retry_change_requests">Net::HTTP::Persistent#retry_change_requests</a>
+which allows POST and other non-idempotent requests to be retried
+automatically.  Take care when enabling this option to ensure the server
+will handle multiple POSTs with the same data in a sane manner.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.7+-2F+2011-04-17">1.7 / 2011-04-17<span><a href="#label-1.7+-2F+2011-04-17">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancement</p>
+<ul><li>
+<p>Added <a
+href="Net/HTTP/Persistent.html#method-i-pipeline">Net::HTTP::Persistent#pipeline</a>
+which integrates with net-http-pipeline when it is present.</p>
+</li></ul>
+</li><li>
+<p>Bug Fix</p>
+<ul><li>
+<p>Perform a case-insensitive check of the URI scheme for HTTPS URIs</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.6.1+-2F+2011-03-08">1.6.1 / 2011-03-08<span><a href="#label-1.6.1+-2F+2011-03-08">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fix</p>
+<ul><li>
+<p><a
+href="Net/HTTP/Persistent.html#method-i-request">Net::HTTP::Persistent#request</a>
+now handles Errno::EINVAL as a connection reset and will be retried for
+idempotent requests.  Reported by Aaron Qian.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.6+-2F+2011-03-01">1.6 / 2011-03-01<span><a href="#label-1.6+-2F+2011-03-01">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancement</p>
+<ul><li>
+<p>Added <a
+href="Net/HTTP/Persistent.html#attribute-i-socket_options">Net::HTTP::Persistent#socket_options</a>
+to set multiple socket options at socket startup.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.5.2+-2F+2011-02-24">1.5.2 / 2011-02-24<span><a href="#label-1.5.2+-2F+2011-02-24">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fix</p>
+<ul><li>
+<p>Only set TCP_NODELAY if the connection has an @socket.  Allows
+net-http-persistent to be used with fake_web.  Reported by Sathish
+Pasupunuri.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.5.1+-2F+2011-02-10">1.5.1 / 2011-02-10<span><a href="#label-1.5.1+-2F+2011-02-10">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug fix</p>
+<ul><li>
+<p>Only set TCP_NODELAY at connection start.  Reported by Brian Henderson.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.5+-2F+2011-01-25">1.5 / 2011-01-25<span><a href="#label-1.5+-2F+2011-01-25">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancements</p>
+<ul><li>
+<p>Set TCP_NODELAY on created socket if possible.  (This will only help for
+requests that send bodies.)</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.4.1+-2F+2010-10-13">1.4.1 / 2010-10-13<span><a href="#label-1.4.1+-2F+2010-10-13">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>Don&#39;t finish the connection when we&#39;re retrying, reset it.  Patch
+by James Tucker.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.4+-2F+2010-09-29">1.4 / 2010-09-29<span><a href="#label-1.4+-2F+2010-09-29">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancements</p>
+<ul><li>
+<p>Added the very dangerous shutdown_in_all_threads.  IT IS DANGEROUS!. Patch
+by Torsten Schönebaum.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.3.1+-2F+2010-09-13">1.3.1 / 2010-09-13<span><a href="#label-1.3.1+-2F+2010-09-13">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>connection_for no longer tries to ssl-enable an existing connection. Patch
+by Joseph West.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.3+-2F+2010-09-08">1.3 / 2010-09-08<span><a href="#label-1.3+-2F+2010-09-08">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancements</p>
+<ul><li>
+<p>HTTP versions are now recorded.  This information is not currently used.</p>
+</li></ul>
+</li><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>shutdown no longer fails when an unstarted HTTP connection is shut down.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.2.5+-2F+2010-07-27">1.2.5 / 2010-07-27<span><a href="#label-1.2.5+-2F+2010-07-27">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>Fix duplicated test name.  Noted by Peter Higgins.</p>
+</li><li>
+<p>shutdown now works even when no connections were made.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.2.4+-2F+2010-07-26">1.2.4 / 2010-07-26<span><a href="#label-1.2.4+-2F+2010-07-26">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>Actually have request only finish a connection.  Somehow this got missed.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.2.3+-2F+2010-06-29">1.2.3 / 2010-06-29<span><a href="#label-1.2.3+-2F+2010-06-29">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>Fix example code (pointed out by Alex Stahl)</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.2.2+-2F+2010-06-22">1.2.2 / 2010-06-22<span><a href="#label-1.2.2+-2F+2010-06-22">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>request only finishes a connection instead of restarting it.  This helps
+prevents errors on non-idempotent HTTP requests after errors.</p>
+</li><li>
+<p>connection_for handles EHOSTDOWN like reset</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.2.1+-2F+2010-05-25">1.2.1 / 2010-05-25<span><a href="#label-1.2.1+-2F+2010-05-25">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>Don&#39;t alter Net::BufferedIO#rbuf_fill on 1.9+</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.2+-2F+2010-05-20">1.2 / 2010-05-20<span><a href="#label-1.2+-2F+2010-05-20">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancements</p>
+<ul><li>
+<p>Net::HTTP#read_timeout is now supported</p>
+</li><li>
+<p>Net::HTTP#open_timeout is now supported</p>
+</li><li>
+<p><a
+href="Net/HTTP/Persistent.html#method-i-request">Net::HTTP::Persistent#request</a>
+now supports a block like Net::HTTP#request</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.1+-2F+2010-05-18">1.1 / 2010-05-18<span><a href="#label-1.1+-2F+2010-05-18">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancements</p>
+<ul><li>
+<p>Proxy support, see <a
+href="Net/HTTP/Persistent.html#method-c-new">Net::HTTP::Persistent.new</a>,
+<a
+href="Net/HTTP/Persistent.html#method-i-proxy_from_env">Net::HTTP::Persistent#proxy_from_env</a></p>
+</li><li>
+<p>Added <code>name</code> parameter to <a
+href="Net/HTTP/Persistent.html#method-c-new">Net::HTTP::Persistent.new</a>
+for separation of connection pools.</p>
+</li><li>
+<p>Added <a
+href="Net/HTTP/Persistent.html#method-i-shutdown">Net::HTTP::Persistent#shutdown</a>
+so you can clean up after yourself</p>
+</li><li>
+<p><a href="Net/HTTP/Persistent.html">Net::HTTP::Persistent</a> now suppresses
+“peer certificate won&#39;t be verified in this SSL session” warning.</p>
+</li></ul>
+</li><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p><a href="Net/HTTP/Persistent.html">Net::HTTP::Persistent</a> retries
+requests in accordance with RFC 2616.</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.0.1+-2F+2010-05-05">1.0.1 / 2010-05-05<span><a href="#label-1.0.1+-2F+2010-05-05">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Minor Enhancements</p>
+<ul><li>
+<p>Added debug_output</p>
+</li><li>
+<p>Now uses Hoe minitest plugin</p>
+</li></ul>
+</li><li>
+<p>Bug Fixes</p>
+<ul><li>
+<p>Tests pass on 1.9</p>
+</li></ul>
+</li></ul>
+
+<h3 id="label-1.0.0+-2F+2010-05-04">1.0.0 / 2010-05-04<span><a href="#label-1.0.0+-2F+2010-05-04">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Major Enhancements</p>
+<ul><li>
+<p>Birthday!</p>
+</li></ul>
+</li></ul>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

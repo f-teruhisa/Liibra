@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Bootstrap::Generators::InstallGenerator - twitter-bootstrap-rails-4.0.0 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Rails::Generators::Base
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-add_assets">#add_assets</a>
+    
+    <li ><a href="#method-i-add_bootstrap">#add_bootstrap</a>
+    
+    <li ><a href="#method-i-add_locale">#add_locale</a>
+    
+    <li ><a href="#method-i-cleanup_legacy">#cleanup_legacy</a>
+    
+    <li ><a href="#method-i-use_coffeescript-3F">#use_coffeescript?</a>
+    
+    <li ><a href="#method-i-use_less-3F">#use_less?</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Bootstrap::Generators::InstallGenerator">
+  <h1 id="class-Bootstrap::Generators::InstallGenerator" class="class">
+    class Bootstrap::Generators::InstallGenerator
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-add_assets" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_assets</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_assets-source">
+            <pre><span class="ruby-comment"># File lib/generators/bootstrap/install/install_generator.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_assets</span>
+
+  <span class="ruby-identifier">js_manifest</span> = <span class="ruby-string">&#39;app/assets/javascripts/application.js&#39;</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">js_manifest</span>)
+    <span class="ruby-identifier">insert_into_file</span> <span class="ruby-identifier">js_manifest</span>, <span class="ruby-string">&quot;//= require twitter/bootstrap\n&quot;</span>, <span class="ruby-value">:after</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;jquery_ujs\n&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">copy_file</span> <span class="ruby-string">&quot;application.js&quot;</span>, <span class="ruby-identifier">js_manifest</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">css_manifest</span> = <span class="ruby-string">&#39;app/assets/stylesheets/application.css&#39;</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">css_manifest</span>)
+    <span class="ruby-comment"># Add our own require:</span>
+    <span class="ruby-identifier">content</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">css_manifest</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">content</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/require_tree\s+\.\s*$/</span>)
+      <span class="ruby-comment"># Good enough - that&#39;ll include our bootstrap_and_overrides.css.less</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">style_require_block</span> = <span class="ruby-string">&quot; *= require bootstrap_and_overrides\n&quot;</span>
+      <span class="ruby-identifier">insert_into_file</span> <span class="ruby-identifier">css_manifest</span>, <span class="ruby-identifier">style_require_block</span>, <span class="ruby-value">:after</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;require_self\n&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">copy_file</span> <span class="ruby-string">&quot;application.css&quot;</span>, <span class="ruby-string">&quot;app/assets/stylesheets/application.css&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-add_bootstrap" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_bootstrap</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_bootstrap-source">
+            <pre><span class="ruby-comment"># File lib/generators/bootstrap/install/install_generator.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_bootstrap</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">use_coffeescript?</span>
+    <span class="ruby-identifier">copy_file</span> <span class="ruby-string">&quot;bootstrap.coffee&quot;</span>, <span class="ruby-string">&quot;app/assets/javascripts/bootstrap.js.coffee&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">copy_file</span> <span class="ruby-string">&quot;bootstrap.js&quot;</span>, <span class="ruby-string">&quot;app/assets/javascripts/bootstrap.js&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">use_less?</span>
+    <span class="ruby-identifier">copy_file</span> <span class="ruby-string">&quot;bootstrap_and_overrides.less&quot;</span>, <span class="ruby-string">&quot;app/assets/stylesheets/bootstrap_and_overrides.css.less&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">copy_file</span> <span class="ruby-string">&quot;bootstrap_and_overrides.css&quot;</span>, <span class="ruby-string">&quot;app/assets/stylesheets/bootstrap_and_overrides.css&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-add_locale" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_locale</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_locale-source">
+            <pre><span class="ruby-comment"># File lib/generators/bootstrap/install/install_generator.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_locale</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-string">&quot;config/locales/en.bootstrap.yml&quot;</span>)
+    <span class="ruby-identifier">localez</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-string">&quot;config/locales/en.bootstrap.yml&quot;</span>)
+    <span class="ruby-identifier">insert_into_file</span> <span class="ruby-string">&quot;config/locales/en.bootstrap.yml&quot;</span>, <span class="ruby-identifier">localez</span>, <span class="ruby-value">:after</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;en\n&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">copy_file</span> <span class="ruby-string">&quot;en.bootstrap.yml&quot;</span>, <span class="ruby-string">&quot;config/locales/en.bootstrap.yml&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-cleanup_legacy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cleanup_legacy</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="cleanup_legacy-source">
+            <pre><span class="ruby-comment"># File lib/generators/bootstrap/install/install_generator.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cleanup_legacy</span>
+  <span class="ruby-comment"># Remove old requires (if any) that included twitter/bootstrap directly:</span>
+  <span class="ruby-identifier">gsub_file</span>(<span class="ruby-string">&quot;app/assets/stylesheets/application.css&quot;</span>, <span class="ruby-regexp">%r|\s*\*=\s*twitter/bootstrap\s*\n|</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-string">&#39;app/assets/stylesheets/bootstrap_override.css.less&#39;</span>)
+    <span class="ruby-identifier">puts</span> <span class="ruby-value">&lt;&lt;-EOM
+    Warning:
+      app/assets/stylesheets/bootstrap_override.css.less exists
+      It should be removed, as it has been superceded by app/assets/stylesheets/bootstrap_and_overrides.css.less
+    EOM</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-use_coffeescript-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">use_coffeescript?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="use_coffeescript-3F-source">
+            <pre><span class="ruby-comment"># File lib/generators/bootstrap/install/install_generator.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">use_coffeescript?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:&#39;no-coffeescript&#39;</span>]
+  <span class="ruby-operator">::</span><span class="ruby-constant">Rails</span>.<span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">app_generators</span>.<span class="ruby-identifier">rails</span>[<span class="ruby-value">:javascript_engine</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:coffee</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-use_less-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">use_less?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="use_less-3F-source">
+            <pre><span class="ruby-comment"># File lib/generators/bootstrap/install/install_generator.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">use_less?</span>
+  (<span class="ruby-keyword">defined?</span>(<span class="ruby-constant">Less</span>) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">stylesheets_type!</span>=<span class="ruby-string">&#39;static&#39;</span>) ) <span class="ruby-operator">||</span> (<span class="ruby-identifier">stylesheets_type</span><span class="ruby-operator">==</span><span class="ruby-string">&#39;less&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

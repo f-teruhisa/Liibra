@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Table of Contents - websocket-driver-0.6.5 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" class="table-of-contents">
+<main role="main">
+<h1 class="class">Table of Contents - websocket-driver-0.6.5 Documentation</h1>
+
+<h2 id="pages">Pages</h2>
+<ul>
+  <li class="file">
+    <a href="README_md.html">README</a>
+
+    <ul>
+      <li><a href="README_md.html#label-websocket-driver+rdoc-image-3Ahttps-3A-2F-2Ftravis-ci.org-2Ffaye-2Fwebsocket-driver-ruby.svg">websocket-driver <a href="https://travis-ci.org/faye/websocket-driver-ruby"><img src="https://travis-ci.org/faye/websocket-driver-ruby.svg"></a></a>
+      <li><a href="README_md.html#label-Installation">Installation</a>
+      <li><a href="README_md.html#label-Usage">Usage</a>
+      <li><a href="README_md.html#label-Server-side+with+Rack">Server-side with Rack</a>
+      <li><a href="README_md.html#label-Server-side+with+TCP">Server-side with TCP</a>
+      <li><a href="README_md.html#label-Client-side">Client-side</a>
+      <li><a href="README_md.html#label-HTTP+Proxies">HTTP Proxies</a>
+      <li><a href="README_md.html#label-Driver+API">Driver API</a>
+      <li><a href="README_md.html#label-driver.on+-3Aopen-2C+--3E+-28event-29+-7B+-7D">driver.on :open, -&gt; (event) { }</a>
+      <li><a href="README_md.html#label-driver.on+-3Amessage-2C+--3E+-28event-29+-7B+-7D">driver.on :message, -&gt; (event) { }</a>
+      <li><a href="README_md.html#label-driver.on+-3Aerror-2C+--3E+-28event-29+-7B+-7D">driver.on :error, -&gt; (event) { }</a>
+      <li><a href="README_md.html#label-driver.on+-3Aclose-2C+--3E+-28event-29+-7B+-7D">driver.on :close, -&gt; (event) { }</a>
+      <li><a href="README_md.html#label-driver.add_extension-28extension-29">driver.add_extension(extension)</a>
+      <li><a href="README_md.html#label-driver.set_header-28name-2C+value-29">driver.set_header(name, value)</a>
+      <li><a href="README_md.html#label-driver.start">driver.start</a>
+      <li><a href="README_md.html#label-driver.parse-28string-29">driver.parse(string)</a>
+      <li><a href="README_md.html#label-driver.text-28string-29">driver.text(string)</a>
+      <li><a href="README_md.html#label-driver.binary-28array-29">driver.binary(array)</a>
+      <li><a href="README_md.html#label-driver.ping-28string+-3D+-27-27-2C+-26callback-29">driver.ping(string = &#39;&#39;, &amp;callback)</a>
+      <li><a href="README_md.html#label-driver.pong-28string+-3D+-27-27-29">driver.pong(string = &#39;&#39;)</a>
+      <li><a href="README_md.html#label-driver.close">driver.close</a>
+      <li><a href="README_md.html#label-driver.version">driver.version</a>
+      <li><a href="README_md.html#label-driver.protocol">driver.protocol</a>
+    </ul>
+  </li>
+    <li class="file">
+    <a href="ext/websocket-driver/Makefile.html">Makefile</a>
+  </li>
+    <li class="file">
+    <a href="ext/websocket-driver/WebsocketMaskService_java.html">WebsocketMaskService.java</a>
+  </li>
+  
+</ul>
+
+<h2 id="classes">Classes and Modules</h2>
+<ul>
+  <li class="module">
+    <a href="WebSocket.html">WebSocket</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver.html">WebSocket::Driver</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Client.html">WebSocket::Driver::Client</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Draft75.html">WebSocket::Driver::Draft75</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Draft76.html">WebSocket::Driver::Draft76</a>
+  </li>
+  <li class="module">
+    <a href="WebSocket/Driver/EventEmitter.html">WebSocket::Driver::EventEmitter</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Headers.html">WebSocket::Driver::Headers</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Hybi.html">WebSocket::Driver::Hybi</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Hybi/Frame.html">WebSocket::Driver::Hybi::Frame</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Hybi/Message.html">WebSocket::Driver::Hybi::Message</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Proxy.html">WebSocket::Driver::Proxy</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/Server.html">WebSocket::Driver::Server</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/Driver/StreamReader.html">WebSocket::Driver::StreamReader</a>
+  </li>
+  <li class="module">
+    <a href="WebSocket/HTTP.html">WebSocket::HTTP</a>
+  </li>
+  <li class="module">
+    <a href="WebSocket/HTTP/Headers.html">WebSocket::HTTP::Headers</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/HTTP/Request.html">WebSocket::HTTP::Request</a>
+  </li>
+  <li class="class">
+    <a href="WebSocket/HTTP/Response.html">WebSocket::HTTP::Response</a>
+  </li>
+  <li class="module">
+    <a href="WebSocket/Mask.html">WebSocket::Mask</a>
+  </li>
+</ul>
+
+<h2 id="methods">Methods</h2>
+<ul>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-c-client">::client</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-c-encode">::encode</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-c-generate_accept">::generate_accept</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-c-generate_key">::generate_key</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Mask.html#method-c-mask">::mask</a>
+    &mdash;
+    <span class="container">WebSocket::Mask</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi/Message.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi::Message</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft75.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft75</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Proxy.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Proxy</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/EventEmitter.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::EventEmitter</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Server.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Server</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Headers.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Headers.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/StreamReader.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::StreamReader</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP.html#method-c-normalize_header">::normalize_header</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-c-rack">::rack</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-c-server">::server</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-c-validate_options">::validate_options</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-c-websocket-3F">::websocket?</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi/Message.html#method-i-3C-3C">#&lt;&lt;</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi::Message</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Response.html#method-i-5B-5D">#[]</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Response</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Headers.html#method-i-5B-5D">#[]</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Headers.html#method-i-5B-5D-3D">#[]=</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-add_extension">#add_extension</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-add_extension">#add_extension</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/EventEmitter.html#method-i-add_listener">#add_listener</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::EventEmitter</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-binary">#binary</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-binary">#binary</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Response.html#method-i-body">#body</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Response</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-check_frame_length">#check_frame_length</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Headers.html#method-i-clear">#clear</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft75.html#method-i-close">#close</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft75</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-close">#close</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-close">#close</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-close">#close</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Request.html#method-i-complete">#complete</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Request</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Headers.html#method-i-complete">#complete</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Headers.html#method-i-complete-3F">#complete?</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/StreamReader.html#method-i-each_byte">#each_byte</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::StreamReader</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/EventEmitter.html#method-i-emit">#emit</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::EventEmitter</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-emit_frame">#emit_frame</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-emit_message">#emit_message</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Server.html#method-i-env">#env</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Server</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Headers.html#method-i-error">#error</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Headers.html#method-i-error-3F">#error?</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-fail">#fail</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-i-fail_handshake">#fail_handshake</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Server.html#method-i-fail_request">#fail_request</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Server</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft75.html#method-i-frame">#frame</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft75</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-frame">#frame</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-i-handshake_request">#handshake_request</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft75.html#method-i-handshake_response">#handshake_response</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft75</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-handshake_response">#handshake_response</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-handshake_response">#handshake_response</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-handshake_signature">#handshake_signature</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Headers.html#method-i-header_line">#header_line</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Headers.html#method-i-inspect">#inspect</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/EventEmitter.html#method-i-listener_count">#listener_count</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::EventEmitter</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/EventEmitter.html#method-i-listeners">#listeners</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::EventEmitter</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-number_from_key">#number_from_key</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/EventEmitter.html#method-i-on">#on</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::EventEmitter</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-open">#open</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Server.html#method-i-open">#open</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Server</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Proxy.html#method-i-parse">#parse</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Proxy</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-parse">#parse</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Headers.html#method-i-parse">#parse</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-i-parse">#parse</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft75.html#method-i-parse">#parse</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft75</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Server.html#method-i-parse">#parse</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Server</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-parse_extended_length">#parse_extended_length</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-parse_leading_byte">#parse_leading_byte</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft75.html#method-i-parse_leading_byte">#parse_leading_byte</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft75</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-parse_length">#parse_length</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-parse_opcode">#parse_opcode</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-ping">#ping</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-ping">#ping</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-pong">#pong</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-pong">#pong</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-i-proxy">#proxy</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/StreamReader.html#method-i-prune">#prune</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::StreamReader</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/StreamReader.html#method-i-put">#put</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::StreamReader</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-queue">#queue</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/StreamReader.html#method-i-read">#read</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::StreamReader</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/EventEmitter.html#method-i-remove_all_listeners">#remove_all_listeners</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::EventEmitter</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/EventEmitter.html#method-i-remove_listener">#remove_listener</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::EventEmitter</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-send_frame">#send_frame</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-send_handshake_body">#send_handshake_body</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-set_header">#set_header</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Proxy.html#method-i-set_header">#set_header</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Proxy</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-shutdown">#shutdown</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-spaces_in_key">#spaces_in_key</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Proxy.html#method-i-start">#start</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Proxy</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-start">#start</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-i-start">#start</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-start">#start</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Request.html#method-i-start_line">#start_line</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Request</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Response.html#method-i-start_line">#start_line</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Response</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-state">#state</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/HTTP/Headers.html#method-i-string_buffer">#string_buffer</a>
+    &mdash;
+    <span class="container">WebSocket::HTTP::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver.html#method-i-text">#text</a>
+    &mdash;
+    <span class="container">WebSocket::Driver</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Headers.html#method-i-to_h">#to_h</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Headers.html#method-i-to_s">#to_s</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Headers</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Server.html#method-i-url">#url</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Server</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-i-validate_handshake">#validate_handshake</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Client.html#method-i-version">#version</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Client</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft76.html#method-i-version">#version</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft76</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Hybi.html#method-i-version">#version</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Hybi</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Draft75.html#method-i-version">#version</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Draft75</span>
+
+  <li class="method">
+    <a href="WebSocket/Driver/Server.html#method-i-write">#write</a>
+    &mdash;
+    <span class="container">WebSocket::Driver::Server</span>
+</ul>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

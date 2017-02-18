@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class ActionDispatch::SSL - actionpack-5.0.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-default_hsts_options">::default_hsts_options</a>
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-build_hsts_header">#build_hsts_header</a>
+    
+    <li ><a href="#method-i-call">#call</a>
+    
+    <li ><a href="#method-i-flag_cookies_as_secure-21">#flag_cookies_as_secure!</a>
+    
+    <li ><a href="#method-i-https_location_for">#https_location_for</a>
+    
+    <li ><a href="#method-i-normalize_hsts_options">#normalize_hsts_options</a>
+    
+    <li ><a href="#method-i-redirect_to_https">#redirect_to_https</a>
+    
+    <li ><a href="#method-i-redirection_status">#redirection_status</a>
+    
+    <li ><a href="#method-i-set_hsts_header-21">#set_hsts_header!</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-ActionDispatch::SSL">
+  <h1 id="class-ActionDispatch::SSL" class="class">
+    class ActionDispatch::SSL
+  </h1>
+
+  <section class="description">
+    
+<p>This middleware is added to the stack when `config.force_ssl = true`, and
+is passed the options set in `config.ssl_options`. It does three jobs to
+enforce secure HTTP requests:</p>
+
+<pre>1. TLS redirect: Permanently redirects http:// requests to https://
+   with the same URL host, path, etc. Enabled by default. Set `config.ssl_options`
+   to modify the destination URL
+   (e.g. `redirect: { host: &quot;secure.widgets.com&quot;, port: 8080 }`), or set
+   `redirect: false` to disable this feature.
+
+2. Secure cookies: Sets the `secure` flag on cookies to tell browsers they
+   mustn&#39;t be sent along with http:// requests. Enabled by default. Set
+   `config.ssl_options` with `secure_cookies: false` to disable this feature.
+
+3. HTTP Strict Transport Security (HSTS): Tells the browser to remember
+   this site as TLS-only and automatically redirect non-TLS requests.
+   Enabled by default. Configure `config.ssl_options` with `hsts: false` to disable.</pre>
+
+<p>Set `config.ssl_options` with `hsts: { … }` to configure HSTS:</p>
+
+<pre>* `expires`: How long, in seconds, these settings will stick. The minimum
+  required to qualify for browser preload lists is `18.weeks`. Defaults to
+  `180.days` (recommended).
+* `subdomains`: Set to `true` to tell the browser to apply these settings
+  to all subdomains. This protects your cookies from interception by a
+  vulnerable site on a subdomain. Defaults to `false`.
+* `preload`: Advertise that this site may be included in browsers&#39;
+  preloaded HSTS lists. HSTS protects your site on every visit *except the
+  first visit* since it hasn&#39;t seen your HSTS header yet. To close this
+  gap, browser vendors include a baked-in list of HSTS-enabled sites.
+  Go to https://hstspreload.appspot.com to submit your site for inclusion.
+  Defaults to `false`.</pre>
+
+<p>To turn off HSTS, omitting the header is not enough. Browsers will remember
+the original HSTS directive until it expires. Instead, use the header to
+tell browsers to expire HSTS immediately. Setting `hsts: false` is a
+shortcut for `hsts: { expires: 0 }`.</p>
+
+<p>Requests can opt-out of redirection with `exclude`:</p>
+
+<pre class="ruby"><span class="ruby-identifier">config</span>.<span class="ruby-identifier">ssl_options</span> = { <span class="ruby-identifier">redirect</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">exclude</span><span class="ruby-operator">:</span> <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span> { <span class="ruby-identifier">request</span>.<span class="ruby-identifier">path</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/healthcheck/</span> } } }
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="HSTS_EXPIRES_IN">HSTS_EXPIRES_IN
+        
+        <dd><p>Default to 180 days, the low end for <a
+href="https://www.ssllabs.com/ssltest">www.ssllabs.com/ssltest</a>/ and
+greater than the 18-week requirement for browser preload lists.</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-default_hsts_options" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">default_hsts_options</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="default_hsts_options-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_hsts_options</span>
+  { <span class="ruby-identifier">expires</span><span class="ruby-operator">:</span> <span class="ruby-constant">HSTS_EXPIRES_IN</span>, <span class="ruby-identifier">subdomains</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>, <span class="ruby-identifier">preload</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(app, redirect: {}, hsts: {}, secure_cookies: true, **options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 51</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">app</span>, <span class="ruby-identifier">redirect</span><span class="ruby-operator">:</span> {}, <span class="ruby-identifier">hsts</span><span class="ruby-operator">:</span> {}, <span class="ruby-identifier">secure_cookies</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>, <span class="ruby-operator">**</span><span class="ruby-identifier">options</span>)
+      <span class="ruby-ivar">@app</span> = <span class="ruby-identifier">app</span>
+
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:host</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:port</span>]
+        <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-string">&quot;          The `:host` and `:port` options are moving within `:redirect`:
+          `config.ssl_options = { redirect: { host: …, port: … } }`.
+&quot;</span>.<span class="ruby-identifier">strip_heredoc</span>
+        <span class="ruby-ivar">@redirect</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">:host</span>, <span class="ruby-value">:port</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@redirect</span> = <span class="ruby-identifier">redirect</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-ivar">@exclude</span> = <span class="ruby-ivar">@redirect</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@redirect</span>[<span class="ruby-value">:exclude</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">proc</span> { <span class="ruby-operator">!</span><span class="ruby-ivar">@redirect</span> }
+      <span class="ruby-ivar">@secure_cookies</span> = <span class="ruby-identifier">secure_cookies</span>
+
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">hsts</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">true</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">hsts</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">hsts</span>[<span class="ruby-value">:subdomains</span>].<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">hsts</span>[<span class="ruby-value">:subdomains</span>] = <span class="ruby-keyword">false</span>
+
+        <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-string">&quot;          In Rails 5.1, The `:subdomains` option of HSTS config will be treated as true if
+          unspecified. Set `config.ssl_options = { hsts: { subdomains: false } }` to opt out
+          of this behavior.
+&quot;</span>.<span class="ruby-identifier">strip_heredoc</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-ivar">@hsts_header</span> = <span class="ruby-identifier">build_hsts_header</span>(<span class="ruby-identifier">normalize_hsts_options</span>(<span class="ruby-identifier">hsts</span>))
+    <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-call" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">call</span><span
+            class="method-args">(env)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="call-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+  <span class="ruby-identifier">request</span> = <span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">env</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">ssl?</span>
+    <span class="ruby-ivar">@app</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">status</span>, <span class="ruby-identifier">headers</span>, <span class="ruby-identifier">body</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">set_hsts_header!</span> <span class="ruby-identifier">headers</span>
+      <span class="ruby-identifier">flag_cookies_as_secure!</span> <span class="ruby-identifier">headers</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@secure_cookies</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">redirect_to_https</span> <span class="ruby-identifier">request</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exclude</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">request</span>)
+    <span class="ruby-ivar">@app</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-build_hsts_header" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build_hsts_header</span><span
+            class="method-args">(hsts)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a
+href="http://tools.ietf.org/html/rfc6797#section-6.1">tools.ietf.org/html/rfc6797#section-6.1</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="build_hsts_header-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build_hsts_header</span>(<span class="ruby-identifier">hsts</span>)
+  <span class="ruby-identifier">value</span> = <span class="ruby-node">&quot;max-age=#{hsts[:expires].to_i}&quot;</span>
+  <span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;; includeSubDomains&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hsts</span>[<span class="ruby-value">:subdomains</span>]
+  <span class="ruby-identifier">value</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;; preload&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hsts</span>[<span class="ruby-value">:preload</span>]
+  <span class="ruby-identifier">value</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-flag_cookies_as_secure-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">flag_cookies_as_secure!</span><span
+            class="method-args">(headers)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="flag_cookies_as_secure-21-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">flag_cookies_as_secure!</span>(<span class="ruby-identifier">headers</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">cookies</span> = <span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Set-Cookie&#39;</span>.<span class="ruby-identifier">freeze</span>]
+    <span class="ruby-identifier">cookies</span> = <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>.<span class="ruby-identifier">freeze</span>)
+
+    <span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Set-Cookie&#39;</span>.<span class="ruby-identifier">freeze</span>] = <span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">cookie</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">cookie</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">/;\s*secure\s*(;|$)/i</span>
+        <span class="ruby-node">&quot;#{cookie}; secure&quot;</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">cookie</span>
+      <span class="ruby-keyword">end</span>
+    }.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>.<span class="ruby-identifier">freeze</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-https_location_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">https_location_for</span><span
+            class="method-args">(request)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="https_location_for-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 150</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">https_location_for</span>(<span class="ruby-identifier">request</span>)
+  <span class="ruby-identifier">host</span> = <span class="ruby-ivar">@redirect</span>[<span class="ruby-value">:host</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">host</span>
+  <span class="ruby-identifier">port</span> = <span class="ruby-ivar">@redirect</span>[<span class="ruby-value">:port</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">port</span>
+
+  <span class="ruby-identifier">location</span> = <span class="ruby-node">&quot;https://#{host}&quot;</span>
+  <span class="ruby-identifier">location</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;:#{port}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">port</span> <span class="ruby-operator">!=</span> <span class="ruby-value">80</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">port</span> <span class="ruby-operator">!=</span> <span class="ruby-value">443</span>
+  <span class="ruby-identifier">location</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span>
+  <span class="ruby-identifier">location</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-normalize_hsts_options" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">normalize_hsts_options</span><span
+            class="method-args">(options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="normalize_hsts_options-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">normalize_hsts_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">options</span>
+  <span class="ruby-comment"># Explicitly disabling HSTS clears the existing setting from browsers</span>
+  <span class="ruby-comment"># by setting expiry to 0.</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">default_hsts_options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">expires</span><span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
+  <span class="ruby-comment"># Default to enabled, with default options.</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">default_hsts_options</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">default_hsts_options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-redirect_to_https" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">redirect_to_https</span><span
+            class="method-args">(request)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="redirect_to_https-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">redirect_to_https</span>(<span class="ruby-identifier">request</span>)
+  [ <span class="ruby-ivar">@redirect</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:status</span>, <span class="ruby-identifier">redirection_status</span>(<span class="ruby-identifier">request</span>)),
+    { <span class="ruby-string">&#39;Content-Type&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;text/html&#39;</span>,
+      <span class="ruby-string">&#39;Location&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">https_location_for</span>(<span class="ruby-identifier">request</span>) },
+    <span class="ruby-ivar">@redirect</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:body</span>, []) ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-redirection_status" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">redirection_status</span><span
+            class="method-args">(request)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="redirection_status-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">redirection_status</span>(<span class="ruby-identifier">request</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">get?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">head?</span>
+    <span class="ruby-value">301</span> <span class="ruby-comment"># Issue a permanent redirect via a GET request.</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-value">307</span> <span class="ruby-comment"># Issue a fresh request redirect to preserve the HTTP method.</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_hsts_header-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_hsts_header!</span><span
+            class="method-args">(headers)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_hsts_header-21-source">
+            <pre><span class="ruby-comment"># File lib/action_dispatch/middleware/ssl.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_hsts_header!</span>(<span class="ruby-identifier">headers</span>)
+  <span class="ruby-identifier">headers</span>[<span class="ruby-string">&#39;Strict-Transport-Security&#39;</span>.<span class="ruby-identifier">freeze</span>] <span class="ruby-operator">||=</span> <span class="ruby-ivar">@hsts_header</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

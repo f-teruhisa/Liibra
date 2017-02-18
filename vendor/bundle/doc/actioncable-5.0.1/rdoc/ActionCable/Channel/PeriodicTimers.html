@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module ActionCable::Channel::PeriodicTimers - actioncable-5.0.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    <div id="extends-section" class="nav-section">
+  <h3>Extended With Modules</h3>
+
+  <ul class="link-list">
+    
+  
+    <li><span class="extend">ActiveSupport::Concern</span>
+  
+  
+  </ul>
+</div>
+
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-active_periodic_timers">#active_periodic_timers</a>
+    
+    <li ><a href="#method-i-start_periodic_timer">#start_periodic_timer</a>
+    
+    <li ><a href="#method-i-start_periodic_timers">#start_periodic_timers</a>
+    
+    <li ><a href="#method-i-stop_periodic_timers">#stop_periodic_timers</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-ActionCable::Channel::PeriodicTimers">
+  <h1 id="module-ActionCable::Channel::PeriodicTimers" class="module">
+    module ActionCable::Channel::PeriodicTimers
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-active_periodic_timers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">active_periodic_timers</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="active_periodic_timers-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/periodic_timers.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">active_periodic_timers</span>
+  <span class="ruby-ivar">@active_periodic_timers</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-start_periodic_timer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start_periodic_timer</span><span
+            class="method-args">(callback, every:)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="start_periodic_timer-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/periodic_timers.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_periodic_timer</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">every</span>))
+  <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">server</span>.<span class="ruby-identifier">event_loop</span>.<span class="ruby-identifier">timer</span> <span class="ruby-identifier">every</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">worker_pool</span>.<span class="ruby-identifier">async_exec</span> <span class="ruby-keyword">self</span>, <span class="ruby-identifier">connection</span><span class="ruby-operator">:</span> <span class="ruby-identifier">connection</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">callback</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-start_periodic_timers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">start_periodic_timers</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="start_periodic_timers-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/periodic_timers.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_periodic_timers</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">periodic_timers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">callback</span>, <span class="ruby-identifier">options</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">active_periodic_timers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">start_periodic_timer</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">every</span><span class="ruby-operator">:</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:every</span>))
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stop_periodic_timers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stop_periodic_timers</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stop_periodic_timers-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/periodic_timers.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop_periodic_timers</span>
+  <span class="ruby-identifier">active_periodic_timers</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">timer</span><span class="ruby-operator">|</span> <span class="ruby-identifier">timer</span>.<span class="ruby-identifier">shutdown</span> }
+  <span class="ruby-identifier">active_periodic_timers</span>.<span class="ruby-identifier">clear</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

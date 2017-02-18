@@ -1,0 +1,1 @@
+var search_data = {"index":{"searchIndex":["readme"],"longSearchIndex":[""],"info":[["README","","README_md.html","","<p>Welcome to Rails\n<p>Rails is a web-application framework that includes everything needed\nto\ncreate database-backed ...\n"]]}}

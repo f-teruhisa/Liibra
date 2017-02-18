@@ -1,0 +1,23 @@
+<div class="posting_form top_content">
+  <header class="posting_header">
+    <div class="posting_image icon_image" style="background-image: url(<%= current_user.avatar.url(:medium) %>);">
+    </div>
+      <div class="posting_user_info user_info">
+        <%= current_user.name %>
+      </div>
+  </header>
+    <div class="col-lg-6">
+     <div class="form-group file">
+    <%= form_for(@theme) do |f| %>
+    <h3>Post Your Theme.</h3>
+      <h4>Theme Title</h4>
+      <%= f.text_field :title, placeholder: "Title", class: "form-control.placeholder" %>
+      <h4>Information</h4>
+      <%= f.text_field :information, placeholder: "Information", class: "form-control.placeholder" %>
+      <h4>Theme Image</h4>
+      <%= f.file_field :image_url, placeholder: "Theme Image", class: "form-control" %>
+      <%= f.submit "Post", class: "btn btn-primary withripple" %>
+    <% end %>
+    </div>
+  </div>
+</div>

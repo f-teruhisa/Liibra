@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class ActionCable::Connection::Base - actioncable-5.0.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Identification.html">ActionCable::Connection::Identification</a>
+  
+  
+  
+    <li><a class="include" href="InternalChannel.html">ActionCable::Connection::InternalChannel</a>
+  
+  
+  
+    <li><a class="include" href="Authorization.html">ActionCable::Connection::Authorization</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-allow_request_origin-3F">#allow_request_origin?</a>
+    
+    <li ><a href="#method-i-beat">#beat</a>
+    
+    <li ><a href="#method-i-close">#close</a>
+    
+    <li ><a href="#method-i-cookies">#cookies</a>
+    
+    <li ><a href="#method-i-decode">#decode</a>
+    
+    <li ><a href="#method-i-encode">#encode</a>
+    
+    <li ><a href="#method-i-finished_request_message">#finished_request_message</a>
+    
+    <li ><a href="#method-i-handle_close">#handle_close</a>
+    
+    <li ><a href="#method-i-handle_open">#handle_open</a>
+    
+    <li ><a href="#method-i-invalid_request_message">#invalid_request_message</a>
+    
+    <li ><a href="#method-i-new_tagged_logger">#new_tagged_logger</a>
+    
+    <li ><a href="#method-i-request">#request</a>
+    
+    <li ><a href="#method-i-respond_to_invalid_request">#respond_to_invalid_request</a>
+    
+    <li ><a href="#method-i-respond_to_successful_request">#respond_to_successful_request</a>
+    
+    <li ><a href="#method-i-send_async">#send_async</a>
+    
+    <li ><a href="#method-i-send_welcome_message">#send_welcome_message</a>
+    
+    <li ><a href="#method-i-started_request_message">#started_request_message</a>
+    
+    <li ><a href="#method-i-statistics">#statistics</a>
+    
+    <li ><a href="#method-i-successful_request_message">#successful_request_message</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-ActionCable::Connection::Base">
+  <h1 id="class-ActionCable::Connection::Base" class="class">
+    class ActionCable::Connection::Base
+  </h1>
+
+  <section class="description">
+    
+<p>For every <a href="WebSocket.html">WebSocket</a> the Action Cable server
+accepts, a <a href="../Connection.html">Connection</a> object will be
+instantiated. This instance becomes the parent of all of the channel
+subscriptions that are created from there on. Incoming messages are then
+routed to these channel subscriptions based on an identifier sent by the
+Action Cable consumer. The <a href="../Connection.html">Connection</a>
+itself does not deal with any specific application logic beyond
+authentication and authorization.</p>
+
+<p>Here&#39;s a basic example:</p>
+
+<pre>module ApplicationCable
+  class Connection &lt; ActionCable::Connection::Base
+    identified_by :current_user
+
+    def connect
+      self.current_user = find_verified_user
+      logger.add_tags current_user.name
+    end
+
+    def disconnect
+      # Any cleanup work needed when the cable connection is cut.
+    end
+
+    protected
+      def find_verified_user
+        if current_user = User.find_by_identity cookies.signed[:identity_id]
+          current_user
+        else
+          reject_unauthorized_connection
+        end
+      end
+  end
+end</pre>
+
+<p>First, we declare that this connection can be identified by its
+current_user. This allows us to later be able to find all connections
+established for that current_user (and potentially disconnect them). You
+can declare as many identification indexes as you like. Declaring an
+identification means that an attr_accessor is automatically set for that
+key.</p>
+
+<p>Second, we rely on the fact that the <a href="WebSocket.html">WebSocket</a>
+connection is established with the cookies from the domain being sent
+along. This makes it easy to use signed cookies that were set when logging
+in via a web interface to authorize the <a
+href="WebSocket.html">WebSocket</a> connection.</p>
+
+<p>Finally, we add a tag to the connection-specific logger with the name of
+the current user to easily distinguish their messages in the log.</p>
+
+<p>Pretty simple, eh?</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-env" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">env</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-logger" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">logger</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-message_buffer" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">message_buffer</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-protocol" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">protocol</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-server" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">server</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-subscriptions" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">subscriptions</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-websocket" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">websocket</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-worker_pool" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">worker_pool</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(server, env, coder: ActiveSupport::JSON)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">server</span>, <span class="ruby-identifier">env</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">JSON</span>)
+  <span class="ruby-ivar">@server</span>, <span class="ruby-ivar">@env</span>, <span class="ruby-ivar">@coder</span> = <span class="ruby-identifier">server</span>, <span class="ruby-identifier">env</span>, <span class="ruby-identifier">coder</span>
+
+  <span class="ruby-ivar">@worker_pool</span> = <span class="ruby-identifier">server</span>.<span class="ruby-identifier">worker_pool</span>
+  <span class="ruby-ivar">@logger</span> = <span class="ruby-identifier">new_tagged_logger</span>
+
+  <span class="ruby-ivar">@websocket</span>      = <span class="ruby-constant">ActionCable</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span><span class="ruby-operator">::</span><span class="ruby-constant">WebSocket</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">env</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">event_loop</span>, <span class="ruby-identifier">server</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">client_socket_class</span>)
+  <span class="ruby-ivar">@subscriptions</span>  = <span class="ruby-constant">ActionCable</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span><span class="ruby-operator">::</span><span class="ruby-constant">Subscriptions</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
+  <span class="ruby-ivar">@message_buffer</span> = <span class="ruby-constant">ActionCable</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span><span class="ruby-operator">::</span><span class="ruby-constant">MessageBuffer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
+
+  <span class="ruby-ivar">@_internal_subscriptions</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@started_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-beat" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">beat</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="beat-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">beat</span>
+  <span class="ruby-identifier">transmit</span> <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-constant">ActionCable</span><span class="ruby-operator">::</span><span class="ruby-constant">INTERNAL</span>[<span class="ruby-value">:message_types</span>][<span class="ruby-value">:ping</span>], <span class="ruby-identifier">message</span><span class="ruby-operator">:</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-close" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">close</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Close the <a href="WebSocket.html">WebSocket</a> connection.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="close-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">close</span>
+  <span class="ruby-identifier">websocket</span>.<span class="ruby-identifier">close</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-send_async" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">send_async</span><span
+            class="method-args">(method, *arguments)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Invoke a method on the connection asynchronously through the pool of thread
+workers.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="send_async-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_async</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
+  <span class="ruby-identifier">worker_pool</span>.<span class="ruby-identifier">async_invoke</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">arguments</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-statistics" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">statistics</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return a basic hash of statistics for the connection keyed with
+`identifier`, `started_at`, and `subscriptions`. This can be returned by a
+health check against the connection.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="statistics-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">statistics</span>
+  {
+    <span class="ruby-identifier">identifier</span><span class="ruby-operator">:</span> <span class="ruby-identifier">connection_identifier</span>,
+    <span class="ruby-identifier">started_at</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@started_at</span>,
+    <span class="ruby-identifier">subscriptions</span><span class="ruby-operator">:</span> <span class="ruby-identifier">subscriptions</span>.<span class="ruby-identifier">identifiers</span>,
+    <span class="ruby-identifier">request_id</span><span class="ruby-operator">:</span> <span class="ruby-ivar">@env</span>[<span class="ruby-string">&#39;action_dispatch.request_id&#39;</span>]
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Protected Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-cookies" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cookies</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The cookies of the request that initiated the <a
+href="WebSocket.html">WebSocket</a> connection. Useful for performing
+authorization checks.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="cookies-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 149</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cookies</span>
+  <span class="ruby-identifier">request</span>.<span class="ruby-identifier">cookie_jar</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">request</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The request that initiated the <a href="WebSocket.html">WebSocket</a>
+connection is available here. This gives access to the environment,
+cookies, etc.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="request-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">request</span>
+  <span class="ruby-ivar">@request</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">environment</span> = <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">env_config</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">env</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>
+    <span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">environment</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">env</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-allow_request_origin-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">allow_request_origin?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="allow_request_origin-3F-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 195</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">allow_request_origin?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">server</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">disable_request_forgery_protection</span>
+
+  <span class="ruby-identifier">proto</span> = <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">env</span>).<span class="ruby-identifier">ssl?</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;https&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;http&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">server</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">allow_same_origin_as_host</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;HTTP_ORIGIN&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-node">&quot;#{proto}://#{env[&#39;HTTP_HOST&#39;]}&quot;</span>
+    <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">server</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">allowed_request_origins</span>).<span class="ruby-identifier">any?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">allowed_origin</span><span class="ruby-operator">|</span>  <span class="ruby-identifier">allowed_origin</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;HTTP_ORIGIN&quot;</span>] }
+    <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Request origin not allowed: #{env[&#39;HTTP_ORIGIN&#39;]}&quot;</span>)
+    <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-decode" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">decode</span><span
+            class="method-args">(websocket_message)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="decode-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">websocket_message</span>)
+  <span class="ruby-ivar">@coder</span>.<span class="ruby-identifier">decode</span> <span class="ruby-identifier">websocket_message</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-encode" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encode</span><span
+            class="method-args">(cable_message)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="encode-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 157</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">cable_message</span>)
+  <span class="ruby-ivar">@coder</span>.<span class="ruby-identifier">encode</span> <span class="ruby-identifier">cable_message</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-finished_request_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">finished_request_message</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="finished_request_message-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 237</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">finished_request_message</span>
+  <span class="ruby-string">&#39;Finished &quot;%s&quot;%s for %s at %s&#39;</span> <span class="ruby-operator">%</span> [
+    <span class="ruby-identifier">request</span>.<span class="ruby-identifier">filtered_path</span>,
+    <span class="ruby-identifier">websocket</span>.<span class="ruby-identifier">possible?</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39; [WebSocket]&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;[non-WebSocket]&#39;</span>,
+    <span class="ruby-identifier">request</span>.<span class="ruby-identifier">ip</span>,
+    <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_s</span> ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-handle_close" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">handle_close</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="handle_close-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 177</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">handle_close</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">finished_request_message</span>
+
+  <span class="ruby-identifier">server</span>.<span class="ruby-identifier">remove_connection</span>(<span class="ruby-keyword">self</span>)
+
+  <span class="ruby-identifier">subscriptions</span>.<span class="ruby-identifier">unsubscribe_from_all</span>
+  <span class="ruby-identifier">unsubscribe_from_internal_channel</span>
+
+  <span class="ruby-identifier">disconnect</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:disconnect</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-handle_open" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">handle_open</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="handle_open-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">handle_open</span>
+  <span class="ruby-ivar">@protocol</span> = <span class="ruby-identifier">websocket</span>.<span class="ruby-identifier">protocol</span>
+  <span class="ruby-identifier">connect</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:connect</span>)
+  <span class="ruby-identifier">subscribe_to_internal_channel</span>
+  <span class="ruby-identifier">send_welcome_message</span>
+
+  <span class="ruby-identifier">message_buffer</span>.<span class="ruby-identifier">process!</span>
+  <span class="ruby-identifier">server</span>.<span class="ruby-identifier">add_connection</span>(<span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">ActionCable</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span><span class="ruby-operator">::</span><span class="ruby-constant">Authorization</span><span class="ruby-operator">::</span><span class="ruby-constant">UnauthorizedError</span>
+  <span class="ruby-identifier">respond_to_invalid_request</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-invalid_request_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">invalid_request_message</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="invalid_request_message-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 245</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">invalid_request_message</span>
+  <span class="ruby-string">&#39;Failed to upgrade to WebSocket (REQUEST_METHOD: %s, HTTP_CONNECTION: %s, HTTP_UPGRADE: %s)&#39;</span> <span class="ruby-operator">%</span> [
+    <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;REQUEST_METHOD&quot;</span>], <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;HTTP_CONNECTION&quot;</span>], <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;HTTP_UPGRADE&quot;</span>]
+  ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-new_tagged_logger" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new_tagged_logger</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Tags are declared in the server but computed in the connection. This allows
+us per-connection tailored tags.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new_tagged_logger-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 223</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new_tagged_logger</span>
+  <span class="ruby-constant">TaggedLoggerProxy</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">server</span>.<span class="ruby-identifier">logger</span>,
+    <span class="ruby-identifier">tags</span><span class="ruby-operator">:</span> <span class="ruby-identifier">server</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">log_tags</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span><span class="ruby-operator">|</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:call</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">request</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">camelize</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-respond_to_invalid_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">respond_to_invalid_request</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="respond_to_invalid_request-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">respond_to_invalid_request</span>
+  <span class="ruby-identifier">close</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">websocket</span>.<span class="ruby-identifier">alive?</span>
+
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">invalid_request_message</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">finished_request_message</span>
+  [ <span class="ruby-value">404</span>, { <span class="ruby-string">&#39;Content-Type&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;text/plain&#39;</span> }, [ <span class="ruby-string">&#39;Page not found&#39;</span> ] ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-respond_to_successful_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">respond_to_successful_request</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="respond_to_successful_request-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 209</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">respond_to_successful_request</span>
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">successful_request_message</span>
+  <span class="ruby-identifier">websocket</span>.<span class="ruby-identifier">rack_response</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-send_welcome_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">send_welcome_message</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="send_welcome_message-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 188</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_welcome_message</span>
+  <span class="ruby-comment"># Send welcome message to the internal connection monitor channel.</span>
+  <span class="ruby-comment"># This ensures the connection monitor state is reset after a successful</span>
+  <span class="ruby-comment"># websocket connection.</span>
+  <span class="ruby-identifier">transmit</span> <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-constant">ActionCable</span><span class="ruby-operator">::</span><span class="ruby-constant">INTERNAL</span>[<span class="ruby-value">:message_types</span>][<span class="ruby-value">:welcome</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-started_request_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">started_request_message</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="started_request_message-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 228</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">started_request_message</span>
+  <span class="ruby-string">&#39;Started %s &quot;%s&quot;%s for %s at %s&#39;</span> <span class="ruby-operator">%</span> [
+    <span class="ruby-identifier">request</span>.<span class="ruby-identifier">request_method</span>,
+    <span class="ruby-identifier">request</span>.<span class="ruby-identifier">filtered_path</span>,
+    <span class="ruby-identifier">websocket</span>.<span class="ruby-identifier">possible?</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39; [WebSocket]&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;[non-WebSocket]&#39;</span>,
+    <span class="ruby-identifier">request</span>.<span class="ruby-identifier">ip</span>,
+    <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_s</span> ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-successful_request_message" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">successful_request_message</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="successful_request_message-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/connection/base.rb, line 251</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">successful_request_message</span>
+  <span class="ruby-string">&#39;Successfully upgraded to WebSocket (REQUEST_METHOD: %s, HTTP_CONNECTION: %s, HTTP_UPGRADE: %s)&#39;</span> <span class="ruby-operator">%</span> [
+    <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;REQUEST_METHOD&quot;</span>], <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;HTTP_CONNECTION&quot;</span>], <span class="ruby-identifier">env</span>[<span class="ruby-string">&quot;HTTP_UPGRADE&quot;</span>]
+  ]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

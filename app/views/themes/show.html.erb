@@ -1,0 +1,12 @@
+<div class="row form">
+  <div class="col-lg-12">
+  <% @themes.each do |theme| %>
+      <div class="group_action panel panel-default">
+      <div class="panel-body">
+      <p><%= theme.title %></p>
+        <a  class="btn btn-primary withripple", href="/rates/<%= theme.id %>">Rate</a>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module ActionCable::Channel::Streams - actioncable-5.0.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    <div id="extends-section" class="nav-section">
+  <h3>Extended With Modules</h3>
+
+  <ul class="link-list">
+    
+  
+    <li><span class="extend">ActiveSupport::Concern</span>
+  
+  
+  </ul>
+</div>
+
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-default_stream_handler">#default_stream_handler</a>
+    
+    <li ><a href="#method-i-identity_handler">#identity_handler</a>
+    
+    <li ><a href="#method-i-stop_all_streams">#stop_all_streams</a>
+    
+    <li ><a href="#method-i-stream_decoder">#stream_decoder</a>
+    
+    <li ><a href="#method-i-stream_for">#stream_for</a>
+    
+    <li ><a href="#method-i-stream_from">#stream_from</a>
+    
+    <li ><a href="#method-i-stream_handler">#stream_handler</a>
+    
+    <li ><a href="#method-i-stream_transmitter">#stream_transmitter</a>
+    
+    <li ><a href="#method-i-streams">#streams</a>
+    
+    <li ><a href="#method-i-worker_pool_stream_handler">#worker_pool_stream_handler</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-ActionCable::Channel::Streams">
+  <h1 id="module-ActionCable::Channel::Streams" class="module">
+    module ActionCable::Channel::Streams
+  </h1>
+
+  <section class="description">
+    
+<p><a href="Streams.html">Streams</a> allow channels to route broadcastings to
+the subscriber. A broadcasting is, as discussed elsewhere, a pubsub queue
+where any data placed into it is automatically sent to the clients that are
+connected at that time. It&#39;s purely an online queue, though. If
+you&#39;re not streaming a broadcasting at the very moment it sends out an
+update, you will not get that update, even if you connect after it has been
+sent.</p>
+
+<p>Most commonly, the streamed broadcast is sent straight to the subscriber on
+the client-side. The channel just acts as a connector between the two
+parties (the broadcaster and the channel subscriber). Here&#39;s an example
+of a channel that allows subscribers to get all new comments on a given
+page:</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">CommentsChannel</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">ApplicationCable</span><span class="ruby-operator">::</span><span class="ruby-constant">Channel</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">follow</span>(<span class="ruby-identifier">data</span>)
+    <span class="ruby-identifier">stream_from</span> <span class="ruby-node">&quot;comments_for_#{data[&#39;recording_id&#39;]}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">unfollow</span>
+    <span class="ruby-identifier">stop_all_streams</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>Based on the above example, the subscribers of this channel will get
+whatever data is put into the, let&#39;s say, `comments_for_45`
+broadcasting as soon as it&#39;s put there.</p>
+
+<p>An example broadcasting for this channel looks like so:</p>
+
+<pre class="ruby"><span class="ruby-constant">ActionCable</span>.<span class="ruby-identifier">server</span>.<span class="ruby-identifier">broadcast</span> <span class="ruby-string">&quot;comments_for_45&quot;</span>, <span class="ruby-identifier">author</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;DHH&#39;</span>, <span class="ruby-identifier">content</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Rails is just swell&#39;</span>
+</pre>
+
+<p>If you have a stream that is related to a model, then the broadcasting used
+can be generated from the model and channel. The following example would
+subscribe to a broadcasting like `comments:Z2lkOi8vVGVzdEFwcC9Qb3N0LzE`</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">CommentsChannel</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">ApplicationCable</span><span class="ruby-operator">::</span><span class="ruby-constant">Channel</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">subscribed</span>
+    <span class="ruby-identifier">post</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[:<span class="ruby-identifier">id</span>])
+    <span class="ruby-identifier">stream_for</span> <span class="ruby-identifier">post</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>You can then broadcast to this channel using:</p>
+
+<pre class="ruby"><span class="ruby-constant">CommentsChannel</span>.<span class="ruby-identifier">broadcast_to</span>(<span class="ruby-ivar">@post</span>, <span class="ruby-ivar">@comment</span>)
+</pre>
+
+<p>If you don&#39;t just want to parlay the broadcast unfiltered to the
+subscriber, you can also supply a callback that lets you alter what is sent
+out. The below example shows how you can use this to provide performance
+introspection in the process:</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">ChatChannel</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">ApplicationCable</span><span class="ruby-operator">::</span><span class="ruby-constant">Channel</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">subscribed</span>
+    <span class="ruby-ivar">@room</span> = <span class="ruby-constant">Chat</span><span class="ruby-operator">::</span><span class="ruby-constant">Room</span>[<span class="ruby-identifier">params</span>[:<span class="ruby-identifier">room_number</span>]]
+
+    <span class="ruby-identifier">stream_for</span> <span class="ruby-ivar">@room</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">JSON</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">message</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">message</span>[<span class="ruby-string">&#39;originated_at&#39;</span>].<span class="ruby-identifier">present?</span>
+        <span class="ruby-identifier">elapsed_time</span> = (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">message</span>[<span class="ruby-string">&#39;originated_at&#39;</span>]).<span class="ruby-identifier">round</span>(<span class="ruby-value">2</span>)
+
+        <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Notifications</span>.<span class="ruby-identifier">instrument</span> :<span class="ruby-identifier">performance</span>, <span class="ruby-identifier">measurement</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Chat.message_delay&#39;</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">:</span> <span class="ruby-identifier">elapsed_time</span>, <span class="ruby-identifier">action</span><span class="ruby-operator">:</span> :<span class="ruby-identifier">timing</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Message took #{elapsed_time}s to arrive&quot;</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">transmit</span> <span class="ruby-identifier">message</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>You can stop streaming from all broadcasts by calling <a
+href="Streams.html#method-i-stop_all_streams">stop_all_streams</a>.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-stop_all_streams" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stop_all_streams</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Unsubscribes all streams associated with this channel from the pubsub
+queue.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="stop_all_streams-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop_all_streams</span>
+  <span class="ruby-identifier">streams</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">callback</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">pubsub</span>.<span class="ruby-identifier">unsubscribe</span> <span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">callback</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;#{self.class.name} stopped streaming from #{broadcasting}&quot;</span>
+  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">clear</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stream_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stream_for</span><span
+            class="method-args">(model, callback = nil, coder: nil, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Start streaming the pubsub queue for the <code>model</code> in this
+channel. Optionally, you can pass a <code>callback</code> that&#39;ll be
+used instead of the default of just transmitting the updates straight to
+the subscriber.</p>
+
+<p>Pass `coder: ActiveSupport::JSON` to decode messages as JSON before passing
+to the callback. Defaults to `coder: nil` which does no decoding, passes
+raw messages.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="stream_for-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stream_for</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">callback</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">stream_from</span>(<span class="ruby-identifier">broadcasting_for</span>([ <span class="ruby-identifier">channel_name</span>, <span class="ruby-identifier">model</span> ]), <span class="ruby-identifier">callback</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">block</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-identifier">coder</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stream_from" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stream_from</span><span
+            class="method-args">(broadcasting, callback = nil, coder: nil, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Start streaming from the named <code>broadcasting</code> pubsub queue.
+Optionally, you can pass a <code>callback</code> that&#39;ll be used
+instead of the default of just transmitting the updates straight to the
+subscriber. Pass `coder: ActiveSupport::JSON` to decode messages as JSON
+before passing to the callback. Defaults to `coder: nil` which does no
+decoding, passes raw messages.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="stream_from-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stream_from</span>(<span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">callback</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">broadcasting</span> = <span class="ruby-constant">String</span>(<span class="ruby-identifier">broadcasting</span>)
+
+  <span class="ruby-comment"># Don&#39;t send the confirmation until pubsub#subscribe is successful</span>
+  <span class="ruby-identifier">defer_subscription_confirmation!</span>
+
+  <span class="ruby-comment"># Build a stream handler by wrapping the user-provided callback with</span>
+  <span class="ruby-comment"># a decoder or defaulting to a JSON-decoding retransmitter.</span>
+  <span class="ruby-identifier">handler</span> = <span class="ruby-identifier">worker_pool_stream_handler</span>(<span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">callback</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">block</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-identifier">coder</span>)
+  <span class="ruby-identifier">streams</span> <span class="ruby-operator">&lt;&lt;</span> [ <span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">handler</span> ]
+
+  <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">server</span>.<span class="ruby-identifier">event_loop</span>.<span class="ruby-identifier">post</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">pubsub</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">handler</span>, <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">ensure_confirmation_sent</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;#{self.class.name} is streaming from #{broadcasting}&quot;</span>
+    <span class="ruby-keyword">end</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Private Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-default_stream_handler" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">default_stream_handler</span><span
+            class="method-args">(broadcasting, coder:)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>May be overridden to change the default stream handling behavior which
+decodes JSON and transmits to client.</p>
+
+<p>TODO: Tests demonstrating this.</p>
+
+<p>TODO: Room for optimization. Update transmit API to be coder-aware so we
+can no-op when pubsub and connection are both JSON-encoded. Then we can
+skip decode+encode if we&#39;re just proxying messages.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="default_stream_handler-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">default_stream_handler</span>(<span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">coder</span>))
+  <span class="ruby-identifier">coder</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">JSON</span>
+  <span class="ruby-identifier">stream_transmitter</span> <span class="ruby-identifier">stream_decoder</span>(<span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-identifier">coder</span>), <span class="ruby-identifier">broadcasting</span><span class="ruby-operator">:</span> <span class="ruby-identifier">broadcasting</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-identity_handler" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">identity_handler</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="identity_handler-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 169</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">identity_handler</span>
+  <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">message</span> { <span class="ruby-identifier">message</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stream_decoder" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stream_decoder</span><span
+            class="method-args">(handler = identity_handler, coder:)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stream_decoder-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 153</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stream_decoder</span>(<span class="ruby-identifier">handler</span> = <span class="ruby-identifier">identity_handler</span>, <span class="ruby-identifier">coder</span>))
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">coder</span>
+    <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">message</span> { <span class="ruby-identifier">handler</span>.(<span class="ruby-identifier">coder</span>.<span class="ruby-identifier">decode</span>(<span class="ruby-identifier">message</span>)) }
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">handler</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stream_handler" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stream_handler</span><span
+            class="method-args">(broadcasting, user_handler, coder: nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>May be overridden to add instrumentation, logging, specialized error
+handling, or other forms of handler decoration.</p>
+
+<p>TODO: Tests demonstrating this.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="stream_handler-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 132</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stream_handler</span>(<span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">user_handler</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_handler</span>
+    <span class="ruby-identifier">stream_decoder</span> <span class="ruby-identifier">user_handler</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-identifier">coder</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">default_stream_handler</span> <span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-identifier">coder</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stream_transmitter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stream_transmitter</span><span
+            class="method-args">(handler = identity_handler, broadcasting:)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stream_transmitter-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stream_transmitter</span>(<span class="ruby-identifier">handler</span> = <span class="ruby-identifier">identity_handler</span>, <span class="ruby-identifier">broadcasting</span>))
+  <span class="ruby-identifier">via</span> = <span class="ruby-node">&quot;streamed from #{broadcasting}&quot;</span>
+
+  <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">message</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">transmit</span> <span class="ruby-identifier">handler</span>.(<span class="ruby-identifier">message</span>), <span class="ruby-identifier">via</span><span class="ruby-operator">:</span> <span class="ruby-identifier">via</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-streams" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">streams</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="streams-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">streams</span>
+  <span class="ruby-ivar">@_streams</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-worker_pool_stream_handler" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">worker_pool_stream_handler</span><span
+            class="method-args">(broadcasting, user_handler, coder: nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Always wrap the outermost handler to invoke the user handler on the worker
+pool rather than blocking the event loop.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="worker_pool_stream_handler-source">
+            <pre><span class="ruby-comment"># File lib/action_cable/channel/streams.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">worker_pool_stream_handler</span>(<span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">user_handler</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">handler</span> = <span class="ruby-identifier">stream_handler</span>(<span class="ruby-identifier">broadcasting</span>, <span class="ruby-identifier">user_handler</span>, <span class="ruby-identifier">coder</span><span class="ruby-operator">:</span> <span class="ruby-identifier">coder</span>)
+
+  <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">message</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">worker_pool</span>.<span class="ruby-identifier">async_invoke</span> <span class="ruby-identifier">handler</span>, <span class="ruby-value">:call</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">connection</span><span class="ruby-operator">:</span> <span class="ruby-identifier">connection</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

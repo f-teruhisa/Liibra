@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Nio4r.java - nio4r-1.2.1 Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../../";
+</script>
+
+<script src="../../../../js/jquery.js"></script>
+<script src="../../../../js/darkfish.js"></script>
+
+<link href="../../../../css/fonts.css" rel="stylesheet">
+<link href="../../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../../ext/libev/Changes.html">Changes</a>
+  
+    <li><a href="../../../../ext/libev/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../../../ext/libev/README.html">README</a>
+  
+    <li><a href="../../../../ext/libev/README_embed.html">README.embed</a>
+  
+    <li><a href="../../../../ext/nio4r/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../../ext/nio4r/org/nio4r/Nio4r_java.html">Nio4r.java</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page ext/nio4r/org/nio4r/Nio4r.java">
+
+<p>package org.nio4r;</p>
+
+<p>import java.util.Iterator; import java.util.Map; import java.util.HashMap;
+import java.io.IOException; import java.nio.channels.Channel; import
+java.nio.channels.SocketChannel; import
+java.nio.channels.SelectableChannel; import java.nio.channels.SelectionKey;
+import org.jruby.Ruby; import org.jruby.RubyModule; import
+org.jruby.RubyClass; import org.jruby.RubyObject; import org.jruby.RubyIO;
+import org.jruby.RubyNumeric; import org.jruby.RubyArray; import
+org.jruby.anno.JRubyMethod; import org.jruby.runtime.ObjectAllocator;
+import org.jruby.runtime.ThreadContext; import
+org.jruby.runtime.load.Library; import
+org.jruby.runtime.builtin.IRubyObject; import org.jruby.runtime.Block;</p>
+
+<p>public class Nio4r implements Library {</p>
+
+<pre>private Ruby ruby;
+
+public void load(final Ruby ruby, boolean bln) {
+    this.ruby = ruby;
+
+    RubyModule nio = ruby.defineModule(&quot;NIO&quot;);
+
+    RubyClass selector = ruby.defineClassUnder(&quot;Selector&quot;, ruby.getObject(), new ObjectAllocator() {
+        public IRubyObject allocate(Ruby ruby, RubyClass rc) {
+            return new Selector(ruby, rc);
+        }
+    }, nio);
+
+    selector.defineAnnotatedMethods(Selector.class);
+
+    RubyClass monitor = ruby.defineClassUnder(&quot;Monitor&quot;, ruby.getObject(), new ObjectAllocator() {
+        public IRubyObject allocate(Ruby ruby, RubyClass rc) {
+            return new Monitor(ruby, rc);
+        }
+    }, nio);
+
+    monitor.defineAnnotatedMethods(Monitor.class);
+}
+
+public static int symbolToInterestOps(Ruby ruby, SelectableChannel channel, IRubyObject interest) {
+    if(interest == ruby.newSymbol(&quot;r&quot;)) {
+        if((channel.validOps() &amp; SelectionKey.OP_ACCEPT) != 0) {
+          return SelectionKey.OP_ACCEPT;
+        } else {
+          return SelectionKey.OP_READ;
+        }
+    } else if(interest == ruby.newSymbol(&quot;w&quot;)) {
+        if(channel instanceof SocketChannel &amp;&amp; !((SocketChannel)channel).isConnected()) {
+            return SelectionKey.OP_CONNECT;
+        } else {
+            return SelectionKey.OP_WRITE;
+        }
+    } else if(interest == ruby.newSymbol(&quot;rw&quot;)) {
+        int interestOps = 0;
+
+           nio4r emulates the POSIX behavior, which is sloppy about allowed modes   
+        if((channel.validOps() &amp; (SelectionKey.OP_READ | SelectionKey.OP_ACCEPT)) != 0) {
+            interestOps |= symbolToInterestOps(ruby, channel, ruby.newSymbol(&quot;r&quot;));
+        }
+
+        if((channel.validOps() &amp; (SelectionKey.OP_WRITE | SelectionKey.OP_CONNECT)) != 0) {
+            interestOps |= symbolToInterestOps(ruby, channel, ruby.newSymbol(&quot;w&quot;));
+        }
+
+        return interestOps;
+    } else {
+        throw ruby.newArgumentError(&quot;invalid interest type: &quot; + interest);
+    }
+}
+
+public static IRubyObject interestOpsToSymbol(Ruby ruby, int interestOps) {
+    switch(interestOps) {
+        case SelectionKey.OP_READ:
+        case SelectionKey.OP_ACCEPT:
+            return ruby.newSymbol(&quot;r&quot;);
+        case SelectionKey.OP_WRITE:
+        case SelectionKey.OP_CONNECT:
+            return ruby.newSymbol(&quot;w&quot;);
+        case SelectionKey.OP_READ | SelectionKey.OP_CONNECT:
+        case SelectionKey.OP_READ | SelectionKey.OP_WRITE:
+            return ruby.newSymbol(&quot;rw&quot;);
+        default:
+            throw ruby.newArgumentError(&quot;unknown interest op combination&quot;);
+    }
+}
+
+public class Selector extends RubyObject {
+    private java.nio.channels.Selector selector;
+    private HashMap&lt;SelectableChannel,SelectionKey&gt; cancelledKeys;
+
+    public Selector(final Ruby ruby, RubyClass rubyClass) {
+        super(ruby, rubyClass);
+    }
+
+    @JRubyMethod
+    public IRubyObject initialize(ThreadContext context) {
+        this.cancelledKeys = new HashMap&lt;SelectableChannel,SelectionKey&gt;();
+        try {
+            this.selector = java.nio.channels.Selector.open();
+        } catch(IOException ie) {
+            throw context.runtime.newIOError(ie.getLocalizedMessage());
+        }
+
+        return context.nil;
+    }
+
+    @JRubyMethod
+    public IRubyObject close(ThreadContext context) {
+        try {
+            this.selector.close();
+        } catch(IOException ie) {
+            throw context.runtime.newIOError(ie.getLocalizedMessage());
+        }
+
+        return context.nil;
+    }
+
+    @JRubyMethod(name = &quot;closed?&quot;)
+    public IRubyObject isClosed(ThreadContext context) {
+        Ruby runtime = context.getRuntime();
+        return this.selector.isOpen() ? runtime.getFalse() : runtime.getTrue();
+    }
+
+    @JRubyMethod(name = &quot;empty?&quot;)
+    public IRubyObject isEmpty(ThreadContext context) {
+        Ruby runtime = context.getRuntime();
+        return this.selector.keys().isEmpty() ? runtime.getTrue() : runtime.getFalse();
+    }
+
+    @JRubyMethod
+    public IRubyObject register(ThreadContext context, IRubyObject io, IRubyObject interests) {
+        Ruby runtime = context.getRuntime();
+        Channel rawChannel = RubyIO.convertToIO(context, io).getChannel();
+
+        if(!this.selector.isOpen()) {
+            throw context.getRuntime().newIOError(&quot;selector is closed&quot;);
+        }
+
+        if(!(rawChannel instanceof SelectableChannel)) {
+            throw runtime.newArgumentError(&quot;not a selectable IO object&quot;);
+        }
+
+        SelectableChannel channel = (SelectableChannel)rawChannel;
+
+        try {
+            channel.configureBlocking(false);
+        } catch(IOException ie) {
+            throw runtime.newIOError(ie.getLocalizedMessage());
+        }
+
+        int interestOps = Nio4r.symbolToInterestOps(runtime, channel, interests);
+        SelectionKey key;
+
+        key = this.cancelledKeys.remove(channel);
+
+        if(key != null) {
+            key.interestOps(interestOps);
+        } else {
+            try {
+                key = channel.register(this.selector, interestOps);
+            } catch(java.lang.IllegalArgumentException ia) {
+                throw runtime.newArgumentError(&quot;mode not supported for this object: &quot; + interests);
+            } catch(java.nio.channels.ClosedChannelException cce) {
+                throw context.runtime.newIOError(cce.getLocalizedMessage());
+            }
+        }
+
+        RubyClass monitorClass = runtime.getModule(&quot;NIO&quot;).getClass(&quot;Monitor&quot;);
+        Monitor monitor = (Monitor)monitorClass.newInstance(context, io, interests, this, null);
+        monitor.setSelectionKey(key);
+
+        return monitor;
+    }
+
+    @JRubyMethod
+    public IRubyObject deregister(ThreadContext context, IRubyObject io) {
+        Ruby runtime = context.getRuntime();
+        Channel rawChannel = RubyIO.convertToIO(context, io).getChannel();
+
+        if(!(rawChannel instanceof SelectableChannel)) {
+            throw runtime.newArgumentError(&quot;not a selectable IO object&quot;);
+        }
+
+        SelectableChannel channel = (SelectableChannel)rawChannel;
+        SelectionKey key = channel.keyFor(this.selector);
+
+        if(key == null)
+            return context.nil;
+
+        Monitor monitor = (Monitor)key.attachment();
+        monitor.close(context, runtime.getFalse());
+        cancelledKeys.put(channel, key);
+
+        return monitor;
+    }
+
+    @JRubyMethod(name = &quot;registered?&quot;)
+    public IRubyObject isRegistered(ThreadContext context, IRubyObject io) {
+        Ruby runtime = context.getRuntime();
+        Channel rawChannel = RubyIO.convertToIO(context, io).getChannel();
+
+        if(!(rawChannel instanceof SelectableChannel)) {
+            throw runtime.newArgumentError(&quot;not a selectable IO object&quot;);
+        }
+
+        SelectableChannel channel = (SelectableChannel)rawChannel;
+        SelectionKey key = channel.keyFor(this.selector);
+
+        if(key == null)
+            return context.nil;
+
+        if(((Monitor)key.attachment()).isClosed(context) == runtime.getTrue()) {
+            return runtime.getFalse();
+        } else {
+            return runtime.getTrue();
+        }
+    }
+
+    @JRubyMethod
+    public synchronized IRubyObject select(ThreadContext context, Block block) {
+        return select(context, context.nil, block);
+    }
+
+    @JRubyMethod
+    public synchronized IRubyObject select(ThreadContext context, IRubyObject timeout, Block block) {
+        Ruby runtime = context.getRuntime();
+
+        if(!this.selector.isOpen()) {
+            throw context.getRuntime().newIOError(&quot;selector is closed&quot;);
+        }
+
+        int ready = doSelect(runtime, context, timeout);
+
+           Timeout or wakeup   
+        if(ready &lt;= 0)
+            return context.nil;
+
+        RubyArray array = null;
+        if(!block.isGiven()) {
+            array = runtime.newArray(this.selector.selectedKeys().size());
+        }
+
+        Iterator selectedKeys = this.selector.selectedKeys().iterator();
+        while(selectedKeys.hasNext()) {
+            SelectionKey key = (SelectionKey)selectedKeys.next();
+            processKey(key);
+            selectedKeys.remove();
+
+            if(block.isGiven()) {
+                block.call(context, (IRubyObject)key.attachment());
+            } else {
+                array.add(key.attachment());
+            }
+        }
+
+        if(block.isGiven()) {
+            return RubyNumeric.int2fix(runtime, ready);
+        } else {
+            return array;
+        }
+    }
+
+    /* Run the selector */
+    private int doSelect(Ruby runtime, ThreadContext context, IRubyObject timeout) {
+        int result;
+
+        cancelKeys();
+        try {
+            context.getThread().beforeBlockingCall();
+            if(timeout.isNil()) {
+                result = this.selector.select();
+            } else {
+                double t = RubyNumeric.num2dbl(timeout);
+                if(t == 0) {
+                    result = this.selector.selectNow();
+                } else if(t &lt; 0) {
+                    throw runtime.newArgumentError(&quot;time interval must be positive&quot;);
+                } else {
+                    long timeoutMilliSeconds = (long)(t * 1000);
+                    if(timeoutMilliSeconds == 0) {
+                      result = this.selector.selectNow();
+                    } else {
+                      result = this.selector.select(timeoutMilliSeconds);
+                    }
+                }
+            }
+            context.getThread().afterBlockingCall();
+            return result;
+        } catch(IOException ie) {
+            throw runtime.newIOError(ie.getLocalizedMessage());
+        }
+    }
+
+    /* Flush our internal buffer of cancelled keys */
+    private void cancelKeys() {
+        Iterator cancelledKeys = this.cancelledKeys.entrySet().iterator();
+        while(cancelledKeys.hasNext()) {
+            Map.Entry entry = (Map.Entry)cancelledKeys.next();
+            SelectionKey key = (SelectionKey)entry.getValue();
+            key.cancel();
+            cancelledKeys.remove();
+        }
+    }
+
+    // Remove connect interest from connected sockets
+    // See: http://stackoverflow.com/questions/204186/java-nio-select-returns-without-selected-keys-why
+    private void processKey(SelectionKey key) {
+        if((key.readyOps() &amp; SelectionKey.OP_CONNECT) != 0) {
+            int interestOps = key.interestOps();
+
+            interestOps &amp;= ~SelectionKey.OP_CONNECT;
+            interestOps |=  SelectionKey.OP_WRITE;
+
+            key.interestOps(interestOps);
+        }
+    }
+
+    @JRubyMethod
+    public IRubyObject wakeup(ThreadContext context) {
+        if(!this.selector.isOpen()) {
+            throw context.getRuntime().newIOError(&quot;selector is closed&quot;);
+        }
+
+        this.selector.wakeup();
+        return context.nil;
+    }
+}
+
+public class Monitor extends RubyObject {
+    private SelectionKey key;
+    private RubyIO io;
+    private IRubyObject interests, selector, value, closed;
+
+    public Monitor(final Ruby ruby, RubyClass rubyClass) {
+        super(ruby, rubyClass);
+    }
+
+    @JRubyMethod
+    public IRubyObject initialize(ThreadContext context, IRubyObject selectable, IRubyObject interests, IRubyObject selector) {
+        this.io        = RubyIO.convertToIO(context, selectable);
+        this.interests = interests;
+        this.selector  = selector;
+
+        this.value  = context.nil;
+        this.closed = context.getRuntime().getFalse();
+
+        return context.nil;
+    }
+
+    public void setSelectionKey(SelectionKey key) {
+        this.key = key;
+        key.attach(this);
+    }
+
+    @JRubyMethod(name = &quot;interests=&quot;)
+    public IRubyObject setInterests(ThreadContext context, IRubyObject interests) {
+        if(this.closed == context.getRuntime().getTrue()) {
+            throw context.getRuntime().newTypeError(&quot;monitor is already closed&quot;);
+        }
+
+        int interestOps = 0;
+        Ruby runtime = context.getRuntime();
+        Channel rawChannel = io.getChannel();
+        SelectableChannel channel = (SelectableChannel)rawChannel;
+
+        this.interests = interests;
+
+        if(interests == ruby.newSymbol(&quot;r&quot;)) {
+            interestOps = SelectionKey.OP_READ;
+        } else if(interests == ruby.newSymbol(&quot;w&quot;)) {
+            interestOps = SelectionKey.OP_WRITE;
+        } else if(interests == ruby.newSymbol(&quot;rw&quot;)) {
+            interestOps = SelectionKey.OP_READ|SelectionKey.OP_WRITE;
+        }
+
+        if((interestOps &amp; ~(channel.validOps())) == 0) {
+            key.interestOps(interestOps);
+        } else {
+            throw context.getRuntime().newArgumentError(&quot;given interests not supported for this IO object&quot;);
+        }
+
+        return this.interests;
+    }
+
+    @JRubyMethod
+    public IRubyObject io(ThreadContext context) {
+        return io;
+    }
+
+    @JRubyMethod
+    public IRubyObject selector(ThreadContext context) {
+        return selector;
+    }
+
+    @JRubyMethod
+    public IRubyObject interests(ThreadContext context) {
+        return interests;
+    }
+
+    @JRubyMethod
+    public IRubyObject readiness(ThreadContext context) {
+        return Nio4r.interestOpsToSymbol(context.getRuntime(), key.readyOps());
+    }
+
+    @JRubyMethod(name = &quot;readable?&quot;)
+    public IRubyObject isReadable(ThreadContext context) {
+        Ruby runtime  = context.getRuntime();
+        int  readyOps = this.key.readyOps();
+
+        if((readyOps &amp; SelectionKey.OP_READ) != 0 || (readyOps &amp; SelectionKey.OP_ACCEPT) != 0) {
+            return runtime.getTrue();
+        } else {
+            return runtime.getFalse();
+        }
+    }
+
+    @JRubyMethod(name = {&quot;writable?&quot;, &quot;writeable?&quot;})
+    public IRubyObject writable(ThreadContext context) {
+        Ruby runtime  = context.getRuntime();
+        int  readyOps = this.key.readyOps();
+
+        if((readyOps &amp; SelectionKey.OP_WRITE) != 0 || (readyOps &amp; SelectionKey.OP_CONNECT) != 0) {
+            return runtime.getTrue();
+        } else {
+            return runtime.getFalse();
+        }
+    }
+
+    @JRubyMethod(name = &quot;value&quot;)
+    public IRubyObject getValue(ThreadContext context) {
+        return this.value;
+    }
+
+    @JRubyMethod(name = &quot;value=&quot;)
+    public IRubyObject setValue(ThreadContext context, IRubyObject obj) {
+        this.value = obj;
+        return context.nil;
+    }
+
+    @JRubyMethod
+    public IRubyObject close(ThreadContext context) {
+        return close(context, context.getRuntime().getTrue());
+    }
+
+    @JRubyMethod
+    public IRubyObject close(ThreadContext context, IRubyObject deregister) {
+        Ruby runtime = context.getRuntime();
+        this.closed = runtime.getTrue();
+
+        if(deregister == runtime.getTrue()) {
+            selector.callMethod(context, &quot;deregister&quot;, io);
+        }
+
+        return context.nil;
+    }
+
+    @JRubyMethod(name = &quot;closed?&quot;)
+    public IRubyObject isClosed(ThreadContext context) {
+        return this.closed;
+    }
+}</pre>
+
+<p>}</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.3.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
