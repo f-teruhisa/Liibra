@@ -1,8 +1,9 @@
 <%= render partial: 'common/header' %>
 <div class="row form user_profile">
   <div class="col-lg-12">
-    <div class="image" style="background-image: url(<%= @user.avatar.url(:medium) %>);"></div>
-    <h3><%= @user.name %><span><%= @user.name_kana %></span></h3>
+    <div class="image" style="background-image: url(<%= @user.avatar.url(:medium) %>); width: 150px; height: 150px; margin: 15px;"></div>
+    <p><h4><%= @user.name %></h4>
+    <%= @user.name_kana %></p>
     <% if current_user.id == @user.id %>
       <div class="profile_edit">
         <%= link_to 'Edit', edit_user_path(current_user), {class: 'btn btn-primary withripple' }%>
