@@ -874,6 +874,7 @@ fieldset[disabled] .btn-link:focus {
   font-size: 17px;
   line-height: 1.471;
   border-radius: 6px;
+  background-color: transparent;
 }
 .btn-sm {
   padding: 9px 13px;

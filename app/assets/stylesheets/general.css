@@ -20,7 +20,7 @@ body, html {
 
 .abcen{position: absolute;bottom: 8%;}
 
-.abcen1{position: absolute;top: 0;}
+.abcen1{position: absolute;top: 5%;}
 
 .content-section-c {
 	border-top: 1px solid #32465A;
@@ -242,14 +242,13 @@ color: #ECEBEB;
 }
 
 .intro-header {
-	height: 100%;
+	height: 100vh;
 	padding-top: 50px;
 	padding-bottom: 50px;
 	color: #f8f8f8;
 	background: url(../img/intro/intro5.jpg) no-repeat center center;
 	background-size: cover;
 	text-align: center;
-	z-index: 999;
 }
 
 .intro-message {
@@ -1066,7 +1065,7 @@ color: #ECEBEB;
 			padding-top: 50px;
 			padding-bottom: 50px;
 			color: #f8f8f8;
-		    background-image: none; 
+		  background-image: none; 
 			background-size: cover;
 			text-align: center;
 			background-color: #34495e;

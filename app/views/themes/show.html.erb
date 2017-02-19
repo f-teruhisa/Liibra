@@ -6,7 +6,9 @@
   <% @themes.each do |theme| %>
       <div class="group_action panel panel-default">
       <div class="panel-body">
-      <p><%= theme.title %></p>
+      <p><h4><%= theme.title %></h4></p>
+      <div class="image" style="background-image: url(<%= theme.image_url %>); width: 100px; height: 100px; margin: 15px;"></div>
+      <p><%= theme.information %></p>
         <a  class="btn btn-primary withripple", href="/rates/<%= theme.id %>">Rate</a>
       </div>
     </div>
