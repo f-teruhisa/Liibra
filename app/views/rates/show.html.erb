@@ -1,3 +1,4 @@
+<html>
 <body id="home">
 
   <!-- Preloader -->
@@ -5,19 +6,25 @@
     <div id="status"></div>
   </div>
 
-  <!-- FullScreen -->
+  <!-- RateScreen -->
     <div class="intro-header">
     <div class="col-xs-12 text-center abcen1">
       <h1 class="h1_home wow fadeIn" data-wow-delay="0.4s">Rating!</h1>
       <ul class="list-inline intro-social-buttons">
         <li id="download" >
-          <a href="/new" class="btn  btn-lg mybutton_standard wow swing wow fadeIn" data-wow-delay="1.2s"><span class="network-name">Start!</span></a>
+          <form method="post" action="">
+            <span class="network-name">
+              <input type="button" class="btn  btn-lg mybutton_standard wow swing wow fadeIn" data-wow-delay="1.2s" onclick="location.href='new.html'" value="Start!" />
+            </span>
+          </form>
         </li>
       </ul>
     </div>
+
+
         <!-- /.container -->
     <div class="col-xs-12 text-center abcen wow fadeIn">
-      <div class="button_down "> 
+      <div class="button_down ">
         <a class="imgcircle wow bounceInUp" data-wow-duration="1.5s"  href="#whatis"></a>
       </div>
     </div>
@@ -33,11 +40,11 @@
 
       <div class="col-md-6 col-md-offset-3 text-center wrap_title">
         <h2>Ranking</h2>
-        
+
       </div>
-      
+
       <div class="row">
-      
+
         <div class="col-sm-4 wow fadeInDown text-center">
           <img class="rotate" src="img/icon/tweet.svg" alt="Generic placeholder image">
           <h3>Altanative</h3>
@@ -45,14 +52,14 @@
 
           <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
         </div><!-- /.col-lg-4 -->
-        
+
         <div class="col-sm-4 wow fadeInDown text-center">
           <img  class="rotate" src="img/icon/picture.svg" alt="Generic placeholder image">
            <h3>Aggregate</h3>
            <p class="lead">Countless subjectivity, to only objective. </p>
            <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
         </div><!-- /.col-lg-4 -->
-        
+
         <div class="col-sm-4 wow fadeInDown text-center">
           <img  class="rotate" src="img/icon/retina.svg" alt="Generic placeholder image">
            <h3>Theme</h3>
@@ -75,37 +82,37 @@
       </div>
         <div class="row wow bounceInUp" >
               <div id="owl-demo" class="owl-carousel">
-        
+
         <a href="img/slide/1.png" class="image-link">
           <div class="item">
             <img  class="img-responsive img-rounded" src="img/slide/1.png" alt="Owl Image">
           </div>
         </a>
-        
+
                <a href="img/slide/2.png" class="image-link">
           <div class="item">
             <img  class="img-responsive img-rounded" src="img/slide/2.png" alt="Owl Image">
           </div>
         </a>
-        
+
         <a href="img/slide/3.png" class="image-link">
           <div class="item">
             <img  class="img-responsive img-rounded" src="img/slide/3.png" alt="Owl Image">
           </div>
         </a>
-        
+
         <a href="img/slide/1.png" class="image-link">
           <div class="item">
             <img  class="img-responsive img-rounded" src="img/slide/1.png" alt="Owl Image">
           </div>
         </a>
-        
+
                <a href="img/slide/2.png" class="image-link">
           <div class="item">
             <img  class="img-responsive img-rounded" src="img/slide/2.png" alt="Owl Image">
           </div>
         </a>
-        
+
         <a href="img/slide/3.png" class="image-link">
           <div class="item">
             <img  class="img-responsive img-rounded" src="img/slide/3.png" alt="Owl Image">
@@ -122,7 +129,7 @@
         <div class="col-md-6 col-md-offset-3 text-center wrap_title">
         <h2>Result Rist</h2>
         <p class="lead" style="margin-top:0">View the result of this theme</p>
-        <p><a class="btn btn-embossed btn-primary view" href="" role="button">View</a></p> 
+        <p><a class="btn btn-embossed btn-primary view" href="" role="button">View</a></p>
        </div>
       </div>
     </div>
@@ -130,32 +137,20 @@
 
  <%= render partial: 'common/footer' %>
 
-    <!-- JavaScript -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
-  <script src="js/owl.carousel.js"></script>
-  <script src="js/script.js"></script>
-  <!-- StikyMenu -->
-  <script src="js/stickUp.min.js"></script>
   <script type="text/javascript">
     jQuery(function($) {
     $(document).ready( function() {
       $('.navbar-default').stickUp();
-      
+
     });
     });
-  
+
   </script>
-  <!-- Smoothscroll -->
-  <script type="text/javascript" src="js/jquery.corner.js"></script> 
-  <script src="js/wow.min.js"></script>
+
   <script>
    new WOW().init();
   </script>
-  <script src="js/classie.js"></script>
-  <script src="js/uiMorphingButton_inflow.js"></script>
-  <!-- Magnific Popup core JS file -->
-  <script src="js/jquery.magnific-popup.js"></script> 
+
 </body>
 
 </html>
