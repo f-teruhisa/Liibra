@@ -1,0 +1,259 @@
+/* Screen */
+
+.intro-rate {
+	height: 100vh;
+  width: auto;
+	background-size: cover;
+	text-align: center;
+	position: relative;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.clearfix:after{
+	content: "";
+	clear: both;
+	display: block;
+	background-color: rgba(0,0,0,0.5);
+}
+
+/* Element */
+.ele {
+  float: inherit;
+  background-color: #ffffff;
+  height: 35vh;
+  width: 100vh;
+  padding: 20px;
+  position: relative;
+  margin: 20px auto;
+}
+
+.ele_image{
+	 width: 15vh;
+	 height: 15vh;
+	 margin: 20px auto;
+	 padding: 15px;
+	 position: relative;
+}
+
+/* Skip Button */
+.btn-skip {
+  margin:0 30px auto;
+  z-index: 1;
+  animation-delay: 1.2s;
+	padding: 10px 19px;
+	margin-bottom: 0;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	font-size: 17px;
+	font-weight: normal;
+	line-height: 1.471;
+	border-radius: 6px;
+	background-color: transparent;
+	border: 1px solid #fff;
+  color: #fff;
+	transition: border .25s linear, color .25s linear, background-color .25s linear;
+	-webkit-font-smoothing: subpixel-antialiased;
+	visibility: visible;
+}
+
+/* Theme */
+.theme-inner{
+
+	width: 30%;
+	padding: 30px auto;
+	position: relative;
+	margin: 30px auto;
+	border: 30px auto;
+	text-align: center;
+	background-color: #ffffff;
+}
+
+
+/* Devise */
+.intro-devise {
+	height: 100%;
+  width: auto;
+	background: url(../img/intro/intro-math.png) no-repeat center center;
+	background-size: cover;
+	text-align: center;
+	position: relative;
+}
+
+.inner{
+	width: 30%;
+	padding: 30px;
+	position: relative;
+	margin: 30px auto;
+	text-align: center;
+	background-color: #ffffff;
+}
+
+/* Serch */
+.icon-search{
+    background:url(../img/search.png) no-repeat scroll 0 0;
+}
+
+.search_form{
+	position: relative;
+	margin: 10px auto;
+}
+
+.search_query{
+	position: absolute;
+  background-color:#ffffff;
+  border:1px solid #aaa;
+  -webkit-border-radius:6px;
+  -moz-border-radius:6px;
+  -o-border-radius:6px;
+  -ms-border-radius:6px;
+  border-radius:6px;
+  padding:8px 0 8px 8px;
+  width:70%;
+  height:24px;
+  line-height:24px;
+}
+
+/* Form wrapper styling */
+
+.form-wrapper {
+    margin: 0 auto;
+		position: relative;
+
+}
+
+/* Form text input */
+
+.form-wrapper input {
+    width: 330px;
+    height: 40px;
+    padding: 10px 5px;
+		margin: 0 auto;
+    font: bold 15px;
+    border: 0;
+    background: #eee;
+    border-radius: 3px 0 0 3px;
+		position: relative;
+}
+
+.form-wrapper input:focus {
+    outline: 0;
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0,0,0,.1) inset;
+		margin: 0 auto;
+}
+
+.form-wrapper input::-webkit-input-placeholder {
+   color: #999;
+	 margin: 0 auto;
+}
+
+.form-wrapper input:-moz-placeholder {
+    color: #999;
+		margin: 0 auto;
+}
+
+.form-wrapper input:-ms-input-placeholder {
+    color: #999;
+    margin: 0 auto;
+}
+
+/* Form submit button */
+.form-wrapper button {
+    overflow: visible;
+    position: relative;
+		font-size: 15px;
+		font-weight: normal;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 110px;
+    font: bold 15px/40px;
+    color: #fff;
+    text-transform: uppercase;
+		-webkit-font-smoothing: subpixel-antialiased;
+		transition: border .25s linear, color .25s linear, background-color .25s linear;
+    background: #1abc9c;
+    border-radius: 0 3px 3px 0;
+		margin: 0 auto;
+}
+
+.form-wrapper button:hover{
+    background: #1abc9c;
+}
+
+.form-wrapper button:active,
+.form-wrapper button:focus{
+    background: #1abc9c;
+		outline: 0;
+		margin: 0 auto;
+}
+
+.form-wrapper button:before { /* left arrow */
+    content: '';
+    position: absolute;
+    border-width: 8px 8px 8px 0;
+    border-color: transparent #1abc9c transparent;
+    top: 12px;
+    left: -6px;
+		margin: 0 auto;
+}
+
+.form-wrapper button:hover:before{
+    border-right-color: #1abc9c;
+}
+
+.form-wrapper button:focus:before,
+.form-wrapper button:active:before{
+        border-right-color: #1abc9c;
+}
+
+.form-wrapper button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
+    border: 0;
+    padding: 0;
+}
+.cf:before, .cf:after{
+    content:"";
+    display:table;
+}
+
+.cf:after{
+    clear:both;
+}
+
+.cf{
+    zoom:1;
+		margin: 0 auto;
+		position: relative;
+}
+
+
+/* index */
+
+.banner-index {
+	padding: 100px 0;
+	color: #f8f8f8;
+	background: url(../img/intro/banner1-bg.jpg) no-repeat center center;
+	background-size: cover;
+}
+
+.intro-theme {
+	height: 100vh;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: #f8f8f8;
+	background: url(../img/intro/intro-theme.jpg) no-repeat center center;
+	background-size: cover;
+	text-align: center;
+}
+
+.intro-rates {
+	height: 100vh;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: #f8f8f8;
+	background-color: rgba(0,0,0,0.5);
+	background-size: cover;
+	text-align: center;
+}
