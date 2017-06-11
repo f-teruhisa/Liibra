@@ -236,6 +236,7 @@ color: #ECEBEB;
 	font-weight: 400 !important;
 }
 
+
 .lead {
 	font-size: 16px;
 	font-weight: 400;
@@ -246,7 +247,17 @@ color: #ECEBEB;
 	padding-top: 50px;
 	padding-bottom: 50px;
 	color: #f8f8f8;
-	background: url(../img/intro/intro5.jpg) no-repeat center center;
+	background: url(../img/intro/intro6.jpg) no-repeat center center;
+	background-size: cover;
+	text-align: center;
+}
+
+.intro-top {
+	height: 100vh;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: #f8f8f8;
+	background: url(../img/intro/intro6.jpg) no-repeat center center;
 	background-size: cover;
 	text-align: center;
 }
@@ -283,14 +294,6 @@ color: #ECEBEB;
 	margin-top: 10px;
 }
 
-.intro-rate {
-	height: 100vh;
-	background-color: #1E2138;
-	background-size: cover;
-	text-align: center;
-	position: relative;
-}
-
 .network-name {
 	font-size: 14px;
 	font-weight: 400;
@@ -321,7 +324,7 @@ color: #ECEBEB;
 .banner {
 	padding: 100px 0;
 	color: #f8f8f8;
-	background: url(../img/intro/banner-bg.jpg) no-repeat center center;
+	background: url(/img/intro/banner-bg.jpg) no-repeat center center;
 	background-size: cover;
 }
 

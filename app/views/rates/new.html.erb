@@ -1,7 +1,29 @@
 
-  <!-- RateScreen -->
-    <div class="intro-rate">
-      <div class="col-xs-12 text-center abcen1" style="position: absolute; margin: 0 auto;">
-       <input type="button" class="btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated" value="Skip" onclick="OnButtonClick();"/>
-     </div>
-    </div>
+<% provide :title, "｜Rate" %>
+<body>
+<div class="intro-rate clearfix">
+  <ul>
+    <% i = 0 %>
+    <li>
+    <%= form_for @result, :url => {:action => 'update'},  remote: true do |f| %>
+    <%= f.label :name %>
+    <%= f.submit class: 'btn wow tada btn-embossed btn-primary pull-center', value: 'Post' %>
+    <% end %>
+    <form name="scale" method="PUT" action="new" class="ele" id="<%= i %>" onclick="scale">
+      <h3 class="title"><%= element.name %></h3>
+      <div class="ele_image" style="background-image: url(<%= element.image_url %>);"></div>
+      <%= link_to 'Detail', "http://ja.wikipedia.org#{element.link}", { :class => "btn wow tada btn-embossed btn-primary pull-center" }  %>
+    </form>
+    <% if i == 0 %>
+    <form>
+      <input type="button" class="btn-skip" value="Skip" data-wow-delay="1.2s" onclick="skip()">
+      <input type="button" class="btn-skip" value="End" data-wow-delay="1.2s" onclick="end()">
+    </form>
+    <% i += 1 %>
+    <% end %>
+    </li>
+
+    </ul>
+</div>
+</div>
+</body>

@@ -11,26 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218115023) do
+ActiveRecord::Schema.define(version: 20170325131300) do
 
   create_table "elements", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.text     "image_url",  limit: 65535
-    t.integer  "score",      limit: 4
-    t.text     "themes_id",  limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.text     "link",       limit: 65535
   end
 
-  create_table "themes", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "image_url",   limit: 65535
-    t.text     "group_id",    limit: 65535
-    t.text     "information", limit: 65535
+  create_table "results", force: :cascade do |t|
+    t.integer  "score",       limit: 4
+    t.text     "themes_id",   limit: 65535
+    t.text     "elements_id", limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.string   "user_id",     limit: 255
+  end
+
+  create_table "themes", force: :cascade do |t|
+    t.string   "title",                  limit: 255
+    t.text     "group_id",               limit: 65535
+    t.text     "user_id",                limit: 65535
+    t.text     "information",            limit: 65535
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "image_url_file_name",    limit: 255
+    t.string   "image_url_content_type", limit: 255
+    t.integer  "image_url_file_size",    limit: 4
+    t.datetime "image_url_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

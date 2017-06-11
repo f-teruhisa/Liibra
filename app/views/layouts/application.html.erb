@@ -2,10 +2,11 @@
 <html lang="ja">
 <html>
 <head>
-  <title>Libra</title>
+  <title>Libra<%= yield :title %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag %>
 </head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +18,7 @@
     <!-- Custom Google Web Font -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
 
 <body>
 <script type='text/javascript' charset='utf-8'>
@@ -25,6 +26,7 @@
         $.material.init();
       });
     </script>
+
     <div class='container'>
       <div class='row'>
         <div class='col-lg-12'>

@@ -26,21 +26,7 @@
     </div>
   </div>
 
-  <nav class="navbar-default" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#home">Libra</a>
-      </div>
-      <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
-        <ul class="nav navbar-nav">
-          <li class="menuItem"><a href="#whatis">What is?</a></li>
-          <li class="menuItem"><a href="#howtouse">How to use</a></li>
-          <li class="menuItem"><a href="#elorating">Elo Rating</a></li>
-          <li class="menuItem"><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<%= render partial: 'common/top_header' %>
   <!-- What is -->
   <div id="whatis" class="content-section-b" style="border-top: 0">
     <div class="container">
@@ -52,7 +38,7 @@
       <div class="row">
 
         <div class="col-sm-4 wow fadeInDown text-center animated animated">
-          <img class="rotate" src="img/icon/tweet.svg" alt="Generic placeholder image">
+          <img class="rotate" src="img/icon/libra.png" alt="Generic placeholder image">
           <h3>Altanative</h3>
           <p class="lead">It is the alternative that you do. That's it. </p>
 
@@ -60,7 +46,7 @@
         </div><!-- /.col-lg-4 -->
 
         <div class="col-sm-4 wow fadeInDown text-center">
-          <img  class="rotate" src="img/icon/picture.svg" alt="Generic placeholder image">
+          <img  class="rotate" src="img/icon/aggregate.png" alt="Generic placeholder image">
            <h3>Aggregate</h3>
            <p class="lead">Countless subjectivity, to only objective. </p>
            <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
@@ -83,22 +69,22 @@
        </div>
 
         <div class="col-sm-4  wow fadeInDown text-center">
-          <img class="rotate" src="img/icon/retina.svg" alt="Generic placeholder image">
+          <img class="rotate" src="img/icon/choose.png" alt="Generic placeholder image">
           <h3>Choose</h3>
           <p class="lead">Sign in and choose the theme you are interested in. </p>
          <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
         </div><!-- /.col-lg-4 -->
 
         <div class="col-sm-4 wow fadeInDown text-center">
-          <img  class="rotate" src="img/icon/map.svg" alt="Generic placeholder image">
+          <img  class="rotate" src="img/icon/swipe.png" alt="Generic placeholder image">
            <h3>Swipe</h3>
            <p class="lead">Select one side according to the theme. </p>
            <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
         </div><!-- /.col-lg-4 -->
 
         <div class="col-sm-4 wow fadeInDown text-center">
-          <img  class="rotate" src="img/icon/browser.svg" alt="Generic placeholder image">
-           <h3>Rating</h3>
+          <img  class="rotate" src="img/icon/ranking.png" alt="Generic placeholder image">
+           <h3>Ranking</h3>
          <p class="lead">We collect many swipes and make ratings. </p>
           <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
         </div><!-- /.col-lg-4 -->
@@ -113,7 +99,7 @@
         <div class="container">
             <div class="row">
         <div class="col-sm-6 pull-right wow fadeInRightBig">
-                    <img class="img-responsive " src="img/ipad.png" alt="">
+                    <img class="img-responsive " src="img/chess.jpg" alt="">
                 </div>
                 <div class="col-sm-6 wow fadeInLeftBig"  data-animation-delay="200">
                     <h3 class="section-heading">Elo Rating</h3>
@@ -174,7 +160,7 @@
           <address>
           <h3>Made By</h3>
           <h4>Teruhisa Fukumoto</h4>
-          <%= image_tag("img/icon/me.svg", :class=> "rotate" , :alt=> "Generic placeholder image") %>
+          <img class="rotate" src="img/icon/me.svg" style="width:80px; height:80px;" alt="Generic placeholder image">
           <%= link_to "My Facebook", "https://www.facebook.com/teruhisa.fukumoto" %>
           <p class="lead"><a href="https://www.google.co.jp/maps/place/兵庫県宝塚市/@34.8671766,135.2738085,12z/data=!3m1!4b1!4m5!3m4!1s0x60005f7a56557af9:0xc7a7391c822060c4!8m2!3d34.7997673!4d135.3600729">Japan<br>
           Hyogo, Takarazuka</a><br>

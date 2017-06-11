@@ -56,3 +56,7 @@ gem 'font-awesome-rails'
 gem 'sprockets'
 gem 'slim'
 gem 'sprockets-rails'
+gem "gon"
+gem 'kaminari'
+gem 'carrierwave'
+gem 'fog'

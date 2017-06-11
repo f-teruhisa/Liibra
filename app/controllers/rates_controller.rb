@@ -1,24 +1,38 @@
 class RatesController < ApplicationController
-  before_action :authenticate_user!
 
   def index
-
+    @theme = Theme.find(params[:theme_id])
+    @results = Result.where(themes_id:params[:theme_id])
+    @elements = Element.all
+    @ranks = @results.order("score DESC")
   end
 
   def show
+    @theme = Theme.find(params[:theme_id])
+    @results = Result.where(themes_id:params[:theme_id])
+    @result = @results.order("RAND()").limit(2)
+    @elements = Element.all
+    sum = 0
+    @result.each do |result|
+      @element = @elements.find(result.elements_id)
+      # スコア計算をするため、２つの候補のスコアの和を求めsumとする
+      sum += result.score
+    end
+    @sum = sum
   end
 
   def new
-
   end
 
-  def create
-    Rate.create(create_params)
+  def update
+    # submitボタンからhidden_field_tagの値を送り、更新
+    result = Result.find(params[:result_id])
+    result.update(update_params)
   end
 
   private
-  def create_params
-    params.require(:question).permit(:text).merge(user_id: current_user.id, group_id: current_user.group_id)
+  def update_params
+    params.permit(:score)
   end
 
 end

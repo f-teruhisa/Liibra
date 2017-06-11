@@ -1,23 +1,20 @@
+<% provide :title, "｜Theme" %>
+
 <%= render partial: 'common/header' %>
+<div class="intro-devise">
+  <div class="inner" style="display: inline-block;">
 <h3>Post Your Theme</h3>
-
     <%= form_for(@theme) do |f| %>
-
-      <div class='input-group'>
       <%= f.label :Title %>
       <%= f.text_field :title, placeholder: "Title", class: "form-control.placeholder" %>
-      </div>
 
-      <div class='input-group'>
       <%= f.label :Information %>
       <%= f.text_field :information, placeholder: "Information", class: "form-control.placeholder" %>
-      </div>
-
 
       <%= f.label :Image %>
       <%= f.file_field :image_url, placeholder: "Theme Image", class: "form-control" %>
       <br><%= f.submit "Post", class: "btn btn-primary withripple" %>
-
     <% end %>
-
+  </div>
+</div>
 <%= render partial: 'common/footer' %>
