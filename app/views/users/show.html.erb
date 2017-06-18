@@ -1,10 +1,13 @@
+<% provide :title, "｜#{@user.name}" %>
+
 <%= render partial: 'common/header' %>
-<div class="row form user_profile">
-  <div class="col-lg-12">
-    <div class="image" style="background-image: url(<%= @user.avatar.url(:medium) %>); width: 150px; height: 150px; margin: 15px;"></div>
+
+<div class="intro-devise">
+  <div class="inner" style="display: inline-block;">
+    <div class="image" style="background-image: url(<%= @user.avatar.url(:medium) %>); width: 150px; height: 150px; margin: 15px auto;"></div>
     <p><h4><%= @user.name %></h4>
-    <%= @user.name_kana %></p>
-    <% if current_user.id == @user.id %>
+      <%= @user.name_kana %></p>
+  <% if current_user.id == @user.id %>
       <div class="profile_edit">
         <%= link_to 'Edit', edit_user_path(current_user), {class: 'btn btn-primary withripple' }%>
       </div>

@@ -1,7 +1,7 @@
 /*
 Theme: Flatfy Theme
 Author: Andrea Galanti
-Bootstrap Version 
+Bootstrap Version
 Build: 1.0
 http://www.andreagalanti.it
 */
@@ -20,7 +20,7 @@ body, html {
 
 .abcen{position: absolute;bottom: 8%;}
 
-.abcen1{position: absolute;top: 0;}
+.abcen1{position: absolute;top: 5%;}
 
 .content-section-c {
 	border-top: 1px solid #32465A;
@@ -134,7 +134,7 @@ filter: alpha(opacity=95) !important;
 }
 
 
-/* Button */ 
+/* Button */
 .mybutton_standard {
 	border: 1px solid #fff;
 	color: #fff;
@@ -154,7 +154,7 @@ filter: alpha(opacity=95) !important;
 
 .button_down img {
 width: 50px;
-	
+
 }
 .btn-primary {
 	border-color: rgba(52, 73, 94, 0);
@@ -166,11 +166,11 @@ width: 50px;
 	font-size: 30px;
 	text-decoration: none;
 	list-style-type: none;
-	color: #1abc9c; 
+	color: #1abc9c;
 }
 
 .social > a:hover {
-	color: #1abc9c; 
+	color: #1abc9c;
 }
 
 .box-icon {
@@ -201,10 +201,10 @@ background: #1abc9c !important;
 .navbar {
 	position: relative;
 	min-height: 60px;
-	margin-bottom: 0; 
+	margin-bottom: 0;
 	width: 100%;
 	z-index: 999;
-	border-radius: 0; 
+	border-radius: 0;
 }
 
 .navbar-default {
@@ -212,7 +212,7 @@ background: #1abc9c !important;
 	min-height: 60px;
 	width: 100%;
 	z-index: 999;
-	
+
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -236,20 +236,30 @@ color: #ECEBEB;
 	font-weight: 400 !important;
 }
 
+
 .lead {
 	font-size: 16px;
 	font-weight: 400;
 }
 
 .intro-header {
-	height: 100%;
+	height: 100vh;
 	padding-top: 50px;
 	padding-bottom: 50px;
 	color: #f8f8f8;
-	background: url(../img/intro/intro5.jpg) no-repeat center center;
+	background: url(../img/intro/intro6.jpg) no-repeat center center;
 	background-size: cover;
 	text-align: center;
-	z-index: 999;
+}
+
+.intro-top {
+	height: 100vh;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: #f8f8f8;
+	background: url(../img/intro/intro6.jpg) no-repeat center center;
+	background-size: cover;
+	text-align: center;
 }
 
 .intro-message {
@@ -284,7 +294,6 @@ color: #ECEBEB;
 	margin-top: 10px;
 }
 
-
 .network-name {
 	font-size: 14px;
 	font-weight: 400;
@@ -293,13 +302,13 @@ color: #ECEBEB;
 
 .content-section-a {
 	background-color: #f8f8f8;
-	padding: 90px 0; 
+	padding: 90px 0;
 }
 
 .content-section-b {
 	border-top: 1px solid #e7e7e7;
 	border-bottom: 1px solid #e7e7e7;
-	padding: 90px 0; 
+	padding: 90px 0;
 }
 
 .section-heading {
@@ -315,7 +324,7 @@ color: #ECEBEB;
 .banner {
 	padding: 100px 0;
 	color: #f8f8f8;
-	background: url(../img/intro/banner-bg.jpg) no-repeat center center;
+	background: url(/img/intro/banner-bg.jpg) no-repeat center center;
 	background-size: cover;
 }
 
@@ -325,22 +334,22 @@ color: #ECEBEB;
     -moz-transition-duration: 0.8s;
     -o-transition-duration: 0.8s;
     transition-duration: 0.8s;
-     
+
     -webkit-transition-property: -webkit-transform;
     -moz-transition-property: -moz-transform;
     -o-transition-property: -o-transform;
     transition-property: transform;
-     
+
     overflow:hidden;
- 
-    }  
- 
-.rotate:hover  
+
+    }
+
+.rotate:hover
 {
     -webkit-transform:rotate(360deg);
     -moz-transform:rotate(360deg);
     -o-transform:rotate(360deg);
-}  
+}
 
 
 
@@ -592,7 +601,7 @@ color: #ECEBEB;
 
 .morph-button-inflow.open .content-style-social a {
 	-webkit-transform: translateX(0);
-	transform: translateX(0);	
+	transform: translateX(0);
 }
 
 .morph-button-inflow.open .content-style-social a:nth-child(2) {
@@ -705,7 +714,7 @@ color: #ECEBEB;
 .morph-button-overlay.open .morph-content,
 .morph-button-sidebar.open .morph-content {
 	-webkit-transition: width 0.4s 0.1s, height 0.4s 0.1s, top 0.4s 0.1s, left 0.4s 0.1s;
-	transition: width 0.4s 0.1s, height 0.4s 0.1s, top 0.4s 0.1s, left 0.4s 0.1s;	
+	transition: width 0.4s 0.1s, height 0.4s 0.1s, top 0.4s 0.1s, left 0.4s 0.1s;
 }
 
 /* Morph Button Style: Overlay */
@@ -1040,22 +1049,22 @@ color: #ECEBEB;
 
 /* 960 Screens */
 @media only screen and (min-width: 960px) and (max-width: 1250px) {
-	
+
 }
 @media only screen and (min-width: 768px) and (max-width: 820px) {
-	
+
 }
 /* Tablet */
 @media only screen and (min-width: 768px) and (max-width: 959px) {
-	
+
 		h1, .h1 {
 			font-size: 50px;
 		}
-		
+
 		h3, .h3 {
 			font-size: 20px;
 		}
-		
+
 }
 
 
@@ -1066,37 +1075,37 @@ color: #ECEBEB;
 			padding-top: 50px;
 			padding-bottom: 50px;
 			color: #f8f8f8;
-		    background-image: none; 
+		  background-image: none;
 			background-size: cover;
 			text-align: center;
 			background-color: #34495e;
 		}
-		
+
 		h1, .h1 {
 			font-size: 50px;
 		}
-		
+
 		h3, .h3 {
 			font-size: 20px;
 		}
 		#gallery1{display:none}
-		
+
 		.button_down {display:none}
-		
-		
+
+
 	}
 
 /* Mobile Landscape */
-@media only screen and (min-width: 480px) and (max-width: 767px) { 
-	
-	
-	
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+
+
 }
 
 /* Mobile Portrait */
 @media only screen and (max-width: 479px) {
-	
-	
+
+
 }
 @media screen and (max-width: 600px) {
 	.morph-button-modal.open .morph-content {
@@ -1170,7 +1179,7 @@ color: #ECEBEB;
 	ul.banner-social-buttons {
 		float: left;
 		margin-top: 15px;
-	}	
+	}
 }
 
 @media (max-width: 767px) {
@@ -1188,7 +1197,7 @@ color: #ECEBEB;
 
 	ul.banner-social-buttons > li:last-child {
 		margin-bottom: 0;
-	}	
+	}
 }
 
 footer {
@@ -1232,7 +1241,7 @@ p.copyright {
 	}
 
 	.mockup-right {
-		
+
 	}
 
 	.joiner {

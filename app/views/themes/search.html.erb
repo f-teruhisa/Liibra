@@ -1,0 +1,22 @@
+<% provide :title, "｜Theme" %>
+
+<%= render partial: 'common/header' %>
+
+<div class="intro-devise">
+  <%= render partial: 'common/search_form' %>
+  <div class="inner" style="display: inline-block;">
+    <% @themes.each do |theme| %>
+      <div class="group_action panel panel-default" style="margin: 10px;">
+      <div class="panel-body">
+      <p><h4><%= theme.title %></h4></p>
+      <div class="image" style="background-image: url(<%= theme.image_url %>); width: 150px; height: 150px; margin: 15px auto;"></div>
+      <p><%= theme.information %></p>
+        <a  class="btn btn-primary withripple", href="/themes/<%= theme.id %>/rates">Rate</a>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
+<%= paginate(@themes) %>
+
+<%= render partial: 'common/footer' %>

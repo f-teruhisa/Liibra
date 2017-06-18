@@ -1,34 +1,42 @@
+<% provide :title, "｜User Edit" %>
+
 <%= render partial: 'common/header' %>
-<h3 margin:15px;>My Page Edit</h3>
-<div class="row form">
-  <div class="col-lg-12">
+
+<div class="intro-devise">
+  <div class="inner" style="display: inline-block;">
+    <h3  style="margin: 15px;">Edit Your Account!</h3>
     <div class="form-group">
-    <%= form_for current_user do |f| %>
-    <h4>Your Avatar</h4>
-      <div class="form-group file">
+      <%= form_for current_user do |f| %>
+      <h4>Your Avatar</h4>
+
+      <div class="form-group file" style="margin: 10px;">
         <%= f.file_field :avatar, class: "form-control", placeholder: "Upload" %>
       </div>
 
       <h4>User Information</h4>
-        <div class='input-group'>
+        <div class='input-group' style="margin: 10px;">
+          Family name
           <%= f.text_field :family_name, placeholder: "Family name", class: "form-control" %>
         </div>
 
-        <div class='input-group'>
+        <div class='input-group' style="margin: 10px;">
+          Family kana name
+          <%= f.text_field :first_name_kana, placeholder: "セイ", class: "form-control" %>
+        </div>
+
+        <div class='input-group' style="margin: 10px;">
+          First name
           <%= f.text_field :first_name, placeholder: "First name", class: "form-control" %>
         </div>
 
-        <div class='input-group'>
-          <%= f.text_field :family_name_kana, placeholder: "セイ", class: "form-control" %>
-        </div>
-
-        <div class='input-group'>
-          <%= f.text_field :first_name_kana, placeholder: "メイ", class: "form-control" %>
+        <div class='input-group' style="margin: 10px;">
+          First kana name
+          <%= f.text_field :family_name_kana, placeholder: "メイ", class: "form-control" %>
         </div>
 
         <br><%= f.submit "Send", class: "btn btn-primary withripple" %>
     <% end %>
-   </div>
   </div>
+    </div>
 </div>
 <%= render partial: 'common/footer' %>

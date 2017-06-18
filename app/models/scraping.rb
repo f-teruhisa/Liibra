@@ -21,7 +21,7 @@ def self.category_serch
     name = element.text
     image_url = image_serch(element[:href])
     link = element[:href]
-    elements = Element.new(name: name, image_url: image_url, link: link , score: 1500)
+    elements = Element.new(name: name, image_url: image_url, link: link)
     elements.save
   end
   end
