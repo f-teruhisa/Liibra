@@ -1,10 +1,36 @@
+require 'kconv'
+require 'csv'
+
 class RatesController < ApplicationController
+
+  def to_csv
+    csv_str = CSV.generate do |csv|
+      csv_column_names = %w(id name score updated_at)
+      csv << csv_column_names
+      @results.each do |result|
+        element = @elements.find(result.elements_id)
+        csv_column_values = [
+          result.elements_id,
+          element.name,
+          result.score,
+          result.updated_at
+        ]
+        csv << csv_column_values
+      end
+    end
+
+    NKF::nkf('--sjis -Lw', csv_str)
+  end
 
   def index
     @theme = Theme.find(params[:theme_id])
     @results = Result.where(themes_id:params[:theme_id])
     @elements = Element.all
     @ranks = @results.order("score DESC")
+    respond_to do |format|
+      format.html
+      format.csv { send_data to_csv, filename: "#{@theme.title}.csv"}
+    end
   end
 
   def show
