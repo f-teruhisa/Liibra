@@ -11,7 +11,7 @@
       <p><h4><%= theme.title %></h4></p>
       <div class="image" style="background-image: url(<%= theme.image_url %>); width: 150px; height: 150px; margin: 15px auto;"></div>
       <p><%= theme.information %></p>
-        <a  class="btn btn-primary withripple", href="/themes/<%= theme.id %>/rates">Rate</a>
+        <%= link_to 'Rating', "/genres/#{@genre.id}/themes/#{theme.id}/rates", method: :get, :class =>"btn btn-primary withripple" %>
       </div>
     </div>
   <% end %>

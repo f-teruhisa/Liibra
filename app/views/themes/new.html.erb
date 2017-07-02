@@ -4,7 +4,7 @@
 <div class="intro-devise">
   <div class="inner" style="display: inline-block;">
 <h3>Post Your Theme</h3>
-    <%= form_for(@theme) do |f| %>
+    <%= form_for @theme,:url => {:action => :create} do |f| %>
       <%= f.label :Title %>
       <%= f.text_field :title, placeholder: "Title", class: "form-control.placeholder" %>
 
@@ -13,6 +13,7 @@
 
       <%= f.label :Image %>
       <%= f.file_field :image_url, placeholder: "Theme Image", class: "form-control" %>
+
       <br><%= f.submit "Post", class: "btn btn-primary withripple" %>
     <% end %>
   </div>

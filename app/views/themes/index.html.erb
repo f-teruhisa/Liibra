@@ -12,6 +12,7 @@
     <div class="intro-theme">
     <div class="col-xs-12 text-center abcen1">
       <h1 class="h1_home wow fadeIn animated animated" style="visibility: visible; animation-delay: 0.4s;">Theme</h1>
+      <h3 class="h3_home wow fadeIn animated animated" style="visibility: visible; animation-delay: 0.4s;"><%= @genre.name %></h3>
       <p class="h3_home wow fadeIn animated animated" style="visibility: visible; animation-delay: 0.4s;">Choose & Registrate Your Themes.</p>
     </div>
         <!-- /.container -->
@@ -38,24 +39,24 @@
       <div class="row">
 
         <div class="col-sm-4 wow fadeInDown text-center">
-        <a href ="/themes/show">
-          <img class="rotate" src="img/icon/library.png" alt="Generic placeholder image">
+        <a href ="/genres/<%= @genre.id %>/themes/show">
+          <img class="rotate" src="/img/icon/library.png" alt="Generic placeholder image">
           <h3>Choose</h3>
           <p class="lead">Please Choose the theme. </p>
           <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
         </div><!-- /.col-lg-4 -->
 
         <div class="col-sm-4 wow fadeInDown text-center">
-          <a href ="/themes/new">
-          <img  class="rotate" src="img/icon/registration.png" alt="Generic placeholder image">
+          <a href ="/genres/<%= @genre.id %>/themes/new">
+          <img  class="rotate" src="/img/icon/registration.png" alt="Generic placeholder image">
            <h3>Registration</h3>
            <p class="lead">The best theme, with yours.</p>
            <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
         </div><!-- /.col-lg-4 -->
 
         <div class="col-sm-4 wow fadeInDown text-center">
-        <a href ="/themes/search">
-          <img  class="rotate" src="img/icon/search.png" alt="Generic placeholder image">
+        <a href ="/genres/<%= @genre.id %>/themes/search">
+          <img  class="rotate" src="/img/icon/search.png" alt="Generic placeholder image">
            <h3>Serch</h3>
           <p class="lead">Serch the themes.</p>
           <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
@@ -72,7 +73,7 @@
             <div class="row">
 
         <div class="col-sm-6 pull-right wow fadeInRightBig">
-                    <img class="img-responsive " src="img/graph.jpg" alt="">
+                    <img class="img-responsive " src="/img/graph.jpg" alt="">
                 </div>
 
                 <div class="col-sm-6 wow fadeInLeftBig"  data-animation-delay="200">
@@ -99,7 +100,7 @@
             <div class="row">
                 <div class="col-sm-6 wow fadeInLeftBig">
               <div class="item">
-                <img  class="img-responsive img-rounded" src="img/hot-theme.jpg" alt="">
+                <img  class="img-responsive img-rounded" src="/img/hot-theme.jpg" alt="">
               </div>
             </a>
                 </div>

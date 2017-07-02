@@ -9,7 +9,6 @@
       <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
         <ul class="nav navbar-nav">
           <% if user_signed_in? %>
-          <li class="menuItem"><%= link_to "Theme",  { :controller => "themes", :action => "index" } , class: "nav navbar-nav" %></li>
           <li class="menuItem"><%= link_to "My Page", user_path(current_user) %></li>
           <li class="menuItem"><%= link_to "Edit", edit_user_path(current_user) %></li>
           <li class="menuItem"><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>

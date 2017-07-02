@@ -2,10 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:show, :edit, :update, :destroy]
   root 'top#index'
-  resources :themes do
-    resources :rates, only: [:index, :new, :edit, :show, :update]
-    collection do
-      get :search
+  resources :genres do
+    resources :themes do
+      resources :rates, only: [:index, :new, :edit, :show, :update]
+      collection do
+        get :search
+      end
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

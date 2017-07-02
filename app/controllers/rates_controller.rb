@@ -23,6 +23,7 @@ class RatesController < ApplicationController
   end
 
   def index
+    @genre = Genre.find(params[:genre_id])
     @theme = Theme.find(params[:theme_id])
     @results = Result.where(themes_id:params[:theme_id])
     @elements = Element.all

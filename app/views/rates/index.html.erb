@@ -16,7 +16,7 @@
         <li id="download" >
           <form method="post" action="">
             <span class="network-name">
-              <a href="/themes/<%= @theme.id %>/rates/show" class="btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated" data-wow-delay="1.2s" style="visibility: visible; animation-delay: 1.2s;">Rating!</a>
+              <a href="/genres/<%= @genre.id %>/themes/<%= @theme.id %>/rates/show" class="btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated" data-wow-delay="1.2s" style="visibility: visible; animation-delay: 1.2s;">Rating!</a>
               <h4 class="h3_home wow fadeIn" data-wow-delay="0.6s"><%= @theme.information %></h3>
             </span>
           </form>
@@ -103,7 +103,7 @@
         <div class="col-md-6 col-md-offset-3 text-center wrap_title">
         <h2>Detail Rist</h2>
         <p class="lead" style="margin-top:0">Output the result of this theme in csv.</p>
-        <p><%= link_to "Output", theme_rates_path(format: :csv), class: "btn btn-embossed btn-primary view" %></p>
+        <p><%= link_to "Output", genre_theme_rates_path(format: :csv), class: "btn btn-embossed btn-primary view" %></p>
        </div>
       </div>
     </div>
