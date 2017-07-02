@@ -1,0 +1,19 @@
+<% provide :title, "｜Genre" %>
+
+  <!-- NavBar-->
+<%= render partial: 'common/header' %>
+<div class="intro-devise">
+  <div class="theme-inner" style="display: inline-block;">
+    <% @genres.each do |genre| %>
+      <div class="group_action panel panel-default" style="margin: 10px;">
+        <div class="panel-body">
+          <p><h4><%= genre.name %></h4></p>
+          <div class="image" style="background-image: url(<%= genre.image_url %>); width: 150px; height: 150px; margin: 15px auto;"></div>
+          <%= link_to 'Select Theme', "genres/#{genre.id}/themes", method: :get, :class =>"btn btn-primary withripple" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: 'common/footer' %>
