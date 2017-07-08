@@ -55,6 +55,7 @@ class RatesController < ApplicationController
     # submitボタンからhidden_field_tagの値を送り、更新
     result = Result.find(params[:result_id])
     result.update(update_params)
+    redirect_to :action => "show"
   end
 
   private

@@ -9,7 +9,7 @@
         <div class="panel-body">
           <p><h4><%= genre.name %></h4></p>
           <div class="image" style="background-image: url(<%= genre.image_url %>); width: 150px; height: 150px; margin: 15px auto;"></div>
-          <%= link_to 'Select Theme', "genres/#{genre.id}/themes", method: :get, :class =>"btn btn-primary withripple" %>
+          <%= link_to 'Select', "genres/#{genre.id}/themes", method: :get, :class =>"btn btn-primary withripple" %>
         </div>
       </div>
     <% end %>

@@ -1,6 +1,6 @@
 <% i = 0 %>
 <% @result.each do |result| %>
-<%= form_for result, :url => {:action => 'update'}, html: {class: 'ele'} do |f| %>
+<%= form_for result, :url => {:action => 'update'}, html: {class: 'ele'}, remote: true do |f| %>
 <% element = @elements.find(result.elements_id) %>
 <h3 class="title"><%= element.name %></h3>
 <div class="ele_image" style="background-image: url(<%= element.image_url %>);"></div>
@@ -21,8 +21,8 @@ end
 <% end %>
 <% if i == 0 %>
 <form>
-  <input type="button" class="btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated" style="margin:0 30px auto;" value="Skip" onclick="skip()">
-  <%= link_to "End", "../", class: "btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated", style: "margin:0 30px auto;" %>
+  <%= link_to "Skip", " ", class: "btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated", style: "margin:0 30px auto;" %>
+  <%= link_to "End", "..", class: "btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated", style: "margin:0 30px auto;" %>
 </form>
 <% i += 1 %>
 <% end %>
