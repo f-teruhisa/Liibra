@@ -3,7 +3,9 @@
 <%= form_for result, :url => {:action => 'update'}, html: {class: 'ele'}, remote: true do |f| %>
 <% element = @elements.find(result.elements_id) %>
 <h3 class="title"><%= element.name %></h3>
+<a href = "https://wikipedia.org<%= element.link %>">
 <div class="ele_image" style="background-image: url(<%= element.image_url %>);"></div>
+</a>
 <%= f.hidden_field_tag :result_id, "#{result.id}" %>
 <%= f.submit('Select', :class => 'btn wow tada btn-embossed btn-primary pull-center') -%>
 <!-- スコア計算 -->

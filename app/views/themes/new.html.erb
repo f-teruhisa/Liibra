@@ -2,8 +2,8 @@
 
 <%= render partial: 'common/header' %>
 <div class="intro-devise">
+  <h2 class="h3_home wow fadeIn" data-wow-delay="0.6s">Post Your Theme!</h2>
   <div class="inner" style="display: inline-block;">
-<h3>Post Your Theme</h3>
     <%= form_for @theme,:url => {:action => :create} do |f| %>
       <%= f.label :Title %>
       <%= f.text_field :title, placeholder: "Title", class: "form-control.placeholder" %>

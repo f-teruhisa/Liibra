@@ -2,8 +2,8 @@ class ThemesController < ApplicationController
   before_action :authenticate_user!, :only => [:new, :create]
 
   def index
-    @theme = Theme.all
     @genre = Genre.find(params[:genre_id])
+    @theme = Theme.all
   end
 
   def new
@@ -12,12 +12,13 @@ class ThemesController < ApplicationController
 
   def create
     @theme = Theme.create(create_theme_params)
-    @elements = Element.all
+    @elements = Element.where('genre_id LIKE(?)', "#{params[:genre_id]}")
     # 各themeのスコア表resultsを作る
     @elements.each do |ele|
       @result = Result.new
       @result.elements_id = ele.id
       @result.themes_id = @theme.id
+      @result.genre_id = params[:genre_id]
       @result.score = 1500
       @result.save
     end
@@ -25,13 +26,13 @@ class ThemesController < ApplicationController
   end
 
   def show
-    @themes = Theme.all.order('updated_at DESC').page(params[:page]).per(6)
     @genre = Genre.find(params[:genre_id])
+    @themes = Theme.where('genre_id LIKE(?)', "#{params[:genre_id]}").order('updated_at DESC').page(params[:page]).per(6)
   end
 
   def search
     @genre = Genre.find(params[:genre_id])
-    @themes = Theme.where('title LIKE(?)', "%#{params[:keyword]}%").page(params[:page]).per(6)
+    @themes = Theme.where('genre_id LIKE(?)', "#{params[:genre_id]}").where('title LIKE(?)', "%#{params[:keyword]}%").page(params[:page]).per(6)
   end
 
   def destroy
