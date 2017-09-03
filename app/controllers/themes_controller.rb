@@ -37,8 +37,8 @@ class ThemesController < ApplicationController
 
   def destroy
     theme = Theme.find(params[:id])
-    theme.destroy if theme.user_id == current_user.id
-    redirect_to :action => "index"
+    theme.destroy if theme.user_id.to_i == current_user.id
+    redirect_to :action => "show"
   end
 
   private

@@ -10,15 +10,7 @@ class User < ActiveRecord::Base
   # association
   has_many :themes
 
-  def name
-    "#{family_name} #{first_name}"
-  end
-
   def full_profile?
-    avatar? && family_name? && first_name? && family_name_kana? && first_name_kana?
-  end
-
-  def name_kana
-    "#{family_name_kana} #{first_name_kana}"
+    avatar? && name?
   end
 end

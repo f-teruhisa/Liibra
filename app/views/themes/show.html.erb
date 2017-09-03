@@ -6,19 +6,19 @@
   <h2 class="h3_home wow fadeIn" data-wow-delay="0.6s">Choose Theme!</h2>
   <div class="theme-inner" style="display: inline-block;">
     <% @themes.each do |theme| %>
-      <div class="group_action panel panel-default" style="margin: 10px;">
-        <div class="panel-body">
-      <p><h4><%= theme.title %></h4></p>
-      <div class="image" style="background-image: url(<%= theme.image_url %>);"></div>
-      <p><%= theme.information %></p>
+    <div class="group_action panel panel-default" style="margin: 10px;">
+      <div class="panel-body">
+        <p><h4><%= theme.title %></h4></p>
+        <div class="image" style="background-image: url(<%= theme.image_url %>);"></div>
+        <p><%= theme.information %></p>
         <%= link_to 'Rating', "/genres/#{@genre.id}/themes/#{theme.id}/rates", method: :get, :class =>"btn btn-primary withripple" %>
-        <% if user_signed_in? && current_user.id == theme.user_id %>
-        <%= link_to 'Delete', "/genres/#{@genre.id}/themes/#{theme.id}", method: :delete, :class =>"btn btn-primary withripple" %>
+        <% if user_signed_in?&&theme.user_id.to_i == current_user.id %>
+          <%= link_to 'Delete', "/genres/#{@genre.id}/themes/#{theme.id}/", method: :delete, data: {confirm: "Really?"},:class =>"btn btn-primary withripple" %>
         <% end %>
       </div>
     </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 </div>
 <%= paginate(@themes) %>
 

@@ -1,6 +1,5 @@
   <!-- NavBar-->
   <nav class="navbar-default stuckMenu" role="navigation" >
-  </style>
     <div class="container">
       <div class="navbar-header">
         <%= link_to "Libra", root_path ,:class => "navbar-brand"  %>
@@ -8,10 +7,26 @@
 
       <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
         <ul class="nav navbar-nav">
+          <li class="menuItem">
+            <%= link_to "Select Genre", genres_path %>
+          </li>
           <% if user_signed_in? %>
-          <li class="menuItem"><%= link_to "My Page", user_path(current_user) %></li>
-          <li class="menuItem"><%= link_to "Edit", edit_user_path(current_user) %></li>
-          <li class="menuItem"><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          <li class="menuItem">
+            <%= link_to "User Page", user_path(current_user) %>
+          </li>
+          <li class="menuItem">
+            <%= link_to "Uset Edit", edit_user_path(current_user) %>
+          </li>
+          <li class="menuItem">
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+          </li>
+          <% else %>
+          <li class="menuItem">
+            <%= link_to "Registration", new_user_registration_path %>
+          </li>
+          <li class="menuItem">
+            <%= link_to "Sign in", new_user_session_path %>
+          </li>
           <% end %>
         </ul>
       </div>

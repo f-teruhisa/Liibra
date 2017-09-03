@@ -1,4 +1,5 @@
 <html>
+<% provide :title, "｜Top" %>
 <body id="home" style="overflow: visible;">
 
   <!-- Preloader -->
@@ -26,7 +27,8 @@
     </div>
   </div>
 
-<%= render partial: 'common/top_header' %>
+<%= render partial: 'common/header' %>
+
   <!-- What is -->
   <div id="whatis" class="content-section-b" style="border-top: 0">
     <div class="container">
@@ -162,16 +164,14 @@
           <h4>Teruhisa Fukumoto</h4>
           <img class="rotate" src="img/icon/me.svg" style="width:80px; height:80px;" alt="Generic placeholder image">
           <%= link_to "My Facebook", "https://www.facebook.com/teruhisa.fukumoto" %>
-          <p class="lead"><a href="https://www.google.co.jp/maps/place/兵庫県宝塚市/@34.8671766,135.2738085,12z/data=!3m1!4b1!4m5!3m4!1s0x60005f7a56557af9:0xc7a7391c822060c4!8m2!3d34.7997673!4d135.3600729">Japan<br>
-          Hyogo, Takarazuka</a><br>
           </address>
 
           <h3>Social</h3>
           <li class="social">
-          <a href="#"><i class="fa fa-facebook-square fa-size"> </i></a>
-          <a href="#"><i class="fa fa-twitter-square fa-size"> </i> </a>
-          <a href="#"><i class="fa fa-google-plus-square fa-size"> </i></a>
-          <a href="#"><i class="fa fa-flickr fa-size"> </i> </a>
+            <a href="#"><i class="fa fa-facebook-square fa-size"> </i></a>
+            <a href="#"><i class="fa fa-twitter-square fa-size"> </i> </a>
+            <a href="#"><i class="fa fa-google-plus-square fa-size"> </i></a>
+            <a href="#"><i class="fa fa-flickr fa-size"> </i> </a>
           </li>
         </div>
       </div>
