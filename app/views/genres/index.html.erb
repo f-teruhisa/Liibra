@@ -3,6 +3,8 @@
   <!-- NavBar-->
 <%= render partial: 'common/header' %>
 <div class="intro-devise">
+  <% breadcrumb :genre %>
+  <%= render partial: 'common/breadcrumb' %>
   <h2 class="h3_home wow fadeIn" data-wow-delay="0.6s">Choose Genre!</h2>
   <div class="theme-inner" style="display: inline-block;">
     <% @genres.each do |genre| %>

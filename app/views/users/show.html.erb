@@ -3,6 +3,8 @@
 <%= render partial: 'common/header' %>
 
 <div class="intro-devise">
+  <% breadcrumb :user %>
+  <%= render partial: 'common/breadcrumb' %>
   <div class="inner" style="display: inline-block;">
     <div class="image" style="background-image: url(<%= @user.avatar.url(:medium) %>); width: 150px; height: 150px; margin: 15px auto;"></div>
     <p><h4><%= @user.name %></h4></p>

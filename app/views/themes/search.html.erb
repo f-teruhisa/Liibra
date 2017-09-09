@@ -3,6 +3,8 @@
 <%= render partial: 'common/header' %>
 
 <div class="intro-devise">
+  <% breadcrumb :theme_search %>
+  <%= render partial: 'common/breadcrumb' %>
   <h2 class="h3_home wow fadeIn" data-wow-delay="0.6s">Serch The Themes!</h2>
   <%= render partial: 'common/search_form' %>
   <div class="inner" style="display: inline-block;">

@@ -3,7 +3,9 @@
 <%= render partial: 'common/header' %>
 
 <div class="intro-devise">
-  <h3 class="h3_home wow fadeIn" data-wow-delay="0.6s"style="margin= 20px;" >User Edit</h3>
+  <% breadcrumb :user_edit %>
+  <%= render partial: 'common/breadcrumb' %>
+  <h2 class="h3_home wow fadeIn" data-wow-delay="0.6s"style="margin= 20px;" >User Edit</h2>
   <div class="inner" style="display: inline-block;">
     <div class="form-group">
       <%= form_for current_user do |f| %>

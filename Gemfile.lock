@@ -220,6 +220,8 @@ GEM
       json
       multi_json
       request_store (>= 1.0)
+    gretel (3.0.9)
+      rails (>= 3.1.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.0)
@@ -398,6 +400,7 @@ DEPENDENCIES
   fog
   font-awesome-rails
   gon
+  gretel
   jbuilder (~> 2.0)
   jquery-rails
   kaminari

@@ -60,3 +60,4 @@ gem "gon"
 gem 'kaminari'
 gem 'carrierwave'
 gem 'fog'
+gem 'gretel'
