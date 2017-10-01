@@ -5,15 +5,14 @@ class RatesController < ApplicationController
 
   def to_csv
     csv_str = CSV.generate do |csv|
-      csv_column_names = %w(id name score updated_at)
+      csv_column_names = %w(id name score)
       csv << csv_column_names
       @results.each do |result|
         element = @elements.find(result.elements_id)
         csv_column_values = [
           result.elements_id,
           element.name,
-          result.score,
-          result.updated_at
+          result.score
         ]
         csv << csv_column_values
       end
@@ -25,7 +24,7 @@ class RatesController < ApplicationController
   def index
     @genre = Genre.find(params[:genre_id])
     @theme = Theme.find(params[:theme_id])
-    @results = Result.where(themes_id:params[:theme_id])
+    @results = Result.where(themes_id:params[:theme_id],genre_id:params[:genre_id])
     @elements = Element.all
     @ranks = @results.order("score DESC")
     respond_to do |format|
@@ -35,8 +34,9 @@ class RatesController < ApplicationController
   end
 
   def show
+    @genre = Genre.find(params[:genre_id])
     @theme = Theme.find(params[:theme_id])
-    @results = Result.where(themes_id:params[:theme_id])
+    @results = Result.where(themes_id:params[:theme_id],genre_id:params[:genre_id])
     @result = @results.order("RAND()").limit(2)
     @elements = Element.all
     sum = 0

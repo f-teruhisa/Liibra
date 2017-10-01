@@ -2,15 +2,9 @@
 <% provide :title, "｜Theme" %>
 <body id="home" style="overflow: visible;">
 
-  <!-- Preloader -->
-  <div id="preloader" style="display: none;">
-    <div id="status" style="display: none;">
-    </div>
-  </div>
-
   <!-- FullScreen -->
     <div class="intro-theme" style="background-image: url(<%= @genre.image_url %>);">
-    <div class="col-xs-12 text-center abcen1">
+    <div class="col-xs-12 text-center abcen1" style="top: 30%;">
       <h1 class="h1_home wow fadeIn animated animated" style="visibility: visible; animation-delay: 0.4s;"><%= @genre.name %></h1>
       <p class="h3_home wow fadeIn animated animated" style="visibility: visible; animation-delay: 0.4s;">Choose & Registrate Your Themes.</p>
     </div>
@@ -26,41 +20,46 @@
 <%= render partial: 'common/header' %>
 <% breadcrumb :theme_index %>
 <%= render partial: 'common/breadcrumb' %>
+
   <!-- What is -->
   <div id="whatis" class="content-section-b" style="border-top: 0">
     <div class="container">
-
       <div class="col-md-6 col-md-offset-3 text-center wrap_title">
         <h2>Theme</h2>
         <p class="lead" style="margin-top:0">Choose & Registrate the theme you are interested in</p>
-
       </div>
 
       <div class="row">
 
         <div class="col-sm-4 wow fadeInDown text-center">
-        <a href ="/genres/<%= @genre.id %>/themes/show">
-          <img class="rotate" src="/img/icon/library.png" alt="Generic placeholder image">
-          <h3>Choose</h3>
-          <p class="lead">Please Choose the theme. </p>
-          <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
-        </div><!-- /.col-lg-4 -->
+          <div class="gray-tile">
+            <a href ="/genres/<%= @genre.id %>/themes/show">
+              <img class="rotate" src="/img/icon/library.png" alt="Generic placeholder image">
+              <h3>Choose</h3>
+              <p class="lead">Please Choose the theme. </p>
+              <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
+            </div><!-- /.col-lg-4 -->
+          </div>
 
         <div class="col-sm-4 wow fadeInDown text-center">
-          <a href ="/genres/<%= @genre.id %>/themes/new">
-          <img  class="rotate" src="/img/icon/registration.png" alt="Generic placeholder image">
-           <h3>Registration</h3>
-           <p class="lead">The best theme, with yours.</p>
-           <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
-        </div><!-- /.col-lg-4 -->
+          <div class="gray-tile">
+            <a href ="/genres/<%= @genre.id %>/themes/new">
+              <img  class="rotate" src="/img/icon/registration.png" alt="Generic placeholder image">
+              <h3>Registration</h3>
+              <p class="lead">The best theme, with yours.</p>
+              <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
+          </div><!-- /.col-lg-4 -->
+        </div>
 
         <div class="col-sm-4 wow fadeInDown text-center">
-        <a href ="/genres/<%= @genre.id %>/themes/search">
-          <img  class="rotate" src="/img/icon/search.png" alt="Generic placeholder image">
-           <h3>Serch</h3>
-          <p class="lead">Serch the themes.</p>
-          <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
-        </div><!-- /.col-lg-4 -->
+          <div class="gray-tile">
+            <a href ="/genres/<%= @genre.id %>/themes/search">
+              <img  class="rotate" src="/img/icon/search.png" alt="Generic placeholder image">
+              <h3>Serch</h3>
+              <p class="lead">Serch the themes.</p>
+              <!-- <p><a class="btn btn-embossed btn-primary view" role="button">View Details</a></p> -->
+          </div><!-- /.col-lg-4 -->
+        </div>
       </div><!-- /.row -->
     </div>
   </div>
@@ -78,16 +77,13 @@
 
                 <div class="col-sm-6 wow fadeInLeftBig"  data-animation-delay="200">
                     <h3 class="section-heading">Hot Themes</h3>
-          <div class="sub-title lead3">Lorem ipsum dolor sit atmet sit dolor greand fdanrh<br> sdfs sit atmet sit dolor greand fdanrh sdfs</div>
+          <div class="sub-title lead3">Serch the Hot Themes.</div>
                     <p class="lead">
-            In his igitur partibus duabus nihil erat, quod Zeno commuta rest gestiret.
-            Sed virtutem ipsam inchoavit, nihil ampliusuma. Scien tiam pollicentur,
-            uam non erat mirum sapientiae lorem cupido
-            patria esse cariorem. Quae qui non vident, nihilamane umquam magnum ac cognitione.
+          Please wait a moment...
           </p>
 
-           <p><a class="btn btn-embossed btn-primary" href="#" role="button">View Details</a>
-           <a class="btn btn-embossed btn-info" href="#" role="button">Visit Website</a></p>
+           <p><a class="btn btn-embossed btn-primary" href="#" role="button">Coming soon</a>
+           <a class="btn btn-embossed btn-info" href="#" role="button">Coming soon</a></p>
         </div>
             </div>
         </div>
@@ -107,16 +103,13 @@
 
                 <div class="col-sm-6 wow fadeInRightBig"  data-animation-delay="200">
                     <h3 class="section-heading">Recommend</h3>
-          <div class="sub-title lead3">Lorem ipsum dolor sit atmet sit dolor greand fdanrh<br> sdfs sit atmet sit dolor greand fdanrh sdfs</div>
+          <div class="sub-title lead3">Recomended Themes.</div>
                     <p class="lead">
-            In his igitur partibus duabus nihil erat, quod Zeno commuta rest gestiret.
-            Sed virtutem ipsam inchoavit, nihil ampliusuma. Scien tiam pollicentur,
-            uam non erat mirum sapientiae lorem cupido
-            patria esse cariorem. Quae qui non vident, nihilamane umquam magnum ac cognitione.
+            Please wait a moment...
           </p>
 
-           <p><a class="btn btn-embossed btn-primary" href="#" role="button">View Details</a>
-           <a class="btn btn-embossed btn-info" href="#" role="button">Visit Website</a></p>
+           <p><a class="btn btn-embossed btn-primary" href="#" role="button">Coming soon</a>
+           <a class="btn btn-embossed btn-info" href="#" role="button">Coming soon</a></p>
         </div>
       </div>
         </div>

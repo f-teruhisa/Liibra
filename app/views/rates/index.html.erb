@@ -10,7 +10,7 @@
 
   <!-- RateScreen -->
     <div class="intro-rates" style="background-image: url(<%= @theme.image_url %>); ">
-    <div class="col-xs-12 text-center abcen1">
+    <div class="col-xs-12 text-center abcen1" style="top: 30%;">
       <h2 class="h3_home wow fadeIn" data-wow-delay="0.6s"><%= @theme.title %></h2>
       <ul class="list-inline intro-social-buttons">
         <li id="download" >
@@ -102,9 +102,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center wrap_title">
-        <h2>Detail Rist</h2>
-        <p class="lead" style="margin-top:0">Output the result of this theme in csv.</p>
-        <p><%= link_to "Output", genre_theme_rates_path(format: :csv), class: "btn btn-embossed btn-primary view" %></p>
+        <h2>Statistics</h2>
+        <p class="lead" style="margin-top:0">Output the result of this theme.</p>
+        <p><%= link_to "CSV", genre_theme_rates_path(format: :csv), class: "btn btn-embossed btn-primary view", style:"margin: 10px;" %>
+        <%= link_to "Coming Soon", genre_theme_rates_path(format: :csv), class: "btn btn-embossed btn-primary view", style:"margin: 10px;" %></p>
        </div>
       </div>
     </div>

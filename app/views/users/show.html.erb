@@ -6,13 +6,14 @@
   <% breadcrumb :user %>
   <%= render partial: 'common/breadcrumb' %>
   <div class="inner" style="display: inline-block;">
+    <p><h3><%= @user.name %></h3></p>
     <div class="image" style="background-image: url(<%= @user.avatar.url(:medium) %>); width: 150px; height: 150px; margin: 15px auto;"></div>
-    <p><h4><%= @user.name %></h4></p>
     <p><h6><%= @user.information %></h6></p>
   <% if current_user.id == @user.id %>
       <div class="profile_edit">
         <%= link_to 'User Edit', edit_user_path(current_user), {class: 'btn btn-primary withripple' }%>
-        <%= link_to 'Delete', user_path, method: :delete, data: {confirm: "Really?"},:class =>"btn btn-primary withripple" %>
+        <br>
+        <%= link_to 'Delete', user_path, method: :delete, data: {confirm: "Really?"}%>
       </div>
     <% end %>
   </div>

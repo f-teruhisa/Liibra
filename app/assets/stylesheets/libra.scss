@@ -6,14 +6,21 @@
 	background-size: cover;
 	text-align: center;
 	position: relative;
-	background-color: rgba(0,0,0,0.5);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+
 }
 
-.clearfix:after{
-	content: "";
-	clear: both;
-	display: block;
-	background-color: rgba(0,0,0,0.5);
+.intro-rate::before {
+	background-color: rgba(0,0,0,0.3);
+	 position: absolute;
+	 top: 0;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 content: ' ';
 }
 
 /* show */
@@ -253,6 +260,17 @@
 	color: #f8f8f8;
 	background-size: cover;
 	text-align: center;
+	position: relative;
+}
+
+.intro-theme::before {
+	background-color: rgba(0,0,0,0.3);
+	 position: absolute;
+	 top: 0;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 content: ' ';
 }
 
 .intro-rates {
@@ -263,6 +281,17 @@
 	background-color: rgba(0,0,0,0.5);
 	background-size: cover;
 	text-align: center;
+	position: relative;
+}
+
+.intro-rates::before {
+	background-color: rgba(0,0,0,0.3);
+	 position: absolute;
+	 top: 0;
+	 right: 0;
+	 bottom: 0;
+	 left: 0;
+	 content: ' ';
 }
 
  /* breadcrumbs */
@@ -278,3 +307,20 @@
 	 	color: #1abc9c;
 	 }
  }
+
+/* social */
+.hover_green {
+	 &:hover {
+		 background-color: #f8f8f8;
+		 color: #1abc9c;
+	}
+}
+
+/* social */
+.gray-tile {
+	background-color: #f8f8f8;
+	padding: 20px;
+	&:hover {
+		background-color: transparent;
+	}
+}

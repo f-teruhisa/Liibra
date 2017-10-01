@@ -10,7 +10,7 @@
     <% @themes.each do |theme| %>
     <div class="group_action panel panel-default" style="margin: 10px;">
       <div class="panel-body">
-        <p><h4><%= theme.title %></h4></p>
+        <p><h3><%= theme.title %></h3></p>
         <div class="image" style="background-image: url(<%= theme.image_url %>);"></div>
         <p><%= theme.information %></p>
         <%= link_to 'Rating', "/genres/#{@genre.id}/themes/#{theme.id}/rates", method: :get, :class =>"btn btn-primary withripple" %>
@@ -21,7 +21,9 @@
     </div>
     <% end %>
   </div>
+  <br>
+  <%= paginate(@themes) %>
 </div>
-<%= paginate(@themes) %>
+
 
 <%= render partial: 'common/footer' %>

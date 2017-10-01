@@ -27,12 +27,12 @@ class ThemesController < ApplicationController
 
   def show
     @genre = Genre.find(params[:genre_id])
-    @themes = Theme.where('genre_id LIKE(?)', "#{params[:genre_id]}").order('updated_at DESC').page(params[:page]).per(6)
+    @themes = Theme.where('genre_id LIKE(?)', "#{params[:genre_id]}").order('updated_at DESC').page(params[:page]).per(5)
   end
 
   def search
     @genre = Genre.find(params[:genre_id])
-    @themes = Theme.where('genre_id LIKE(?)', "#{params[:genre_id]}").where('title LIKE(?)', "%#{params[:keyword]}%").page(params[:page]).per(6)
+    @themes = Theme.where('genre_id LIKE(?)', "#{params[:genre_id]}").where('title LIKE(?)', "%#{params[:keyword]}%").page(params[:page]).per(5)
   end
 
   def destroy
