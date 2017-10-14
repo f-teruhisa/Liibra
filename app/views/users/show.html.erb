@@ -9,7 +9,7 @@
     <p><h3><%= @user.name %></h3></p>
     <div class="image" style="background-image: url(<%= @user.avatar.url(:medium) %>); width: 150px; height: 150px; margin: 15px auto;"></div>
     <p><h6><%= @user.information %></h6></p>
-  <% if current_user.id == @user.id %>
+    <% if current_user == @user %>
       <div class="profile_edit">
         <%= link_to 'User Edit', edit_user_path(current_user), {class: 'btn btn-primary withripple' }%>
         <br>
@@ -17,5 +17,24 @@
       </div>
     <% end %>
   </div>
+    <h3 class="h3_home wow fadeIn" data-wow-delay="0.6s">Themes by this user</h3>
+    <div class="theme-inner" style="display: inline-block;">
+      <% @themes.each do |theme| %>
+      <% genre = @genre.find(theme.genre_id) %>
+      <div class="group_action panel panel-default" style="margin: 10px;">
+        <div class="panel-body">
+          <p><h3><%= theme.title %></h3></p>
+          <div class="image" style="background-image: url(<%= theme.image_url %>);"></div>
+          <p><%= theme.information %></p>
+          <%= link_to 'Rating', "/genres/#{genre.id}/themes/#{theme.id}/rates", method: :get, :class =>"btn btn-primary withripple" %>
+          <% if user_signed_in?&&theme.user_id.to_i == current_user.id %>
+            <br><%= link_to 'Delete', "/genres/#{genre.id}/themes/#{theme.id}/", method: :delete, data: {confirm: "Really?"} %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <br>
+    <%= paginate(@themes) %>
 </div>
 <%= render partial: 'common/footer' %>

@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816145309) do
+ActiveRecord::Schema.define(version: 20171009135948) do
+
+  create_table "Themes", force: :cascade do |t|
+    t.string   "title",                  limit: 255
+    t.integer  "genre_id",               limit: 4
+    t.integer  "user_id",                limit: 4
+    t.text     "information",            limit: 65535
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "image_url_file_name",    limit: 255
+    t.string   "image_url_content_type", limit: 255
+    t.integer  "image_url_file_size",    limit: 4
+    t.datetime "image_url_updated_at"
+    t.integer  "likes_count",            limit: 4
+  end
 
   create_table "elements", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -29,6 +43,16 @@ ActiveRecord::Schema.define(version: 20170816145309) do
     t.datetime "updated_at",               null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4, null: false
+    t.integer  "theme_id",   limit: 4, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likes", ["theme_id"], name: "fk_rails_77205220c1", using: :btree
+  add_index "likes", ["user_id"], name: "fk_rails_1e09b5dabf", using: :btree
+
   create_table "results", force: :cascade do |t|
     t.integer  "score",       limit: 4
     t.text     "themes_id",   limit: 65535
@@ -36,19 +60,6 @@ ActiveRecord::Schema.define(version: 20170816145309) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.text     "genre_id",    limit: 65535
-  end
-
-  create_table "themes", force: :cascade do |t|
-    t.string   "title",                  limit: 255
-    t.text     "genre_id",               limit: 65535
-    t.text     "user_id",                limit: 65535
-    t.text     "information",            limit: 65535
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.string   "image_url_file_name",    limit: 255
-    t.string   "image_url_content_type", limit: 255
-    t.integer  "image_url_file_size",    limit: 4
-    t.datetime "image_url_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,4 +90,6 @@ ActiveRecord::Schema.define(version: 20170816145309) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "likes", "themes"
+  add_foreign_key "likes", "users"
 end

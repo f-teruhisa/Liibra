@@ -15,7 +15,7 @@
         <p><%= theme.information %></p>
         <%= link_to 'Rating', "/genres/#{@genre.id}/themes/#{theme.id}/rates", method: :get, :class =>"btn btn-primary withripple" %>
         <% if user_signed_in?&&theme.user_id.to_i == current_user.id %>
-          <%= link_to 'Delete', "/genres/#{@genre.id}/themes/#{theme.id}/", method: :delete, data: {confirm: "Really?"},:class =>"btn btn-primary withripple" %>
+          <br><%= link_to 'Delete', "/genres/#{@genre.id}/themes/#{theme.id}/", method: :delete, data: {confirm: "Really?"} %>
         <% end %>
       </div>
     </div>

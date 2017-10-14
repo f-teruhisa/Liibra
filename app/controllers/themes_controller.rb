@@ -32,7 +32,7 @@ class ThemesController < ApplicationController
 
   def search
     @genre = Genre.find(params[:genre_id])
-    @themes = Theme.where('genre_id LIKE(?)', "#{params[:genre_id]}").where('title LIKE(?)', "%#{params[:keyword]}%").page(params[:page]).per(5)
+    @themes = Theme.where('genre_id LIKE(?)', "#{params[:genre_id]}").where('title LIKE(?)', "%#{params[:keyword]}%").order('updated_at DESC').page(params[:page]).per(5)
   end
 
   def destroy

@@ -26,6 +26,7 @@ class RatesController < ApplicationController
     @theme = Theme.find(params[:theme_id])
     @results = Result.where(themes_id:params[:theme_id],genre_id:params[:genre_id])
     @elements = Element.all
+    @user = User.find(@theme.user_id)
     @ranks = @results.order("score DESC")
     respond_to do |format|
       format.html

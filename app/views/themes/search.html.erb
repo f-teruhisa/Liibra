@@ -14,7 +14,11 @@
       <p><h3><%= theme.title %></h3></p>
       <div class="image" style="background-image: url(<%= theme.image_url %>); width: 150px; height: 150px; margin: 15px auto;"></div>
       <p><%= theme.information %></p>
-        <%= link_to 'Rating', "/genres/#{@genre.id}/themes/#{theme.id}/rates", method: :get, :class =>"btn btn-primary withripple" %>
+      <%= render partial: 'themes/themes.html.haml', collection: theme, as: :theme %>
+      <%= link_to 'Rating', "/genres/#{@genre.id}/themes/#{theme.id}/rates", method: :get, :class =>"btn btn-primary withripple" %>
+      <% if user_signed_in?&&theme.user_id.to_i == current_user.id %>
+        <br><%= link_to 'Delete', "/genres/#{@genre.id}/themes/#{theme.id}/", method: :delete, data: {confirm: "Really?"} %>
+      <% end %>
       </div>
     </div>
   <% end %>

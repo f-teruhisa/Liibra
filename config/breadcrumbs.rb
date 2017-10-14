@@ -11,7 +11,7 @@ end
 
 # User
 crumb :user do
-  link "My Page"
+  link "User Page"
   parent :root
 end
 

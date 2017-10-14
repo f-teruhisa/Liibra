@@ -9,15 +9,17 @@
   </a>
   <%= f.hidden_field_tag :result_id, "#{result.id}" %>
   <%= f.submit('Select', :class => 'btn wow tada btn-embossed btn-primary pull-center', style: "padding: 10px;") -%>
-  <!-- スコア計算 -->
-  <!-- ２つの候補のスコアの和sumと、選択した候補のスコア(result.score)の２倍を比較する -->
-  <!-- 選択した候補のほうが大きい場合、result.score*2の方が大きいはずである -->
-  <!-- 選択していない候補のほうが大きい場合、sumの方が大きいはずである -->
+  <!--
+  スコア計算
+  ①２つの候補のスコアの和である@sumと、選択した候補のスコア(result.score)の２倍を比較する
+  ②選択した候補の方がスコアが大きい場合、result.score*2の方が@sum大きいはずである
+  ③選択していない候補の方がスコアが大きい場合、@sumの方がresult.score*2より大きいはずである
+  -->
   <%= hidden_field_tag :score,
   if result.score * 2 >=  @sum
     result.score += 16
   else
-    result.score += 16 + ( 0.4 * (@sum - result.score * 2 ) )
+    result.score += 16 + ( 0.04 * (@sum - result.score * 2 ) )
     result.score = result.score.round
   end %>
   <% end %>

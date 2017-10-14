@@ -10,6 +10,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # @current_user ||= User.find_by(id: session[:user_id])
+    @themes = Theme.where(user_id: params[:id]).order('updated_at DESC').page(params[:page]).per(5)
+    @genre = Genre.all
   end
 
   def edit
