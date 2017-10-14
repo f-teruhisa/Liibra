@@ -1,0 +1,22 @@
+<% if user_signed_in? %>
+  <% if theme.like_user(current_user.id) %>
+    <%= button_to genre_theme_like_path(genre_id: @genre.id, theme_id: theme.id), method: :delete, id: "like-button", remote: true do %>
+      <%= image_tag("icon_red_heart.svg") %>
+      <span>
+        <%= theme.likes_count %>
+      </span>
+  <% end %>
+  <% else %>
+    <%= button_to genre_theme_likes_path(genre_id: @genre.id, theme_id: theme.id), id: "like-button", remote: true do %>
+      <%= image_tag("icon_heart.svg") %>
+      <span>
+        <%= theme.likes_count %>
+      </span>
+  <% end %>
+<% end %>
+<% else %>
+  <%= image_tag("icon_heart.svg") %>
+    <span>
+      <%= theme.likes_count %>
+    </span>
+<% end %>

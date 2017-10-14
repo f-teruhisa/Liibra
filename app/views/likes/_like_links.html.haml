@@ -1,0 +1,9 @@
+%div.like-link{id: "like-link-#{theme.id}"}
+  - if current_user.likes.find_by(theme_id: theme.id)
+    = link_to unlike_path(theme.id), method: :delete, remote: true do
+      .btn.btn-default.glyphicon.glyphicon-heart{id: "heart-#{theme.id}"}
+        = theme.likes.count.to_s
+  - else
+    = link_to like_path(theme.id), method: :post, remote: true do
+      .btn.btn-default.glyphicon.glyphicon-heart-empty{id: "heart-#{theme.id}"}
+        = theme.likes.count.to_s

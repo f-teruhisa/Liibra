@@ -7,4 +7,13 @@ class Theme < ActiveRecord::Base
 
   belongs_to :genre
   has_many :results
+
+  # association for likes
+  has_many :likes, dependent: :destroy
+  has_many :liking_users, through: :likes, source: :user
+
+  # Confirmation already like!
+  def like_user(user_id)
+   likes.find_by(user_id: user_id)
+  end
 end

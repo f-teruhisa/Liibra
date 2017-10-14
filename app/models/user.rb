@@ -7,8 +7,12 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>"}
   validates_attachment_content_type :avatar, content_type: ["image/jpg","image/jpeg","image/png"]
 
-  # association
-  has_many :themes
+  # association for themes
+  has_many :themes, dependent: :destroy
+
+  # association for likes
+  has_many :likes, dependent: :destroy
+  has_many :like_themes, through: :likes, source: :theme
 
   def full_profile?
     avatar? && name?
