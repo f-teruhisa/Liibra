@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009135948) do
+ActiveRecord::Schema.define(version: 20171015114549) do
 
   create_table "Themes", force: :cascade do |t|
     t.string   "title",                  limit: 255
@@ -42,16 +42,6 @@ ActiveRecord::Schema.define(version: 20171009135948) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
-
-  create_table "likes", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4, null: false
-    t.integer  "theme_id",   limit: 4, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "likes", ["theme_id"], name: "fk_rails_77205220c1", using: :btree
-  add_index "likes", ["user_id"], name: "fk_rails_1e09b5dabf", using: :btree
 
   create_table "results", force: :cascade do |t|
     t.integer  "score",       limit: 4
@@ -90,6 +80,4 @@ ActiveRecord::Schema.define(version: 20171009135948) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "likes", "themes"
-  add_foreign_key "likes", "users"
 end

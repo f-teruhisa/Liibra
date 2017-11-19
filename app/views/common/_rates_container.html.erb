@@ -1,9 +1,9 @@
 <div class="panel-body">
   <% i = 0 %>
   <% @result.each do |result| %>
-  <%= form_for result, :url => {:action => 'update'}, html: {class: 'ele'}, remote: true do |f| %>
+  <%= form_for result, :url => {:action => 'update'}, html: {class: 'theme-inner'}, remote: true do |f| %>
   <% element = @elements.find(result.elements_id) %>
-  <h3 class="title"><%= element.name %></h3>
+  <h3 class="title" style="padding: 10px;"><%= element.name %></h3>
   <a href = "https://wikipedia.org<%= element.link %>">
     <div class="ele_image" style="background-image: url(<%= element.image_url %>);"></div>
   </a>
@@ -25,13 +25,11 @@
   <% end %>
   <% if i == 0 %>
 </div>
-
+<h2 class="h3_home wow fadeIn" style="font-size: 30px; color: #ffffff;">↑ <strong><%= @theme.title %></strong> ↓</h2>
+<% i += 1 %>
+<% end %>
+<% end %>
 <form>
   <%= link_to "Skip", " ", class: "btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated", style: "margin:0 30px auto;" %>
   <%= link_to "End", genre_theme_rates_path, class: "btn  btn-lg mybutton_standard wow swing wow fadeIn animated animated", style: "margin:0 30px auto;" %>
 </form>
-
-<% i += 1 %>
-<% end %>
-
-<% end %>

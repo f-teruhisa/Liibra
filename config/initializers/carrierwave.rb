@@ -8,15 +8,15 @@ CarrierWave.configure do |config|
     provider: 'AWS',
     aws_access_key_id: ENV['ACCESS_KEY_ID'],
     aws_secret_access_key: ENV['SECRET_ACCESS_KEY'],
-    region: 'ap-northeast-1'
+    region: 'us-east-2'
   }
 
     case Rails.env
     when 'development'
-        config.fog_directory  = 'develop-test'
-        config.asset_host = 'https://s3.amazonaws.com/develop-test'
+        config.fog_directory  = 'liibra'
+        config.asset_host = 'https://s3.amazonaws.com/liibra'
     when 'production'
-        config.fog_directory  = 'develop-test'
-        config.asset_host = 'https://s3.amazonaws.com/develop-test'
+        config.fog_directory  = 'liibra'
+        config.asset_host = 'https://s3.amazonaws.com/liibra'
     end
 end

@@ -44,7 +44,7 @@
 .ele_image{
 	 width: 15vh;
 	 height: 15vh;
-	 margin: 20px auto;
+	 margin: 15px auto;
 	 padding: 15px;
 	 position: relative;
 }
@@ -73,8 +73,7 @@
 
 /* Theme */
 .theme-inner{
-
-	width: 30%;
+	width: 300px;
 	padding: 30px auto;
 	position: relative;
 	margin: 30px auto;
@@ -86,16 +85,16 @@
 
 /* Devise */
 .intro-devise {
-	height: 100%;
   width: auto;
-	background: url(../img/intro/intro-math.png) no-repeat center center;
+	background: url(../img/intro/intro-math.png) ;
+	background-repeat: repeat;
 	background-size: cover;
 	text-align: center;
 	position: relative;
 }
 
 .inner{
-	width: 30%;
+	width: 330px;
 	padding: 30px;
 	position: relative;
 	margin: 30px auto;
