@@ -323,3 +323,51 @@
 		background-color: transparent;
 	}
 }
+#tslider{
+	text-align: center!important;
+	position: relative!important;
+}
+
+#tslider .owl-controls{
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin-top: 40px;
+	padding: 0;
+}
+
+#tslider .owl-controls .owl-prev,
+#tslider .owl-controls .owl-next{
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	background: url('../img/nav_arrow.png') no-repeat;
+	text-indent: -200px;
+	overflow: hidden;
+
+	transition: all .2s linear;
+	-o-transition: all .2s linear;
+	-moz-transition: all .2s linear;
+	-webkit-transition: all .2s linear;
+}
+
+#tslider .owl-controls .owl-prev{
+	background-position: 0 0;
+}
+#tslider .owl-controls .owl-next{
+	background-position: -33px 0;
+	margin-left: 40px;
+}
+
+#tslider .owl-controls .owl-prev:hover,
+#tslider .owl-controls .owl-next:hover{
+	cursor: pointer;
+	background: url('../img/nav_arrow_hover.png') no-repeat;
+}
+
+#tslider .owl-controls .owl-prev:hover{
+	background-position: 0 0;
+}
+#tslider .owl-controls .owl-next:hover{
+	background-position: -33px 0;
+}
