@@ -75,7 +75,7 @@ GEM
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
-    excon (0.55.0)
+    excon (0.78.1)
     execjs (2.7.0)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
